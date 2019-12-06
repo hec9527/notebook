@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>html5跟随鼠标移动银河星系背景动画特效</title>
+
+    <link href="html5%E8%B7%9F%E9%9A%8F%E9%BC%A0%E6%A0%87%E7%A7%BB%E5%8A%A8%E9%93%B6%E6%B2%B3%E6%98%9F%E7%B3%BB%E8%83%8C%E6%99%AF%E5%8A%A8%E7%94%BB%E7%89%B9%E6%95%88_files/demo.css" rel="stylesheet" media="all">
+
+    <!--[if IE]>
+
+    <style type="text/css">
+        li.remove_frame a {
+            padding-top: 5px;
+            background-position: 0px -3px;
+        }
+    </style>
+
+    <![endif]-->
+
+    <script src="html5%E8%B7%9F%E9%9A%8F%E9%BC%A0%E6%A0%87%E7%A7%BB%E5%8A%A8%E9%93%B6%E6%B2%B3%E6%98%9F%E7%B3%BB%E8%83%8C%E6%99%AF%E5%8A%A8%E7%94%BB%E7%89%B9%E6%95%88_files/hm.js"></script><script type="text/javascript" src="html5%E8%B7%9F%E9%9A%8F%E9%BC%A0%E6%A0%87%E7%A7%BB%E5%8A%A8%E9%93%B6%E6%B2%B3%E6%98%9F%E7%B3%BB%E8%83%8C%E6%99%AF%E5%8A%A8%E7%94%BB%E7%89%B9%E6%95%88_files/jquery_002.js"></script>
+    <script type="text/javascript" src="html5%E8%B7%9F%E9%9A%8F%E9%BC%A0%E6%A0%87%E7%A7%BB%E5%8A%A8%E9%93%B6%E6%B2%B3%E6%98%9F%E7%B3%BB%E8%83%8C%E6%99%AF%E5%8A%A8%E7%94%BB%E7%89%B9%E6%95%88_files/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            function fixHeight() {
+                var headerHeight = $("#switcher").height();
+                $("#iframe").attr("height", $(window).height()-54+ "px");
+            }
+            $(window).resize(function () {
+                fixHeight();
+            }).resize();
+
+            $('.icon-monitor').addClass('active');
+
+            $(".icon-mobile-3").click(function () {
+                $("#by").css("overflow-y", "auto");
+                $('#iframe-wrap').removeClass().addClass('mobile-width-3');
+                $('.icon-tablet,.icon-mobile-1,.icon-monitor,.icon-mobile-2,.icon-mobile-3').removeClass('active');
+                $(this).addClass('active');
+                return false;
+            });
+
+            $(".icon-mobile-2").click(function () {
+                $("#by").css("overflow-y", "auto");
+                $('#iframe-wrap').removeClass().addClass('mobile-width-2');
+                $('.icon-tablet,.icon-mobile-1,.icon-monitor,.icon-mobile-2,.icon-mobile-3').removeClass('active');
+                $(this).addClass('active');
+                return false;
+            });
+
+            $(".icon-mobile-1").click(function () {
+                $("#by").css("overflow-y", "auto");
+                $('#iframe-wrap').removeClass().addClass('mobile-width');
+                $('.icon-tablet,.icon-mobile,.icon-monitor,.icon-mobile-2,.icon-mobile-3').removeClass('active');
+                $(this).addClass('active');
+                return false;
+            });
+
+            $(".icon-tablet").click(function () {
+                $("#by").css("overflow-y", "auto");
+                $('#iframe-wrap').removeClass().addClass('tablet-width');
+                $('.icon-tablet,.icon-mobile-1,.icon-monitor,.icon-mobile-2,.icon-mobile-3').removeClass('active');
+                $(this).addClass('active');
+                return false;
+            });
+
+            $(".icon-monitor").click(function () {
+                $("#by").css("overflow-y", "hidden");
+                $('#iframe-wrap').removeClass().addClass('full-width');
+                $('.icon-tablet,.icon-mobile-1,.icon-monitor,.icon-mobile-2,.icon-mobile-3').removeClass('active');
+                $(this).addClass('active');
+                return false;
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        function Responsive($a) {
+            if ($a == true) $("#Device").css("opacity", "100");
+            if ($a == false) $("#Device").css("opacity", "0");
+            $('#iframe-wrap').removeClass().addClass('full-width');
+            $('.icon-tablet,.icon-mobile-1,.icon-monitor,.icon-mobile-2,.icon-mobile-3').removeClass('active');
+            $(this).addClass('active');
+            return false;
+        };
+    </script>
+
+</head>
+<body id="by">
+
+<div id="switcher">
+    <div class="center">
+        <ul>
+            <div id="Device">
+                <li class="device-monitor"><a href="javascript:"><div class="icon-monitor active"></div></a></li>
+                <li class="device-mobile"><a href="javascript:"><div class="icon-tablet"></div></a></li>
+                <li class="device-mobile"><a href="javascript:"><div class="icon-mobile-1"></div></a></li>
+                <li class="device-mobile-2"><a href="javascript:"><div class="icon-mobile-2"></div></a></li>
+                <li class="device-mobile-3"><a href="javascript:"><div class="icon-mobile-3"></div></a></li>
+            </div>
+            <li class="top2">
+                <a href="#">手机二维码预览</a>
+                <div class="vm">
+                    <div id="output"><canvas width="150" height="150"></canvas></div>
+                    <p style="color:#808080;margin:10px 0 0 0;">扫一扫，直接在手机上打开</p>
+                </div>
+            </li>
+            <li class="logoTop">
+                <a href="http://www.17sucai.com/pins/17848.html">html5跟随鼠标移动银河星系背景动画特效</a>            <script type="text/javascript">
+                jQuery('#output').qrcode({width:150,height: 150,text: window.location.href});
+            </script>
+            </li><li class="remove_frame"><a href="http://www.17sucai.com/preview/531605/2016-05-17/Html5%E6%B5%81%E6%98%9F%E9%9B%A8/index.html" title="移除框架"></a></li>
+        </ul>
+    </div>
+</div>
+
+<div id="iframe-wrap">
+    <iframe id="iframe" src="html5%E8%B7%9F%E9%9A%8F%E9%BC%A0%E6%A0%87%E7%A7%BB%E5%8A%A8%E9%93%B6%E6%B2%B3%E6%98%9F%E7%B3%BB%E8%83%8C%E6%99%AF%E5%8A%A8%E7%94%BB%E7%89%B9%E6%95%88_files/index.html" width="100%" height="889px" frameborder="0"></iframe>
+</div>
+
+<!--百度流量统计代码-->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?382f81c966395258f239157654081890";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+</body></html>

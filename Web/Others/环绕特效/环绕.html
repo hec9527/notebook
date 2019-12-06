@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="js专用">
+	<meta name="keywords" content="javascript">
+	<title>环绕</title>
+</head>
+<style>
+	html,body{
+		width:100%;
+		height:100%;
+	}
+	*{
+		padding:0;
+		margin:0;
+		border:none;
+	}
+	body{
+		overflow: hidden;
+		background-color: #33313b;
+	/*	background-color:url("./img27.jpg");*/
+	}
+	#tu{
+		position: absolute;
+		top:50%;
+		left:50%;
+		transform: translate(-50%,-50%);
+		width:200px;
+	}
+	#before,#after{
+		content: "";
+		position: absolute;
+		width:240px;
+		height:240px;
+		top:0;
+		left:0;
+		border:2px solid #a9eec2;
+		transform: translate(-22px,-22px);
+	}
+	#tu:hover #before,#tu:hover #after{
+		animation-play-state: paused;
+	}
+	#before{
+		clip: rect(0px 244px 2px 0);
+		/*clip: rect(0px 2px 244px 0);*/
+		/*clip: rect(242px 244px 244px 0px);*/
+		/*clip:rect(0 244px 244px 242px);*/
+		animation: move 4s ease infinite;
+	}
+	#after{
+		clip: rect(0px 242px 2px 0);
+		/*clip: rect(0px 2px 242px 0);*/
+		/*clip: rect(242px 244px 244px 0px);*/
+		/*clip:rect(0 244px 244px 242px);*/
+		animation: moveTwo 4s ease infinite;
+	}
+	@keyframes move{
+		0%{
+			clip: rect(0px 244px 2px 0);
+		}
+		25%{
+			clip: rect(0px 2px 244px 0);
+		}
+		50%{
+			clip: rect(242px 244px 244px 0px);
+		}
+		75%{
+			clip:rect(0 244px 244px 242px);
+		}
+		100%{
+			clip: rect(0px 244px 2px 0);
+		}
+	}
+	@keyframes moveTwo{
+		0%{
+			clip: rect(242px 244px 244px 0px);
+		}
+		25%{
+			clip:rect(0 244px 244px 242px);
+		}
+		50%{
+			clip: rect(0px 242px 2px 0);
+		}
+		75%{
+			clip: rect(0px 2px 242px 0);
+		}
+		100%{
+			clip: rect(242px 244px 244px 0px);
+		}
+	}
+</style>
+<body>
+	<div id="tu">
+		<div id="before"></div>
+		<img src="./img27.jpg" width="200px" height="200px" style="display:block;vertical-align: top;margin: 0 auto;"/>
+		<div id="after"></div>
+	</div>
+</body>
+<html>

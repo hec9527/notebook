@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        h1{
+            text-align: center;
+        }
+        ul{
+            text-align: center;
+            padding-bottom: 3px;
+            position: relative;
+            border-bottom:2px solid #000;
+        }
+        #zoom li{
+            position: relative;
+            display: inline-block;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+        #zoom li::before {
+            content: "";
+            position: absolute;
+            top: 0;left: 0;right: 0;margin:auto;
+            width: 0;
+            height: 100%;
+            border-bottom: 3px solid #000;
+            transition:  all 0.5s linear-out;
+            transition-delay: 100ms;
+        }
+
+        #zoom li:hover::before {
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.5s ease;
+            /* transition: all 0.5s linear-out; */
+            transition-delay: 100ms;
+        }
+        #zoom li:hover ~ li::before {
+            left: 0;
+        }
+    </style>
+    <title>菜单动画</title>
+</head>
+<body>
+    <h1>缩放动画</h1>
+    <ul id="zoom">
+        <li>菜单1</li>
+        <li>菜单2</li>
+        <li>菜单3</li>
+        <li>菜单4</li>
+        <li>菜单5</li>
+        <li>菜单6</li>
+        <li>菜单7</li>
+        <li>菜单8</li>
+        <li>菜单9</li>
+        <li>菜单10</li>
+        <li>菜单11</li>
+        <li>菜单12</li>
+    </ul>
+</body>
+</html>

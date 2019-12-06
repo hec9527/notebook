@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>带小三角的DIV</title>
+    <style>
+        *{padding: 0;margin: 0;}
+        #box{
+            width: 100px;height:200px;
+            border:1px solid #abcdef;
+            overflow: visible;
+            position:absolute;
+            top: 150px;
+            left: 0;right: 0;margin:auto;
+            z-index:1;
+        }
+        #box::before{
+            content:'';
+            width:0px;height:0px;
+            border-left:10px solid #abcdef;
+            border-top: 10px solid transparent;
+            border-bottom:10px solid transparent;
+            position: absolute;
+            right:-10px;
+            top:15px;
+        }
+        #box::after{
+            content:'';
+            width:0px;height:0px;
+            border-left:8px solid rgb(255, 255, 255);
+            border-top: 8px solid transparent;
+            border-bottom:8px solid transparent;
+            position: absolute;
+            right:-8px;
+            top:17px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="box">
+        使用伪元素做::after ::before    
+    </div>
+    <!--
+            使用div做三角形思路
+
+                1.将div宽高设置为0  然后设置其边框(四边分别设置)
+                2.做朝向右边的三角形的不设置右边的border
+                3.使用::after做出一个和边框同色的三角形，然后用::before做一个和容器同色的且比::after三角形小边框X2的宽高的小三角形
+                4.将大的三角形放在需要的位置，然后将小的三角形放在大的三角形的上面遮住容器的边框
+
+     -->
+
+
+
+</body>
+</html>

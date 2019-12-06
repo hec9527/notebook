@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DIV嵌套居中</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        div{
+            box-sizing: border-box;
+            /**
+            *   让盒子嵌套居中方法
+            *
+            *   绝对定位
+            *   上下左右各为0
+            *   自动外边距
+            *
+            */
+
+            position: absolute;
+            right: 0;left:0;bottom: 0;top: 0;
+            margin: auto;
+        }
+        #d1{
+            width: 700px;
+            height: 700px;
+            background: rgb(252, 0, 0);
+        }
+        #d2{
+            width: 500px;
+            height: 500px;
+            background: rgb(204, 110, 2);
+        }
+        #d3{
+            width: 300px;
+            height: 300px;
+            background: rgba(5, 126, 240, 0.973);
+        }
+        #d4{
+            width: 100px;
+            height: 100px;
+            background: rgb(8, 243, 78);
+        }
+        #d5{
+            width: 20px;
+            height: 20px;
+            background: rgb(176, 130, 185);
+        }
+    </style>
+</head>
+<body>
+    <div id="d1">
+        <div id="d2">
+            <div id="d3">
+                <div id="d4">
+                    <div id="d5"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

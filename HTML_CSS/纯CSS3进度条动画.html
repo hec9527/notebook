@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>纯CSS3进度条动画</title>
+    <style>
+        *{padding:0px;margin:0px;}
+        body{
+            background: #abcdef;
+        }
+        #contianer{
+            width: 80%;
+            height: 50px;
+            position: absolute;
+            margin:auto;
+            right: 0;left: 0;top: 150px;
+            border-radius:10px;
+        }
+        #progressBar{
+            border-radius:10px;
+            width: 100%;
+            height: 50px;
+            /* background-repeat:no-repeat; */
+            background-size:50px 50px;
+            /* background-image: linear-gradient(45deg,red 0,red 25%,yellow 0,yellow 50%,blue 0,blue 75%,pink 0,pink 100%); */
+            background-image: linear-gradient(-45deg,yellow 0,yellow 25%,red 0,red 50%,yellow 0,yellow 75%,red 0,red 100%);
+            box-shadow: 3px 3px 14px rgb(202, 36, 36),-3px -3px 14px rgb(202, 36, 36);
+            animation: move 750ms infinite linear;
+            animation-delay: 0ms;
+            background-position: -50px -50px;
+        }
+        @keyframes move{
+            from {background-position: -50px 0px;}
+            to {background-position: 0px 0px;}
+        }
+    </style>
+</head>
+<body>
+
+    <div id="contianer">
+        <div id="progressBar"></div>
+    </div>
+
+
+    
+                                        <!-- 线性渐变 -->
+
+
+                                        
+    <!--
+        线性渐变过渡区域的占比为总空间（高度或者宽度）减去上下两个着色块空间占比剩下的空间
+
+        如果一个颜色的色标值比前面的一个颜色的色值标小，则该颜色的色标值会被设值为他前面所有的色标的值的最大值
+
+        如果想要得到颜色区域分明的渐变区域   需要个每一个颜色设值两个色标，一个色标值为0  一个颜色的终止值   但是必须有一个颜色的色标值设值为100%（或者具体的最大值）
+            background-image: linear-gradient(red 0,red 20%,yellow 0,yellow 40%,blue 0,blue 60%,pink 0,pink 80%,black 0);
+            background-image: linear-gradient(red 0,red 20%,yellow 0,yellow 40%,blue 0,blue 60%,pink 0,pink 80%,black 0,black 100%);
+            这两种写法都是OK的
+    -->
+</body>
+</html>

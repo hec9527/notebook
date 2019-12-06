@@ -1,0 +1,241 @@
+﻿<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title> Bubbles 泡沫</title>
+
+  <style>
+    body {
+      overflow: hidden;
+      position: relative;
+      margin: 0;
+    }
+
+    canvas {
+      position: absolute;
+      cursor: crosshair;
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="canvas"></canvas>
+
+  <script>
+    (function () {
+
+      var canvas = document.getElementById('canvas'),
+        $ = canvas.getContext('2d'),
+        w = canvas.width = window.screen.width,
+        h = canvas.height = window.screen.height;
+
+      var i,      // 
+        bubblesNumber = w * h > 750000 ? 200 : 150, // 泡泡的数量
+        objects = [],    //
+        maxRadius = w * h > 500000 ? 50 : 35,  // 泡泡的最大宽度
+        maxYVelocity = 2;   //
+
+      // 产生随机数  大小随机
+      function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      // 
+      function insertElementsAtIndex(index, arrayTo, arrayFrom, removeCount) {
+        var removed = false;
+        for (var i = arrayFrom.length - 1; i >= 0; i--) {
+          if (removeCount && !removed) {
+            arrayTo.splice(index, removeCount, arrayFrom[i]);
+            removed = true;
+            continue;
+          }
+          arrayTo.splice(index, 0, arrayFrom[i]);
+        }
+      }
+
+      // 创建一个向量
+      function Vector(x, y) {
+        this.x = x || 0;
+        this.y = y || 0;
+      }
+
+      // 向量的加法
+      Vector.prototype.add = function (v) {
+        this.x += v.x;
+        this.y += v.y;
+        return this;
+      };
+
+      // 向量的乘法
+      Vector.prototype.multiply = function (value) {
+        this.x *= value;
+        this.y *= value;
+        return this;
+      };
+
+      // 获取向量的大小
+      Vector.prototype.getMagnitude = function () {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+      };
+
+      // 分段(炸开后的粒子效果)    =====>    位置,速度,半径,色调
+      function Fragment(position, velocity, radius, hue) {
+        this.position = position;
+        this.velocity = velocity;
+        this.startSpeed = this.velocity.getMagnitude();
+        this.radius = radius;
+        this.hue = hue;
+      }
+
+      // 
+      Fragment.prototype.update = function (world) {
+        this.velocity.multiply(world.physicalProperties.friction);
+        this.position.add(this.velocity);
+        this.radius *= this.velocity.getMagnitude() / this.startSpeed;
+        if (this.radius < 0.1) {
+          world.objects.splice(world.objects.indexOf(this), 1);
+        }
+      }
+
+      // 粒子效果的渲染 
+      Fragment.prototype.render = function ($) {
+        $.beginPath();
+        $.fillStyle = 'hsl(' + this.hue + ', 100%, 50%)';
+        $.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
+        $.fill();
+      };
+
+      // 气泡类 
+      function Bubble(x, y, speed, radius, fragments, swing, hue) {
+        this.x = x;
+        this.y = y;
+        this.startX = this.x;
+        this.speed = speed;
+        this.radius = radius;
+        this.fragments = fragments;
+        this.swing = swing;
+        this.hue = hue;
+      }
+
+      Bubble.prototype.update = function (world) {
+        this.x = this.startX + Math.cos(this.y / 80) * this.swing;  // 让摆动看起来更自然,越往上左右摆动越大,同时左右摆动做余弦运动
+        this.y += this.speed;   // 匀速上升
+        if (this.y + this.radius < 0) {   // 超出上边框之后   从底下冒出
+          this.y = world.physicalProperties.height + this.radius;
+        }
+      }
+
+      /** 
+       *  泡泡的绘制
+       */
+      Bubble.prototype.render = function ($) {
+        $.beginPath();
+        $.fillStyle = 'hsl(' + this.hue + ', 100%, 50%)';
+        $.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+        $.fill();
+      };
+
+      // 气泡的删除类
+      Bubble.prototype.pop = function (world) {
+        var arr = [];
+        for (var i = 0; i < this.fragments; i++) {
+          arr.push(new Fragment(new Vector(this.x, this.y), new Vector(randomInRange(-2, 2),
+           randomInRange(-2, 2)), randomInRange(2, this.radius / 4), this.hue));
+        }
+        insertElementsAtIndex(world.objects.indexOf(this), world.objects, arr, 1);
+      };
+
+      // 世界类      物理属性,对象,画板,背景
+      function World(physicalProperties, objects, ctx, background) {
+        this.physicalProperties = physicalProperties;
+        this.objects = objects;
+        this.ctx = ctx;
+        this.background = background;
+        this.frameID = 0;
+      }
+
+      // 依次遍历世界类里面的所有元素  更新他们的属性
+      World.prototype.update = function () {
+        for (var i = 0; i < this.objects.length; i++) {
+          this.objects[i].update(this);
+        }
+      };
+
+      // 渲染绘制类  用于绘制出每一帧的画面
+      World.prototype.render = function () {
+        this.ctx.clearRect(0, 0, this.physicalProperties.width, this.physicalProperties.height);
+        // 绘制背景
+        if (this.background) {
+          this.ctx.fillStyle = this.background;
+          this.ctx.fillRect(0, 0, this.physicalProperties.width, this.physicalProperties.height);
+        }
+        // 绘制每一个对象
+        for (var i = 0; i < this.objects.length; i++) {
+          this.objects[i].render(this.ctx);
+        }
+      };
+
+      // 动画类   统一采用requestAnimationFrame绘制每一帧
+      World.prototype.animate = function () {
+        this.update();
+        this.render();
+        this.frameID = requestAnimationFrame(this.animate.bind(this));
+      };
+
+      // 
+      for (i = 0; i < bubblesNumber; i++) {
+        objects.push(new Bubble(Math.random() * w, Math.random() * h, -randomInRange(0.5, maxYVelocity), randomInRange(5, maxRadius), randomInRange(7, 10), randomInRange(-40, 40), randomInRange(0, 360)));
+      }
+
+      // 创建世界对象     物理属性，对象列表，画板，背景颜色
+      var world = new World({
+        width: canvas.width,
+        height: canvas.height,
+        friction: 0.997    // 摩擦系数
+      }, objects, $, 'rgb(0, 50, 255)');
+
+
+      $.globalCompositeOperation = 'lighter';
+
+      world.animate();
+
+      window.addEventListener('resize', function () {
+        w = world.physicalProperties.width = canvas.width = window.innerWidth;
+        h = world.physicalProperties.height = canvas.height = window.innerHeight;
+        $.globalCompositeOperation = 'lighter';
+      });
+
+      // PC端 当鼠标在屏幕上移动的时候连续触发
+      window.addEventListener('mousemove', function (e) {
+        for (var i = 0; i < world.objects.length; i++) {
+          if ((world.objects[i] instanceof Bubble) &&
+            (e.clientX > world.objects[i].x - world.objects[i].radius &&
+              e.clientX < world.objects[i].x + world.objects[i].radius &&
+              e.clientY < world.objects[i].y + world.objects[i].radius &&
+              e.clientY > world.objects[i].y - world.objects[i].radius)) {
+            world.objects[i].pop(world);
+          }
+        }
+      });
+
+      // 移动端  当手指在屏幕上面移动的时候连续触发
+      window.addEventListener('touchmove', function (e) {
+        for (var i = 0; i < world.objects.length; i++) {
+          if ((world.objects[i] instanceof Bubble) &&
+            (e.touches[0].clientX > world.objects[i].x - world.objects[i].radius &&
+              e.touches[0].clientX < world.objects[i].x + world.objects[i].radius &&
+              e.touches[0].clientY < world.objects[i].y + world.objects[i].radius &&
+              e.touches[0].clientY > world.objects[i].y - world.objects[i].radius)) {
+            world.objects[i].pop(world);
+          }
+        }
+      });
+
+    })();
+  </script>
+
+</body>
+
+</html>

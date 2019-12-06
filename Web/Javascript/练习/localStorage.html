@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LocalStorage</title>
+</head>
+<body>
+    <p>
+        <input type="text" name="data" id="data">
+        <button>inset date</button>
+        <button>query date</button>
+        <button>delete date</button>
+        <button>del all date</button>
+    </p>
+    <p>msg: <span id="msg">Opreater data at local! 
+        <br>Look up more infomation:Open "developer tool" and select "Application" check the "LocalStorage".</span></p>
+
+    <script>
+        var data=document.getElementById("data");
+        var button=document.getElementsByTagName("button");
+        var dataArr=[];
+        var msg=document.getElementById("msg");
+
+        //inset date into local Storage
+        button[0].onclick=function(){
+            if(data.value){
+                var str=localStorage.getItem("localdata");
+                if(str){
+                    dataArr=str.split(",");
+                }
+                dataArr.push(data.value);
+                localStorage.setItem("localdata",dataArr);
+                msg.innerText="'"+data.value+"'  inset OK!";
+                data.value="";
+            }else{
+                msg.innerText="No data inset query your input!";
+            }
+            data.focus();
+        }
+        
+        //query date from local storage
+        button[1].onclick=function(){
+            query();
+        }
+        function query(){
+            var str=localStorage.getItem("localdata");
+            if(str){
+                dataArr=str.split(",");
+                msg.innerText=dataArr;
+                return dataArr;
+            }else{
+                msg.innerText="No data in Local Storage!";
+                return false;
+            }
+        }
+
+        //delete input.value
+        button[2].onclick=function(){
+            if(data.value){
+                // localStorage.removeItem(dataArr[data.value]);
+                if(query()){
+                    var tempArr=query();
+                    console.log(tempArr);   //ok
+                    for(i=0;i<tempArr.length;i++){
+                        var flag=false;
+                        if(tempArr[i]==data.value){
+                            tempArr.splice(i,1);
+                            localStorage.setItem("localdata",tempArr);
+                            msg.innerText="delete '"+data.value+"' OK!" ;
+                            data.value="";
+                            flag=true;
+                        }
+                        if(i==tempArr.length-1&&!flag){
+                            msg.innerText=data.value+" is no in the LocalStorage!";
+                            data.value="";
+                        }
+                    }
+                }else{
+                    msg.innerText="The Local Stroage is empty!";
+                    data.value="";
+                }
+            }else{
+                   msg.innerText="No data deleted query your input!";
+            }
+        }
+
+        //delete all
+        button[3].onclick=function(){
+            localStorage.clear();
+            dataArr=[];
+            msg.innerText="The Local Storage clear successfully";
+            data.focus();
+        }
+    </script>
+</body>
+</html>

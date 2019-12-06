@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>监听键盘操作测试</title>
+<script src="../JQuery/jquery-3.1.1.js"></script>
+<script>
+	$(function(){
+		$("#d1").css({"width":"100%","height":"auto","text-align":"center","margin":"300px auto","font-size":"30px","min-width":"400px"});
+		$(document).keypress(function(event){
+			//无法读取win按键的ascii值
+			//alert(event.keyCode);
+			document.getElementById("keycode").innerHTML=event.keyCode;
+			//console.log(event.keyCode);
+		});
+		$(document).keydown(function(event){
+			//alert(event.keyCode);
+			document.getElementById("keycode").innerHTML=event.keyCode;
+			//console.log(event.keyCode);
+		});
+		$(document).keyup(function(event){
+			//默认读取的是小写的字母的ascii码
+			//alert(event.keyCode);
+			document.getElementById("keycode").innerHTML=event.keyCode;
+			//console.log(event.keyCode);
+		});
+	});
+	var lis = []
+	window.onkeydown=function(e){
+		for (var i = 0, len = lis.length; i < len; i++) {
+			if(lis[i]==e.key){
+				return false
+			}
+		}
+		lis[lis.length]=e.key
+		show()
+	}
+	window.onkeyup=function(e){
+		for(var i =0,len=lis.length;i<len;i++){
+			if(lis[i]==e.key){
+				lis.splice(i,1)
+			}
+		}
+		show()
+	}
+	function show(){
+		console.log(lis)
+	}
+
+	</script>
+</head>
+
+<body>
+<div id="d1">
+	<div>
+		请按下键盘任意按键
+	</div>
+	<div>
+		<span>ASCII码：</span><span id="keycode"></span>
+	</div>
+</div>
+</body>
+</html>

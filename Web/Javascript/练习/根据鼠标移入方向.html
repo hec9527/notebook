@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{padding: 0;margin: 0;}
+        #container{
+            width: 80%;
+            min-height: 200px;
+            height:auto;
+            position: fixed;
+            margin:auto;
+            left: 0;right: 0;top:15%;
+        }
+        .box{
+            position: relative;
+            width: 200px;
+            height: 100px;
+            border:  1px solid #abcdef;
+            display: inline-block;
+        }
+        .mask{
+            position: absolute;
+            width: inherit;
+            height: inherit;
+            background: lightpink;
+            display:none;
+        }
+        #d1{
+            width: 50px;height: 50px;background: red;position: absolute;left: 0;top: 0;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="container">
+        <div class="box">
+            <div class="mask"></div>
+        </div>
+    </div>
+    <!-- <div id="d1"></div> -->
+    <script>
+        var container=document.getElementById("container");
+        var oBox=document.getElementsByClassName("box");
+        var oMask=document.getElementsByClassName("mask");
+        var containerX;
+        var containerY;
+        var k
+
+        window.onload=window.onresize=function(){
+            containerX=container.offsetLeft;
+            containerY=container.offsetTop;
+        }
+
+        
+        for(var i=0;i<oMask.length;i++){
+            oBox[i].onmouseover=function(event){
+                //鼠标的位置
+                var cursorX=event.x;
+                var cursorY=event.y;
+                //盒子的宽高
+                var oW=this.offsetWidth;
+                var oH=this.offsetHeight;
+                //盒子的位置
+                var boxX=this.offsetLeft+containerX;
+                var boxY=this.offsetTop+containerY;
+                //中心位置      boxX+oW/2   boxY+oH/2
+                //右上角        boxX+oW  boxY
+                //左上角        boxX    boxY
+                //右下角        boxX    boxY+oH
+                //右下角        boxX+oW  boxY+oH
+                fn_dir(cursorX,cursorY,boxX,boxY,oW,oH);
+                // test.style.left=boxX+oW+"px";
+                // test.style.top=boxY+oH+"px";
+                k=oH/oW;
+                console.log(k);
+            }
+        }
+
+        //根据传入的鼠标位置以及相应的盒子的中心位置返回对应的方向  6个参数 鼠标X Y，盒子X Y  盒子W H
+        function fn_dir(x1,y1,x2,y2,w,h){
+            var centerX=x2+w/2;
+            var centerY=y2+h/2;
+            // console.log("_______"+centerX+"__"+centerY);        //126   79
+            // Infinity
+            var _k=(y1-centerY)/(x1-centerX);
+            // console.log(_k+":"+"y1:"+y1+"   centerY:"+centerY+"     x1:"+x1+"    centerx:"+centerX);
+            console.log(_k);
+            var k=(y2-y1)/(x2-x1);
+            if(y1<centerY&&((_k>k&&_k<1000)||(_k>-1000&&_k<-k))){
+                console.log("top");
+            }
+
+
+
+
+        }
+
+
+        // document.onmousemove=function(e){
+        //     console.log(e.x+"__"+e.y);
+        // }
+
+
+
+
+
+
+    </script>
+</body>
+</html>

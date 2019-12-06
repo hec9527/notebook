@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Call_Apply</title>
+</head>
+<body>
+    <script>
+        /**
+            都用来改变this指向，区别在于后面传递的的参数
+        */
+        // function Person(name){
+        //     this.name=name;
+        // }
+        // var obj={};
+        // Person.call(obj,"tom");
+        // console.log(obj);
+
+        // 模块化构造函数
+        // function FnA(a){
+        //     this.a=a;
+        // }
+        // function FnB(b){
+        //     this.b=b;
+        // }
+        // function FnC(c){
+        //     this.c=c;
+        // }
+        // function Obj(){
+        //     FnA.call(this,'a');
+        //     FnB.call(this,'b');
+        //     FnC.call(this,'c');
+        // }
+        // var obj=new Obj();
+        // console.log(obj);
+        
+
+
+        function FnA(a){
+            this.a=a;
+        }
+        function FnB(b){
+            this.b=b;
+        }
+        function FnC(c){
+            this.c=c;
+        }
+        function Obj(){
+            FnA.apply(this,['a']);
+            FnB.apply(this,['b']);
+            FnC.apply(this,['c']);
+        }
+        var obj=new Obj();
+        console.log(obj);
+
+
+        
+
+
+
+
+
+    </script>
+</body>
+</html>

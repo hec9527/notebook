@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{padding: 0;margin: 0;}
+        #d1{width: 50px;height: 50px;background: rebeccapurple;top: 50px;left: 50px;}
+        #d2{width: 50px;height: 50px;background: palegreen; top: 100px;left: 100px;}
+        div{position: absolute;}
+    </style>
+</head>
+<body>
+    <div id="d1">1</div>
+    <div id="d2">2</div>
+
+    <script>
+        var oDiv1=document.getElementById("d1");
+        var oDiv2=document.getElementById("d2");
+        function move_D1(){
+            console.log("调用函数1");
+            oDiv1.style.transition="all 3s ease-out";
+            oDiv1.style.top=600+"px";
+            oDiv1.style.left=800+"px";
+            oDiv1.style.background="red";
+        }
+        function move_D2(){
+            console.log("调用函数2");
+            oDiv2.style.transition="all 6s ease-out";
+            oDiv2.style.top=600+"px";
+            oDiv2.style.left=400+"px";
+            oDiv2.style.background="#567";
+        }
+        document.onclick=function(){
+            move_D1(move_D2());
+        }
+        
+    // function f1(values){
+    //     console.log(values);
+    // }
+    // function f2(values){
+    //     console.log(values);
+    //     return 0;
+    // }
+    // f1(f2("这是f2输出的值"));
+
+    
+    //  回掉函数
+
+    // 在调用函数的时候将另外一个函数的引用（函数名）作为传递的参数    、
+    // 会在被引用的函数执行完了后在执行原来的函数
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <style>
+        .tab-button {
+            padding: 6px 10px;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            background: #efefef;
+            outline: none;
+            margin-bottom: -2px;
+        }
+
+        .tab-button:hover {
+            background: #e0e0e0;
+        }
+
+        .tab-button.active {
+            border-bottom: #fff;
+            background: #fff;
+        }
+
+        .tab {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+    <title>动态组件</title>
+</head>
+
+<body>
+    <li>动态组件</li>
+    <hr>
+    <ul>
+        <li>利用动态组件制作tab标签页</li>
+    </ul>
+
+    <div id="dynamic-component-demo" class="demo">
+        <button v-for="tab in tabs" v-bind:key="tab" v-bind:class="['tab-button', { active: currentTab === tab}]"
+            v-on:click="currentTab = tab">{{ tab }}
+        </button>
+        <component v-bind:is="currentTabComponent" class="tab"></component>
+    </div>
+    <br><br><br><br><br>
+    <script>
+        Vue.component('tab-home', {
+            template: '<div>Home component</div>'
+        })
+        Vue.component('tab-posts', {
+            template: '<div>Posts component</div>'
+        })
+        Vue.component('tab-archive', {
+            template: '<div>Archive component</div>'
+        })
+
+        new Vue({
+            el: '#dynamic-component-demo',
+            data: {
+                currentTab: 'Home',
+                tabs: ['Home', 'Posts', 'Archive']
+            },
+            computed: {
+                currentTabComponent: function () {
+                    return 'tab-' + this.currentTab.toLowerCase()
+                }
+            }
+        })
+    </script>
+
+
+
+
+
+    <li>动态组件keep-alive</li>
+    <hr>
+    <ul>
+        <li>动态组件每次在切换的时候都会重新创建组件的内容，不会保存其中的数据</li>
+        <li>点击tab1中的文字，然后切换到tab2，再切回tab1发现文字重置了</li>
+        <li>点击最后一个按钮切换是否开始缓存，开启缓存之后元素虽然不会渲染到dom节点，但是依然保存在内存中</li>
+    </ul>
+    <div id="app2">
+        <button v-for="tab in tabs" v-bind:key="tab" v-bind:class="['tab-button', { active: currentTab === tab}]"
+            v-on:click="currentTab = tab">{{ tab }}
+        </button>
+        <button @click="keepAlive = !keepAlive">keep-alive:{{keepAlive}}</button>
+        <span v-if="keepAlive">
+            <keep-alive>
+                <component v-bind:is="currentTabComponent" class="tab"></component>
+            </keep-alive>
+        </span>
+        <span v-else>
+            <component v-bind:is="currentTabComponent" class="tab"></component>
+        </span>
+    </div>
+    <script>
+        Vue.component("my-tab1", {
+            template: `<div @click="click">我是第一个div，点击了{{clickTime}}次</div>`,
+            data: () => {
+                return {
+                    clickTime: 0
+                }
+            },
+            methods: {
+                click: function () {
+                    this.clickTime++;
+                }
+            }
+        })
+        Vue.component("my-tab2", {
+            template: `<div>我是第二个div，点我没用回去点第一个把</div>`
+        })
+        new Vue({
+            el: "#app2",
+            data: {
+                currentTab: "tab1",
+                tabs: ['tab1', 'tab2'],
+                keepAlive: false
+            },
+            computed: {
+                currentTabComponent: function () {
+                    return "my-" + this.currentTab
+                }
+            }
+        })
+
+    </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+@charset "utf-8";
+a,i,b{
+	display: block;
+}
+#father{
+	position: relative;
+	margin-top:100px;
+	box-shadow: 0 0 10px black;
+}
+#father > ul{
+	height: 562.5px;
+}
+#father > ul > li{
+	position: absolute;
+	width: 1000px;
+	opacity: 0;
+	transition: 1s linear;
+}
+#father > ul  .show{
+	z-index: 3;
+	opacity: 1;
+	transition: 1s linear;
+}
+i,#select-card{
+	position: absolute;
+	z-index: 4;
+}
+i{
+	height: 55px;
+	width:55px;
+	top:0;
+	bottom: 0;
+	margin: auto 0;
+	cursor:pointer;
+}
+#right-button{
+	right:0;
+}
+
+#select-card > b{
+	height:25px;
+	width:25px;
+	border-radius: 50%;
+	box-shadow: 0 0 5px #000;
+	background-color: #ccc;
+	text-align: center;
+	line-height: 25px;
+	color:white;
+	margin:0 10px;
+	cursor: pointer;
+}
+#select-card {
+	bottom:20%;
+	left:38%;
+}
+#select-card > .orange{
+	background-color:#d50;
+}

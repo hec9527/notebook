@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>列表渲染</title>
+</head>
+
+<body>
+    <li>使用v-for渲染数组</li>
+    <hr>
+    <ul>
+        <li>当前遍历的参数有两个，第一个为值，第二个为索引，没有第三个，这个forEach不用</li>
+        <li>v-for 也可以接受整数。在这种情况下，它会把模板重复对应次数。</li>
+        <li>可以使用以下方式，遍历，他们的区别是 in 和 of </li>
+        <ul>
+            <li>&lt;li v-for="(value,index) in items"&gt;{ {value} },{ {index} }&lt;/li&gt;</li>
+            <li>&lt;li v-for="(value,index) of items"&gt;{ {value} },{ {index} }&lt;/li&gt;</li>
+        </ul>
+    </ul>
+    <div id="app1">
+        <ul>
+            <li v-for="(value,index,arr) in items">{{value.message}},{{index}},{{arr}}</li>
+        </ul>
+    </div><br><br><br><br><br>
+    <script>
+        const vm = new Vue({
+            el: "#app1",
+            data: {
+                items: [
+                    { message: "jaj" },
+                    { message: "world" },
+                    { message: "hello world" }
+                ]
+            }
+        })
+    </script>
+
+
+
+
+
+
+    <li>使用v-for渲染对象</li>
+    <hr>
+    <ul>
+        <li>渲染对象可以指定三个属性，分别是：值，键，索引</li>
+        <li>遍历对象时，采用Object.keys()的结果遍历，但是不能保证在不同引擎下的兼容性</li>
+    </ul>
+    <div id="app2">
+        <ul>
+            <li v-for="(value,key,index) in items">{{ index }} . {{ key }} . {{ value }}</li>
+        </ul>
+    </div><br><br><br><br><br>
+    <script>
+        const vm2 = new Vue({
+            el: "#app2",
+            data: {
+                items: {
+                    name: "tom",
+                    age: 22,
+                    money: 542654.12,
+                    fav: "read,run"
+                }
+            }
+        })
+    </script>
+
+
+
+    <li>列表状态的维护</li>
+    <hr>
+    <ul>
+        <li>就地维护：当vue对象中的顺序被改变的时候，Vue不会调整元素节点的顺序来匹配数据项的顺序，而是就地更新被改变的项目</li>
+        <li>在Vue的列表当中应当添加一个key属性以便Vue能够重排重用现有的元素</li>
+        <li>只适用于不依赖子组件状态或临时 DOM 状态(例如：表单输入值) 的列表渲染输出</li>
+    </ul>
+    <br><br><br><br><br>
+
+
+    <li>变异方法</li>
+    <hr>
+    <ul>
+        <li>Vue监听了部分数组的方法，这些方法在调用的时候会影响到数组本身，在调用这些方法之后Vue会自动更新视图</li>
+        <li>以下方式修改数组不能触发响应式更新：</li>
+        <ul>
+            <li>vm.items[index]=234</li>
+            <li>vm.items.length=234</li>
+        </ul>
+        <li>第一类解决方法：</li>
+        <ul>
+            <li>Vue.set(vm.items, indexOfItem, newValue)</li>
+            <li>vm.items.splice(indexOfItem, 1, newValue)</li>
+        </ul>
+        <li>第二类解决方法：</li>
+        <ul>
+            <li>vm.items.splice(newLength)</li>
+        </ul>
+    </ul>
+    <br><br><br><br><br><br>
+
+
+
+    <li>添加响应式属性</li>
+    <hr>
+    <ul>
+        <li>Vue中响应式属性在Vue实例创建的时候就已经确定了，但是我们还是可以后面自己添加</li>
+        <li>Vue不允许添加根级别的响应式属性，即不能直接在Vue的date当中直接添加响应式属性，但是可以给data当中的其它对象添加属性</li>
+        <li>添加属性的方法:</li>
+        <ul>
+            <li>Vue.set(object, propertyName, value)</li>
+            <li>vm.$set(object, propertyName, value)</li>
+            <li>vm.Objproperty = Object.assign({}, obj1, obj2)</li>
+        </ul>
+        <li>第三种方法中给Vm对象的一个数据对象添加多个响应式属性，obj1和obj2中的属性</li>
+    </ul>
+
+
+
+</body>
+
+</html>

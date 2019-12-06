@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        *{padding: 0;margin: 0;}
+        #container{
+            width: 800px;
+            height: 450px;
+            overflow: hidden;
+        }
+        img{
+            transform: scale(1.08);
+            width: inherit;
+            height:inherit;
+        }
+        img:hover{
+            -webkit-filter: blur(15px);
+            -moz-filter:blur(15px);
+            -ms-filter: blur(15px);
+            -o-filter:blur(15px);
+            filter: blur(15px);
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div id="container"><img src="最终幻想.jpg" alt="最终幻想"></div>
+    <!-- 
+        图片模糊滤镜边缘处理
+
+        将图片放大
+
+        使用盒子包装 盒子溢出影藏
+
+        放大在 1.05-1.1为宜
+
+     -->
+</body>
+</html>

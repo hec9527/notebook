@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" id="selectFile" name="selectFile" multiple webkitdirectory >
+    <script>
+        var file=document.getElementById("selectFile");
+        var fileReader=new FileReader();
+        var fileArr=[];
+        // fileReader.readAsDataURL(file);          //传入一个文件  将文件转换为base64编码方式放在网页文件内部      
+        file.onchange=function(){
+            for(i=0;i<file.files.length;i++){
+                // console.log(file.files[i]);          //OK
+                fileArr[i]=file.files[i].webkitRelativePath;
+            }     
+            console.log(fileArr);
+        }
+        
+    
+    </script>
+</body>
+</html>

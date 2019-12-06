@@ -1,0 +1,31 @@
+﻿@charset "utf-8";
+/* 注意！注意！注意！重要的事情说三遍，编码啊申明 @charset "utf-8"; 从头到尾一个符号都不能错 特别是 分号; 分号; 分号; 不能掉了!!!!!! */
+
+*{
+    boxszing: border-box;
+}
+
+body,p,h1,h2,h3,h4,h5,h6,dl,dt,dd,ul,ol,li{/* 清除默认的边距 */
+	margin:0;
+	padding:0;
+}
+li{
+	list-style:none;/* 清除li 默认的列表样式 */
+}
+a{
+	text-decoration:none;/* 清除a标签默认的下划线 */
+	color:inherit;/* 强制从父级继承字体颜色 */
+}
+body{
+	font:12px/1.5 "Microsoft yahei";/* 统一界面的字体 大小 行高 类型 */
+}
+i,em{
+	font-style:normal;/* 重置斜体 */
+}
+b,strong{
+	font-weight:normal;/* 重置加粗 */
+}
+img{
+	vertical-align:top;/* 重置图片的空白 */
+	border:none;/* 解决IE下默认的边框 */
+}

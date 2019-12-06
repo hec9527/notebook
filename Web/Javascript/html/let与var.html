@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>打开源码以及console查看</p>
+    <script>
+        var lis=[];
+        
+        for (let i = 0; i < 3; i++) {
+            lis[i] = function () {
+                console.log(i);
+            }
+        }
+        show()
+
+        for (var i = 0; i < 3; i++) {
+            lis[i]=function(){
+                console.log(i);
+            }
+        }
+        show()
+
+
+
+        function show(){
+            for(var i =0;i<lis.length;i++){
+                lis[i]();
+            }
+        }
+
+
+        // let a=1;
+        // let a=2;  // Error:不能const、let定义的变量是局部变量  不能重复申明
+        // console.log(a);
+
+
+
+    </script>
+</body>
+
+</html>

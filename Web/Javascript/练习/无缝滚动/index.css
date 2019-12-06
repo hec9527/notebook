@@ -1,0 +1,27 @@
+*{
+    padding: 0;margin: 0;list-style: none;
+}
+
+#container{
+    width: 1100px;height: 180px;
+    position:absolute;
+    margin:auto;
+    top: 150px;right: 0;left: 0;
+    overflow: hidden;
+}
+ul{
+    position:absolute;
+    left:0;
+    height: 180px;display:inline-block;min-width: 600px;
+    white-space: nowrap;            /*将元素显示在一行 不换行*/
+    font-size: 0px;             /*消除 li 之间的间隔 （空白节点） */
+}
+.lis{
+    display:inline-block;
+    width: 300px;height: 180px;
+    margin:0px;
+}
+.lis img{
+    width:inherit;
+    height:inherit;
+}

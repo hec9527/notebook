@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>jQuery根据鼠标移入移出方向判断滑动块滚动方向</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- 代码部分begin -->
+<div class="lanren">
+    <div class="box"><div class="content">1</div></div>
+    <div class="box"><div class="content">2</div></div>
+    <div class="box"><div class="content">3</div></div>
+    <div class="box"><div class="content">4</div></div>
+</div>
+<script src="js/jquery.js"></script>
+<script src="js/lanren.js"></script>
+<script>
+$(function(){
+    var lanren = {
+        left: {
+            top: '0',
+            left: '-100%'
+        },
+        right: {
+            top: '0',
+            left: '100%'
+        },
+        bottom: {
+            top: '100%',
+            left: '0'
+        },
+        top: {
+            top: '-100%',
+            left: '0'
+        }
+    };
+    $('.lanren .box').each(function () {
+        new MouseDirection(this, {
+            enter: function ($element, dir) {
+                //每次进入前先把.trans类移除掉，以免后面调整位置的时候也产生过渡效果
+                var $content = $element.find('.content').removeClass('trans');
+                //调整位置
+                $content.css(lanren[dir]);
+                //reflow
+                $content[0].offsetWidth;
+                //启用过渡
+                $content.addClass('trans');
+                //滑入
+                $content.css({left: '0', top: '0'});
+            },
+            leave: function ($element, dir) {
+                $element.find('.content').css(lanren[dir]);
+            }
+        });
+    });
+});
+</script>
+<!-- 代码部分end -->
+
+</body>
+</html>

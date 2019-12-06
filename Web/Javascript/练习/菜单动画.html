@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>菜单效果</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #container{
+            margin: 100px auto;
+            position:relative;
+            border: 1px solid hsla(0, 0%, 67%, 0.726);
+            box-shadow: 5px 5px 8px #aaa;
+            width: 500px;
+            height: 50px;
+            box-sizing: content-box;
+        }
+        .box{
+            float: left;
+            position: relative;
+            border: 1px solid red;
+            width: 100px;
+            display: inline-block;
+            height: 50px;
+            box-sizing: border-box;
+        }
+        .box:hover{
+            cursor:pointer;
+        }
+        #masker{
+            margin: auto;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            position: absolute;
+            clear: both;
+            height: 10px;
+            width: 100px;
+            background: rgba(247, 135, 8, 0.488);
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div id="masker"></div>
+    </div>
+</body>
+<script>
+    window.onload=function(){
+        var container=document.getElementById("container");
+        var oBox=container.getElementsByTagName("div");
+        var oMasker=oBox[5];
+
+        /** 缓冲动画效果--开始 **/
+        // for(i=0;i<5;i++){
+        //     oBox[i].index=i;
+        //     oBox[i].onmouseover=function(){
+        //         var _index=this.index+1;
+        //         oMasker.style.left=(_index-3)*200+"px";
+        //         oMasker.style.transition="0.5s all ease-out";
+        //     }
+        // }  
+        /** 缓冲动画效果--结束 **/
+
+
+        /** 缩放效果--开始 **/
+        for(i=0;i<5;i++){
+            oBox[i].index=i;
+            oBox[i].onmouseover=function (){
+                var index=this.index+1;
+                oMasker.style.width=0+"px";
+                oMasker.style.left=(index-3)*200+"px";
+                timer=1;
+                if(oMasker.offsetWidth>=100){
+                    oMasker.style.width=100+"px";
+                    return;
+                }
+                var timer=setInterval(function(){
+                    _width=oMasker.offsetWidth;
+                    time=Math.ceil(_width/30);
+                    oMasker.style.width=_width+1+"px";
+                    if(oMasker.offsetWidth>=100){
+                        oMasker.style.width=100+"px";
+                        clearInterval(timer);
+                    }
+                },timer);
+            };
+        }
+        /** 缩放效果--结束 **/
+    }
+</script>
+</html>

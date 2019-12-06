@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>简易日程表</title>
+<style>
+	.aa{
+		cursor: pointer auto;
+	}
+	h3:hover{
+		cursor: pointer;
+	}
+	.div0{
+		width: 591px;
+		height: 80px;
+		margin-top: 9%;
+		margin-left: 34%;
+		background-color:#373737;
+	}
+	.div1{
+		margin: 0 0 0 34%;
+		width: 240px;
+		height: 490px;
+		background: #ABABAB;
+	}
+	.div2{
+		margin: 0 auto  auto 0;
+		width: 350px;
+		height: 100px;
+		background-color: #ABABAB;
+		border-left-style: solid;
+		border-left-width: 1px;
+		border-left-color: #5B5B5B;
+	}
+	div{
+		background: black;/*这是储存月份的容器的样式——鼠标未悬浮*/
+		float: left;
+		margin: 33px auto auto 15px;
+		width: 60px;
+		height: 60px;
+		color: #FFFFFF;
+	    text-align: center;
+	}
+	.div3{background:#FFFFFF ;/*这是储存月份的容器的样式——鼠标悬浮*/
+		float: left;
+		margin: 33px auto auto 15px;
+		width: 60px;
+		height: 60px;
+		color: black;
+	    text-align: center;
+	}
+	.div4{
+		background-color: #ABABAB;
+		border-left-style: solid;
+		border-left-width: 1px;
+		border-left-color: #5B5B5B;
+		margin-left: -1px;
+		margin-top: 15px;
+		width: 350px;
+		height: 391px;
+		background-color: #ABABAB;
+	}
+	p{
+	    vertical-align: middle;
+		font-family: "华文仿宋";
+		font-size: 36px;
+		margin-left: 25px;
+		margin-right: 25px;
+		margin-top: 22%;
+	}
+</style>
+<script>
+function over(x)
+	{
+		var aa=new Array(['新年快乐，不过寒假作业也得做哦，自己的网上课程也跑不掉哈！'],['马上要开学了，寒假的作业做完了没有啊?'],['终于开学啦！为啥我要用‘终于’呢？好奇怪啊'],['新的学期，新的装B技能get到了没？开始全新的装B之路吧！'],['好好学习！天天向上！'],['奋斗！准备4级考试。'],['总结一下吧，这学期都学到了一下啥？'],['马上又要放假了哈，说实话，我真的觉得时间过得好快啊。'],['暑假快乐，记得我自己计划在这个暑假打工了来着，不能偷懒啊，自力更生。'],['8月啦，工作怎么样，是不是很辛苦？那就努力读书吧。'],['又开学了额，暑假有没有做什么什么招生宣传啊？'],['新学期啦！哎，看着大一的新生，我仿佛看到了自己。']);
+		var a=document.getElementById("bb").getElementsByTagName("div");
+		a[x].className="div3";
+		document.getElementById("p").innerHTML=aa[x];
+		//上面的句代码值得注意看一下，做这个的时候想了一个晚上，卡在这里了一个晚上才做出来
+		//innerHTML是获取或者改变HTML中的相应的信息。
+	}
+function out(x)
+	{
+		var a=document.getElementById("bb").getElementsByTagName("div");
+		a[x].className="div";
+	}
+</script>
+</head>
+
+<body>
+<div class="div0"><h1>DIY简易日程表</h1></div>
+<div class="div1" id="bb">
+<h1>月份</h1>
+<div class="aa" onMouseOver="over(0)" onMouseOut="out(0)"><h3>一月</h3></div>
+<div class="aa" onMouseOver="over(1)" onMouseOut="out(1)"><h3>二月</h3></div>
+<div class="aa" onMouseOver="over(2)" onMouseOut="out(2)"><h3>三月</h3></div>
+<div class="aa" onMouseOver="over(3)" onMouseOut="out(3)"><h3>四月</h3></div>
+<div class="aa" onMouseOver="over(4)" onMouseOut="out(4)"><h3>五月</h3></div>
+<div class="aa" onMouseOver="over(5)" onMouseOut="out(5)"><h3>六月</h3></div>
+<div class="aa" onMouseOver="over(6)" onMouseOut="out(6)"><h3>七月</h3></div>
+<div class="aa" onMouseOver="over(7)" onMouseOut="out(7)"><h3>八月</h3></div>
+<div class="aa" onMouseOver="over(8)" onMouseOut="out(8)"><h3>九月</h3></div>
+<div class="aa" onMouseOver="over(9)" onMouseOut="out(9)"><h3>十月</h3></div>
+<div class="aa" onMouseOver="over(10)" onMouseOut="out(10)"><h3>十一月</h3></div>
+<div class="aa" onMouseOver="over(11)" onMouseOut="out(11)"><h3>十二月</h3></div>
+</div>
+<div class="div2">
+<h1>本月安排</h1>
+<div class="div4"><p id="p"><b>鼠标悬浮</b>在相应的月份上面查看当月日程</p>
+</div>
+</div>
+</body>
+</html>

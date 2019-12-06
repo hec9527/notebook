@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>右侧消息菜单栏测试</title>
+	<style>
+		* {padding: 0px;margin: 0px;}
+		div {
+			position: fixed;
+			width: 50px;
+			height: 50px;
+			background: rgba(14, 124, 225, 1.00);
+			line-height: 100%;
+			font-size: 50px;
+			overflow: hidden;
+			right: 0px;
+		}
+		#div1{top:50px;}
+		#div2{top:101px;}
+		#div3{top:152px;}
+		#div4{top:203px;}
+		#div5{top:254px;}
+		#div6{top:305px;}
+		#div7{top:356px;}
+		#div8{top:407px;}
+		#div9{top:458px;}
+		#div10{top:509px;}
+		#div11{top:560px;}
+		#div12{top:611px;}
+		div:hover{
+			cursor:pointer;
+		}
+	</style>
+	<script>
+		window.onload = function () {
+			var oDiv = document.getElementsByTagName("div");
+			for (i = 0; i < oDiv.length; i++) {
+				oDiv[i].onmouseover = function () {
+					move(this, 400);
+				}
+				oDiv[i].onmouseleave = function () {
+					move(this, 50);
+				}
+				oDiv[i].timer = null;
+			}
+		}
+		function move(obj, arg1) {
+			// clearInterval(obj.timer);
+			// var speed = 0;
+			// obj.timer = setInterval(function () {
+			// 	speed = (arg1 - obj.offsetWidth) / 30;
+			// 	speed = speed > 1 ? Math.ceil(speed) : Math.floor(speed);
+			// 	if(obj.offsetWidth==arg1){
+			// 		clearInterval(obj.timer);
+			// 	}else{
+			// 		obj.style.width = obj.offsetWidth + speed + "px";
+			// 	}
+			// }, 5);
+			cancelAnimationFrame(obj.timer);
+			var speed = 0;
+			obj.timer = requestAnimationFrame(function () {
+				speed = (arg1 - obj.offsetWidth) / 30;
+				speed = speed > 1 ? Math.ceil(speed) : Math.floor(speed);
+				if(obj.offsetWidth==arg1){
+					cancelAnimationFrame(obj.timer);
+				}else{
+					obj.style.width = obj.offsetWidth + speed + "px";
+					// obj.timer();
+					move(obj,arg1);
+				}
+			});
+
+		}
+	</script>
+</head>
+
+<body>
+	<div id="div1">❄右侧消息栏1</div>
+	<div id="div2">❄右侧消息栏2</div>
+	<div id="div3">❄右侧消息栏3</div>
+	<div id="div4">❄右侧消息栏4</div>
+	<div id="div5">❄右侧消息栏5</div>
+	<div id="div6">❄右侧消息栏6</div>
+	<div id="div7">❄右侧消息栏7</div>
+	<div id="div8">❄右侧消息栏8</div>
+	<div id="div9">❄右侧消息栏9</div>
+	<div id="div10">❄右侧消息栏10</div>
+	<div id="div11">❄右侧消息栏11</div>
+	<div id="div12">❄右侧消息栏12</div>
+
+</body>
+
+</html>

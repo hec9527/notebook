@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        .heart {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 140px;
+            height: 140px;
+            /* margin: -52.5px 0 0 -52.5px; */
+            overflow: hidden;
+        }
+
+        .heart::before {
+            content: '';
+            position: absolute;
+            display: block;
+            transition: all 400ms;
+            width: 15px;
+            height: 15px;
+            margin: -15px 0 0 -15px;
+            box-shadow:
+                35px 15px #8e1a19, 55px 15px #ac0500, 95px 15px #f73f0c, 115px 15px #fa5f27,
+                15px 35px #740100, 35px 35px #8e0500, 55px 35px #8e1918, 75px 35px #ca1300, 95px 35px #f34f2b, 115px 35px #df351f, 135px 35px #f77c2a,
+                15px 55px #4b0000, 35px 55px #690100, 55px 55px #8e0f0b, 75px 55px #bf1000, 95px 55px #f84010, 115px 55px #f04222, 135px 55px #fa5724,
+                15px 75px #451312, 35px 75px #5a0100, 55px 75px #840e0c, 75px 75px #a51d1a, 95px 75px #ed2805, 115px 75px #d9321e, 135px 75px #f44622,
+                35px 95px #3b0000, 55px 95px #5d1a1b, 75px 95px #8e1a19, 95px 95px #a80700, 115px 95px #b90a00,
+                55px 115px #3d0000, 75px 115px #551415, 95px 115px #670100,
+                75px 135px #340000;
+            animation: pulse 1s infinite linear;
+        }
+
+        @keyframes pulse {
+            
+            /* 收缩状态 */
+            0%,
+            90%,
+            100% {
+                box-shadow:
+                    43px 27px #8e1a19, 59px 27px #ac0500, 91px 27px #f73f0c, 107px 27px #fa5f27,
+                    27px 43px #740100, 43px 43px #8e0500, 59px 43px #8e1918, 75px 43px #ca1300, 91px 43px #f34f2b, 107px 43px #df351f, 123px 43px #f77c2a,
+                    27px 59px #4b0000, 43px 59px #690100, 59px 59px #8e0f0b, 75px 59px #bf1000, 91px 59px #f84010, 107px 59px #f04222, 123px 59px #fa5724,
+                    27px 75px #451312, 43px 75px #5a0100, 59px 75px #840e0c, 75px 75px #a51d1a, 91px 75px #ed2805, 107px 75px #d9321e, 123px 75px #f44622,
+                    43px 91px #3b0000, 59px 91px #5d1a1b, 75px 91px #8e1a19, 91px 91px #a80700, 107px 91px #b90a00,
+                    59px 107px #3d0000, 75px 107px #551415, 91px 107px #670100,
+                    75px 123px #340000;
+            }
+
+            /* 张开状态 */
+            25%,
+            40% {
+                box-shadow:
+                    35px 15px #8e1a19, 55px 15px #ac0500, 95px 15px #f73f0c, 115px 15px #fa5f27,
+                    15px 35px #740100, 35px 35px #8e0500, 55px 35px #8e1918, 75px 35px #ca1300, 95px 35px #f34f2b, 115px 35px #df351f, 135px 35px #f77c2a,
+                    15px 55px #4b0000, 35px 55px #690100, 55px 55px #8e0f0b, 75px 55px #bf1000, 95px 55px #f84010, 115px 55px #f04222, 135px 55px #fa5724,
+                    15px 75px #451312, 35px 75px #5a0100, 55px 75px #840e0c, 75px 75px #a51d1a, 95px 75px #ed2805, 115px 75px #d9321e, 135px 75px #f44622,
+                    35px 95px #3b0000, 55px 95px #5d1a1b, 75px 95px #8e1a19, 95px 95px #a80700, 115px 95px #b90a00,
+                    55px 115px #3d0000, 75px 115px #551415, 95px 115px #670100,
+                    75px 135px #340000;
+            }
+
+            /* 半张开状态 */
+            33% {
+                box-shadow:
+                    37px 18px #8e1a19, 56px 18px #ac0500, 94px 18px #f73f0c, 113px 18px #fa5f27,
+                    18px 37px #740100, 37px 37px #8e0500, 56px 37px #8e1918, 75px 37px #ca1300, 94px 37px #f34f2b, 113px 37px #df351f, 132px 37px #f77c2a,
+                    18px 56px #4b0000, 37px 56px #690100, 56px 56px #8e0f0b, 75px 56px #bf1000, 94px 56px #f84010, 113px 56px #f04222, 132px 56px #fa5724,
+                    18px 75px #451312, 37px 75px #5a0100, 56px 75px #840e0c, 75px 75px #a51d1a, 94px 75px #ed2805, 113px 75px #d9321e, 132px 75px #f44622,
+                    37px 94px #3b0000, 56px 94px #5d1a1b, 75px 94px #8e1a19, 94px 94px #a80700, 113px 94px #b90a00,
+                    56px 113px #3d0000, 75px 113px #551415, 94px 113px #670100,
+                    75px 132px #340000;
+            }
+        }
+
+        .heart:hover::before {
+            animation-play-state: paused;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="heart"></div>
+</body>
+
+</html>

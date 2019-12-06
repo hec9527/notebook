@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="description" content="js专用">
+<meta name="keywords" content="javascript">
+<title>js练习</title>
+<link rel="stylesheet" href="./css/public.css">
+<link rel="stylesheet" href="./css/index-two.css">
+</head>
+<body>
+	<div id="father">
+		<div class="fl_child" id="img-box">
+			<a href="javascript:void(0);">
+				<img src="./images/0.jpg" 
+				height="450px" width="800px" alt=""/>
+			</a>
+			<a href="javascript:void(0);">
+				<img src="./images/1.jpg" 
+				height="450px" width="800px" alt=""/>
+			</a>
+			<a href="javascript:void(0);">
+				<img src="./images/2.jpg" 
+				height="450px" width="800px" alt=""/>
+			</a>
+			<a href="javascript:void(0);">
+				<img src="./images/3.jpg" 
+				height="450px" width="800px" alt=""/>
+			</a>
+			<a href="javascript:void(0);">
+				<img src="./images/4.jpg" 
+				height="450px" width="800px" alt=""/>
+			</a>
+		</div>
+		<div class="btn-box fl_child">
+			<a href="javascript:void(0);" id="left-btn">
+				<img src="./images/btnL.png"
+				height="55" width="55" alt=""/>
+			</a>
+			<a href="javascript:void(0);" id="right-btn">
+				<img src="./images/btnR.png"
+				height="55" width="55" alt=""/>
+			</a>
+		</div>
+		<div class="select-card fl_child">
+			<a href="javascript:void(0);">1</a>
+			<a href="javascript:void(0);">2</a>
+			<a href="javascript:void(0);">3</a>
+			<a href="javascript:void(0);">4</a>
+			<a href="javascript:void(0);">5</a>
+		</div>
+	</div>
+</body>
+<script>
+	var oBtnL=document.getElementById("left-btn");//左边箭头
+	var oBtnR=document.getElementById("right-btn");//右边箭头
+	var oImgBox=document.getElementById("img-box");//获取图片框
+	var aA=document.querySelectorAll(".select-card > a");
+	var marLeft=0;
+	var index=0;//记录图片张数
+	aA[0].style.backgroundColor="#d50";
+	for(var i=0;i<5;i++){
+		aA[i].index=i;
+	}
+	oBtnR.onclick=function(){
+		marLeft-=800;
+		index+=1;
+		if(marLeft<-3200){
+			marLeft=800;
+			index=0;
+			oImgBox.style.marginLeft=marLeft+"px";
+			marLeft-=800;
+		}
+			oImgBox.style.transition="0.5s linear";
+			oImgBox.style.marginLeft=marLeft+"px";
+			for(var i=0;i<5;i++){
+				aA[i].style.backgroundColor="#ccc";
+			}
+			aA[index].style.backgroundColor="#d50";
+	}
+	oBtnL.onclick=function(){
+		marLeft+=800;
+		index-=1
+		if(marLeft>0){
+			index=4;
+			marLeft=-4000;
+			oImgBox.style.marginLeft=marLeft+"px";
+			marLeft+=800;
+		}
+			oImgBox.style.transition="0.5s linear";
+			oImgBox.style.marginLeft=marLeft+"px";
+			for(var i=0;i<5;i++){
+				aA[i].style.backgroundColor="#ccc";
+			}
+			aA[index].style.backgroundColor="#d50";
+	}
+	for(var i=0;i<5;i++){
+		aA[i].onclick=function(){
+			var marlength=(this.index-index)*-800;
+			marLeft=marLeft+marlength;
+			oImgBox.style.transition="0.5s linear";
+			oImgBox.style.marginLeft=marLeft+"px";
+			for(var i=0;i<5;i++){
+				aA[i].style.backgroundColor="#ccc";
+			}
+			aA[this.index].style.backgroundColor="#d50";
+			index=this.index;
+		}
+	}
+</script>
+</html>

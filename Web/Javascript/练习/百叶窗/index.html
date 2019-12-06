@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>百叶窗测试</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="container">
+        <!--用于设置大小、存放section的div-->
+        <div id="sectionsWrapper">
+            <!--section存放需要的图片-->
+            <section class="section show" data-href="img/1.jpg"></section>
+            <section class="section" data-href="img/2.jpg"></section>
+            <section class="section" data-href="img/3.jpg"></section>
+            <section class="section" data-href="img/4.jpg"></section>
+            <section class="section" data-href="img/5.jpg"></section>
+            
+            <!--div中存放部分图片，并且执行动画效果-->
+            <div id="animation"></div>
+            <div id="contorl">
+                <ul>
+                    <li class="ctrlBox"></li>
+                    <li class="ctrlBox"></li>
+                    <li class="ctrlBox"></li>
+                    <li class="ctrlBox"></li>
+                    <li class="ctrlBox"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<script src="index1.js"></script>
+</body>
+</html>

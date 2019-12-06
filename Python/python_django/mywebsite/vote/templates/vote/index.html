@@ -1,0 +1,12 @@
+{% if last_question_lis %}
+<h1>显示查询结果页面</h1>
+    <ul>
+        {% for question in last_question_lis %}
+        <li><a href="/vote/{{question.id}}/result">{{ question.question_text }}</a></li>
+        <li><a href="{%  url 'result1' question.id 1000 %}">{{question.question_text}}</a></li>
+        {% endfor %}
+        <!-- endfor 语法，用于终止for循环 -->
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
