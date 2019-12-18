@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+    <title>hello React</title>
+</head>
+<body>
+    
+    <div id="app"></div>
+
+
+    <script type="text/babel">
+        // react底层API，用于渲染元素或者组件到指定的html元素上
+        ReactDOM.render(
+            (
+                <div>
+                    <h1>hello react</h1>
+                    <span>react 是世界上最好的前段框架</span>
+                </div>
+            ),
+            document.getElementById("app")
+        )
+
+    
+    </script>
+
+</body>
+</html>

@@ -1,112 +1,113 @@
+(function(window) {
+    'use strict';
 
-
-(function( window ) {
-
-'use strict';
-
-
-function classReg( className ) {
-  return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
-}
-
-// classList support for class management
-// altho to be fair, the api sucks because it won't accept multiple classes at once
-var hasClass, addClass, removeClass;
-
-if ( 'classList' in document.documentElement ) {
-  hasClass = function( elem, c ) {
-    return elem.classList.contains( c );
-  };
-  addClass = function( elem, c ) {
-    elem.classList.add( c );
-  };
-  removeClass = function( elem, c ) {
-    elem.classList.remove( c );
-  };
-}
-else {
-  hasClass = function( elem, c ) {
-    return classReg( c ).test( elem.className );
-  };
-  addClass = function( elem, c ) {
-    if ( !hasClass( elem, c ) ) {
-      elem.className = elem.className + ' ' + c;
+    function classReg(className) {
+        return new RegExp('(^|\\s+)' + className + '(\\s+|$)');
     }
-  };
-  removeClass = function( elem, c ) {
-    elem.className = elem.className.replace( classReg( c ), ' ' );
-  };
-}
 
-function toggleClass( elem, c ) {
-  var fn = hasClass( elem, c ) ? removeClass : addClass;
-  fn( elem, c );
-}
+    // classList support for class management
+    // altho to be fair, the api sucks because it won't accept multiple classes at once
+    var hasClass, addClass, removeClass;
 
-var classie = {
-  // full names
-  hasClass: hasClass,
-  addClass: addClass,
-  removeClass: removeClass,
-  toggleClass: toggleClass,
-  // short names
-  has: hasClass,
-  add: addClass,
-  remove: removeClass,
-  toggle: toggleClass
-};
+    if ('classList' in document.documentElement) {
+        hasClass = function(elem, c) {
+            return elem.classList.contains(c);
+        };
+        addClass = function(elem, c) {
+            elem.classList.add(c);
+        };
+        removeClass = function(elem, c) {
+            elem.classList.remove(c);
+        };
+    } else {
+        hasClass = function(elem, c) {
+            return classReg(c).test(elem.className);
+        };
+        addClass = function(elem, c) {
+            if (!hasClass(elem, c)) {
+                elem.className = elem.className + ' ' + c;
+            }
+        };
+        removeClass = function(elem, c) {
+            elem.className = elem.className.replace(classReg(c), ' ');
+        };
+    }
 
-// transport
-if ( typeof define === 'function' && define.amd ) {
-  // AMD
-  define( classie );
-} else {
-  // browser global
-  window.classie = classie;
-}
+    function toggleClass(elem, c) {
+        var fn = hasClass(elem, c) ? removeClass : addClass;
+        fn(elem, c);
+    }
 
-})( window );
+    var classie = {
+        // full names
+        hasClass: hasClass,
+        addClass: addClass,
+        removeClass: removeClass,
+        toggleClass: toggleClass,
+        // short names
+        has: hasClass,
+        add: addClass,
+        remove: removeClass,
+        toggle: toggleClass
+    };
+
+    // transport
+    if (typeof define === 'function' && define.amd) {
+        // AMD
+        define(classie);
+    } else {
+        // browser global
+        window.classie = classie;
+    }
+})(window);
 
 var ModalEffects = (function() {
+    function init() {
+        var overlay = document.querySelector('.md-overlay');
 
-	function init() {
+        [].slice
+            .call(document.querySelectorAll('.md-trigger'))
+            .forEach(function(el, i) {
+                var modal = document.querySelector(
+                        '#' + el.getAttribute('data-modal')
+                    ),
+                    close = modal.querySelector('.md-close');
 
-		var overlay = document.querySelector( '.md-overlay' );
+                function removeModal(hasPerspective) {
+                    classie.remove(modal, 'md-show');
 
-		[].slice.call( document.querySelectorAll( '.md-trigger' ) ).forEach( function( el, i ) {
+                    if (hasPerspective) {
+                        classie.remove(
+                            document.documentElement,
+                            'md-perspective'
+                        );
+                    }
+                }
 
-			var modal = document.querySelector( '#' + el.getAttribute( 'data-modal' ) ),
-				close = modal.querySelector( '.md-close' );
+                function removeModalHandler() {
+                    removeModal(classie.has(el, 'md-setperspective'));
+                }
 
-			function removeModal( hasPerspective ) {
-				classie.remove( modal, 'md-show' );
+                el.addEventListener('click', function(ev) {
+                    classie.add(modal, 'md-show');
+                    overlay.removeEventListener('click', removeModalHandler);
+                    overlay.addEventListener('click', removeModalHandler);
 
-				if( hasPerspective ) {
-					classie.remove( document.documentElement, 'md-perspective' );
-				}
-			}
+                    if (classie.has(el, 'md-setperspective')) {
+                        setTimeout(function() {
+                            classie.add(
+                                document.documentElement,
+                                'md-perspective'
+                            );
+                        }, 25);
+                    }
+                });
 
-			function removeModalHandler() {
-				removeModal( classie.has( el, 'md-setperspective' ) ); 
-			}
-
-			el.addEventListener( 'click', function( ev ) {
-				classie.add( modal, 'md-show' );
-				overlay.removeEventListener( 'click', removeModalHandler );
-				overlay.addEventListener( 'click', removeModalHandler );
-
-				if( classie.has( el, 'md-setperspective' ) ) {
-					setTimeout( function() {
-						classie.add( document.documentElement, 'md-perspective' );
-					}, 25 );
-				}
-			});
-
-			close.addEventListener( 'click', function( ev ) {
-				ev.stopPropagation();
-				removeModalHandler();
-			});
-		} );
-	}
-	init();
+                close.addEventListener('click', function(ev) {
+                    ev.stopPropagation();
+                    removeModalHandler();
+                });
+            });
+    }
+    init();
 })();

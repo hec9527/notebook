@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+    <title>阻止渲染</title>
+</head>
+
+<body>
+
+    <div id="app"></div>
+
+
+    <script type="text/babel">
+        class MyError extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    error: true,
+                    msg: "未知的数据类型"
+                }
+                this.handlerClick = this.handlerClick.bind(this);
+            }
+
+            // 无法控制组件是否渲染到页面上
+            // shouldComponentUpdate() {
+            //     if (this.state.error) {
+            //         return true;
+            //     }
+            //     return false;
+            // }
+
+            handlerClick() {
+                this.setState({
+                    error: false,
+                    msg: ""
+                })
+            }
+
+            // 在组件的render 函数里面返回 null 可以阻止组件的渲染
+            render() {
+                if (this.state.error) {
+                    return (
+                        <div>
+                            <p style={{ color: "#fff", background: "red" }} onClick={this.handlerClick}>Error:<span>{this.state.msg}</span></p>
+                        </div>
+                    )
+                }
+                return null;
+            }
+        }
+
+
+        ReactDOM.render(
+            <MyError />,
+            document.getElementById("app")
+        )
+
+    </script>
+
+
+
+</body>
+
+</html>

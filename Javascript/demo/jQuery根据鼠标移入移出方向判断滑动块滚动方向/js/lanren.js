@@ -1,17 +1,20 @@
 //这个模块完成鼠标方向判断的功能
-var MouseDirection = function (element, opts) {
-
+var MouseDirection = function(element, opts) {
     var $element = $(element);
 
     //enter leave代表鼠标移入移出时的回调
-    opts = $.extend({}, {
-        enter: $.noop,
-        leave: $.noop
-    }, opts || {});
+    opts = $.extend(
+        {},
+        {
+            enter: $.noop,
+            leave: $.noop
+        },
+        opts || {}
+    );
 
     var dirs = ['top', 'right', 'bottom', 'left'];
 
-    var calculate = function (element, e) {
+    var calculate = function(element, e) {
         /*以浏览器可视区域的左上角建立坐标系*/
 
         //表示左上角和右下角及中心点坐标
@@ -70,11 +73,13 @@ var MouseDirection = function (element, opts) {
         }
     };
 
-    $element.on('mouseenter', function (e) {
-        var r = calculate(this, e);
-        opts.enter($element, dirs[r]);
-    }).on('mouseleave', function (e) {
-        var r = calculate(this, e);
-        opts.leave($element, dirs[r]);
-    });
+    $element
+        .on('mouseenter', function(e) {
+            var r = calculate(this, e);
+            opts.enter($element, dirs[r]);
+        })
+        .on('mouseleave', function(e) {
+            var r = calculate(this, e);
+            opts.leave($element, dirs[r]);
+        });
 };

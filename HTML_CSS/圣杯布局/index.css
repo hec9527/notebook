@@ -1,0 +1,131 @@
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    position: absolute;
+    width: 1024px;
+    height: 100%;
+    margin: auto;
+    right: 0;
+    left: 0;
+    background-size: cover;
+    background-image: url('./1.jpg');
+    background-attachment: fixed;
+}
+
+.header {
+    position: relative;
+    height: 60px;
+    background: inherit;
+    z-index: 5;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+.header::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: inherit;
+    z-index: -1;
+    filter: blur(3px) !important;
+}
+
+.avator-cover {
+    margin: 10px 20px 10px 15px;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    right: 0;
+}
+
+img.user-avator {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.search-cover {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    padding: 10px;
+    margin: auto;
+    height: inherit;
+    width: 400px;
+}
+
+.search-box {
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px 25px;
+    border-radius: 30px;
+    position: relative;
+}
+
+.main {
+    position: relative;
+    width: 100%;
+    /* 最小高度应该是 100% - header高度 - footer高度  */
+    min-height: calc(100% - 100px);
+}
+
+.aside {
+    position: absolute;
+    height: 100%;
+    width: 200px;
+    z-index: 3;
+    /* 下一行内容可以删除 */
+    background: rgba(255, 170, 221, 0.39);
+}
+
+.aside-left {
+    left: 0;
+}
+
+.aside-right {
+    right: 0;
+}
+
+.content {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    padding: 0 200px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    /* 下一行内容可以删除 */
+    background: rgba(170, 255, 221, 0.219);
+}
+
+.footer {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    /* 下一行内容可以删除 */
+    background: rgba(204, 204, 204, 0.521);
+}
