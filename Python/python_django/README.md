@@ -290,7 +290,7 @@ Django可以将数据模型绑定到数据库，并且动态修改数据库的�
 - 在模板中需要使用到视图的URL的时，可以直接使用在`urls.py`中给每个视图指定的`name`属性，eg：
 
 ```python
-    <li><a href="{% url 'vote:detail' question.id %}">{{question.question_text}}</a></li>
+    <li><a href="{\% url 'vote:detail' question.id \%}">{{question.question_text}}</a></li>
 ```
 
 - `'vote:detail'`中的单引号，同时`url 'vote:viewName'`必须放在最前面，后面紧接它的参数，上面的`vote`是应用的名称空间，当有多个名字相同的视图时，需要指明名称空间
