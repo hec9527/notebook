@@ -294,22 +294,3 @@ Django可以将数据模型绑定到数据库，并且动态修改数据库的�
 ```
 
 - `'vote:detail'`中的单引号，同时`url 'vote:viewName'`必须放在最前面，后面紧接它的参数，上面的`vote`是应用的名称空间，当有多个名字相同的视图时，需要指明名称空间
-
-## 表单
-
-```python
-    <form action="{% URL 'vote:detail' question.id \%}" method="post">
-        {% csrf_token \%}
-        {% for choice in question.choice_set.all \%}
-        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
-        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-        {% endfor \%}
-        <input type="submit" value="Vote">
-    </form>
-```
-
-- 其中的`{% csrf_token %}`是必须的用于防止`跨站脚本攻击`
-
-- `{{ forloop.counter }}`指示`for`循环的次数`ds`
-
-- 当需要更改服务器端数据的时候应该设置表单`method="post"`
