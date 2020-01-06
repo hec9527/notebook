@@ -53,6 +53,7 @@ VsCode 是微软开发的一款基于`Electron`开源的文本编辑器，它不
 | One monokai theme         | 一款主题                                                               |
 | Minify                    | 压缩 HTML、CSS、Javascript 的工具，非工程化极度推荐                    |
 | TODO hightlight           | TODO 注释高亮                                                          |
+| live Server               | 本地预览服务器                                                         |
 
 ### 前端插件
 
