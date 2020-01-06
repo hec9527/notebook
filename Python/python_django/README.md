@@ -298,12 +298,12 @@ Django可以将数据模型绑定到数据库，并且动态修改数据库的�
 ## 表单
 
 ```python
-    <form action="{% url 'vote:detail' question.id %}" method="post">
-        {% csrf_token %}
-        {% for choice in question.choice_set.all %}
+    <form action="{% url 'vote:detail' question.id \%}" method="post">
+        {% csrf_token \%}
+        {% for choice in question.choice_set.all \%}
         <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
         <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-        {% endfor %}
+        {% endfor \%}
         <input type="submit" value="Vote">
     </form>
 ```
