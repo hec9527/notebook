@@ -10,3 +10,9 @@ function foo() {
 }
 
 foo();
+
+Object.keys(process.env).forEach(item => {
+    if (/^npm_package_.*/.test(item)) {
+        console.log(`${item}: ${process.env[item]}`);
+    }
+});

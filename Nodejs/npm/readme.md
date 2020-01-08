@@ -123,3 +123,34 @@
 - `npm run -s xxx.js`表示关闭npm本身的输出，只输出脚本产生的结果
 
 - 推荐模块`npm-run-all`，用于同时运行多个模块
+
+## 内部变量
+
+- `package.json`中的`script`字段可以使用`package.json`中的字段，以`npm_package_`开头
+
+```json
+{
+    "version": "1.2.5",
+    "config": {
+        "path": "./dist"
+    }
+    "scripts":{
+        "bundle": "mkdir -p build/$npm_package_version/",
+        "build": "build -p $npm-package_config_path"
+    }
+}
+```
+
+## 通配符
+
+| 通配符                       | 效果                                                                       |
+| ---------------------------- | -------------------------------------------------------------------------- |
+| `*`                          | 匹配0个或多个字符                                                          |
+| `?`                          | 匹配1个字符                                                                |
+| `[...]`                      | 匹配某个范围的字符。如果该范围的第一个字符是!或^，则匹配不在该范围的字符。 |
+| `!(pattern|pattern|pattern)` | 匹配任何不符合给定的模式                                                   |
+| `?(pattern|pattern|pattern)` | 匹配0个或1个给定的模式                                                     |
+| `+(pattern|pattern|pattern)` | 匹配1个或多个给定的模式                                                    |
+| `*(a|b|c)`                   | 匹配0个或多个给定的模式                                                    |
+| `@(pattern|pat*|pat?erN)`    | 只匹配给定模式之一                                                         |
+| `**`                         | 如果出现在路径部分，表示0个或多个子目录。                                  |
