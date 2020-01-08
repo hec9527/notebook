@@ -4,3 +4,9 @@ new Promise(resolve => {
         resolve();
     }, 1000);
 });
+
+function foo() {
+    console.log(2);
+}
+
+foo();

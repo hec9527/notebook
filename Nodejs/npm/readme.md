@@ -117,3 +117,9 @@
 // 构建 favicon
 "build:favicon": "node scripts/favicon.js",
 ```
+
+## 其它操作
+
+- `npm run -s xxx.js`表示关闭npm本身的输出，只输出脚本产生的结果
+
+- 推荐模块`npm-run-all`，用于同时运行多个模块
