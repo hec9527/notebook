@@ -94,11 +94,12 @@ VsCode 是微软开发的一款基于`Electron`开源的文本编辑器，它不
 
 ### Python
 
-| 扩展名          | 叙述                      |
-| --------------- | ------------------------- |
-| python          | Python 开发的各种工具集合 |
-| PythonExtension | Python 开发工具扩展       |
-| Django          | 用于 Django 的模板提示    |
+| 扩展名          | 叙述                                     |
+| --------------- | ---------------------------------------- |
+| python          | Python 开发的各种工具集合                |
+| PythonExtension | Python 开发工具扩展                      |
+| Django          | 用于 Django 的模板提示                   |
+| Kite            | 通过机器学习提供python的智能提示，赞👍｜ |
 
 ## vs code 常用快捷键
 
