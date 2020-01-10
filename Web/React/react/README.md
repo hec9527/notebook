@@ -1,9 +1,8 @@
-
-# 引入 React 
+# 引入 React
 
 - 在浏览器端引入，需要三个文件，react核心文件，react-dom，browser
   - browser 用于解析jsx语法为js语法
-  
+
 ```js
     <script src="../build/react.js"></script>
     <script src="../build/react-dom.js"></script>
@@ -14,14 +13,10 @@
 
 - 在state状态机中保存的变量单项数据绑定到页面，没有双向数据绑定，需要自己按需求实现
 
-
-
-
 ## 组件
 
-- 首字母大戏，单一顶级标签  
+- 首字母大戏，单一顶级标签
 - 组件中`class`属性应该写成`className`，`for`应该写成`htmlFor` 因为`class`、`for`在JavaScript当中为保留字
-
 
 ### 组件传值
 
@@ -63,21 +58,17 @@
 
 ### 阻止组件的渲染
 
-- 在组件的render 函数中返回 `null` 可以阻止组件的渲染 
-
-
-
+- 在组件的render 函数中返回 `null` 可以阻止组件的渲染
 
 ## 获取真实DOM
 
 - react使用虚拟dom，所以在需要操作真实dom的时候需要使用ref，类似于vue使用的ref，在组件中田间`this.refs.refvalue`获取节点
-  
 
 ## 组件的 state
 
-- 组件状态机 
+- 组件状态机
   - 初始化状态机
-  
+
 ```js
     getInitialState:function(){
         return: {flag: true};
@@ -85,6 +76,7 @@
 ```
 
 - 修改组件的状态机
+
 ```js
     this.setState({flag: false});
     // 修改组件状态机之后，会自动触发render函数
@@ -98,8 +90,6 @@
 - `componentWillReceiveProps`， 已经加载的组件添加新的参数
 - `shouldComponentUpdate`，在组件更新之前判断，优先于`componentWillMount`,返回布尔值
 
-
-
 ## 列表渲染
 
 - 列表渲染采用map等遍历要处理的列表，生成 react元素
@@ -108,30 +98,19 @@
 - 列表的key，在兄弟节点当中应该是唯一的，在全局当中可以不是唯一的
 - 列表的key，会传递给react但是不会传递给组件，如果组件中需要用到这个属性，用别的名字代替
 
-
 ## 受控组件
 
 - 组件的操作受到React的控制，屏蔽其默认行为，同时可以使用value属性很方便的获取它的值
 - file 是非受控组件， value属性是只读的
 
-
 ## 状态提升
 
 - 多个组件当中需要用到相同的数据的时候，可以将数据提升到父级组件当中，然后通过 prop 传递给子组件使用
-
-
 
 ## 组合
 
 - react中的组件可以组合、嵌套，外层组件中需要有 {props.children} 作为占位的插槽
 - 一个占位的插槽可以添加多个子组件，
-
-
-
-
-
-
-
 
 ## API
 
@@ -140,5 +119,3 @@
 - content 为渲染到页面的内容，支持jsx，引号内的内容不解析为html，node为渲染dom的挂载点
 
 - content中可以包含数组对象，直接全部渲染到页面上，在jsx语法中引用js变量使用 `{}` 语法
-
-  - 

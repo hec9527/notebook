@@ -1,107 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <script
+            crossorigin
+            src="https://unpkg.com/react@16/umd/react.development.js"
+        ></script>
+        <script
+            crossorigin
+            src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+        ></script>
+        <script
+            crossorigin
+            src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"
+        ></script>
+        <title>组件</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
-    <title>组件</title>
-</head>
+    <body>
+        <div id="app"></div>
+        <hr />
+        <div id="app1"></div>
+        <hr />
+        <div id="app2"></div>
+        <hr />
+        <div id="app3"></div>
+        <hr />
+        <ul>
+            <li>组件可以嵌套，可以自定义为容器组件，和内容/功能组件</li>
+            <li>
+                使用组件嵌套的方式，给组件添加新的属性，而不是依赖于父级组件提供的全局环境
+            </li>
+            <li>
+                组件当中的props是不允许修改的，想要改动的变量存放到state里面
+            </li>
+        </ul>
 
-<body>
+        <script type="text/babel">
+            // 组件名称大驼峰命名
 
-    <div id="app"></div>
-    <hr>
-    <div id="app1"></div>
-    <hr>
-    <div id="app2"></div>
-    <hr>
-    <div id="app3"></div>
-    <hr>
-    <ul>
-        <li>组件可以嵌套，可以自定义为容器组件，和内容/功能组件</li>
-        <li>使用组件嵌套的方式，给组件添加新的属性，而不是依赖于父级组件提供的全局环境</li>
-        <li>组件当中的props是不允许修改的，想要改动的变量存放到state里面</li>
-    </ul>
-
-    <script type="text/babel">
-        // 组件名称大驼峰命名
-
-
-        // 函数组件
-        function FooComponent(props) {
-            return (
-                <div>
-                    <h1>hello react</h1>
-                    <span>函数组件，没有生命周期</span>
-                    <p><span>传递参数： {props.name}</span></p>
-                </div>
-            )
-        }
-
-        ReactDOM.render(
-            <FooComponent name="tom" />,
-            document.getElementById("app")
-        )
-
-        // 采用ES6的语法来定义组件
-        class MyComponent extends React.Component {
-            constructor(props) {
-                super(props);
-            }
-
-            render() {
+            // 函数组件
+            function FooComponent(props) {
                 return (
                     <div>
-                        <h1>Hello React</h1>
-                        <span>采用ES6的语法来定义组件，传递参数：{this.props.name}</span>
+                        <h1>hello react</h1>
+                        <span>函数组件，没有生命周期</span>
+                        <p>
+                            <span>传递参数： {props.name}</span>
+                        </p>
                     </div>
-                )
+                );
             }
-        }
 
+            ReactDOM.render(
+                <FooComponent name='tom' />,
+                document.getElementById('app')
+            );
 
-        class Avatar extends React.Component {
-            render() {
-                return (
-                    <div>
-                        <h1>avatar组件</h1>
-                        <span>组件可以使用名称空间，对于组件复用非常方便</span>
-                    </div>
-                )
+            // 采用ES6的语法来定义组件
+            class MyComponent extends React.Component {
+                constructor(props) {
+                    super(props);
+                }
+
+                render() {
+                    return (
+                        <div>
+                            <h1>Hello React</h1>
+                            <span>
+                                采用ES6的语法来定义组件，传递参数：
+                                {this.props.name}
+                            </span>
+                        </div>
+                    );
+                }
             }
-        }
 
+            class Avatar extends React.Component {
+                render() {
+                    return (
+                        <div>
+                            <h1>avatar组件</h1>
+                            <span>
+                                组件可以使用名称空间，对于组件复用非常方便
+                            </span>
+                        </div>
+                    );
+                }
+            }
 
-        // 测试组件封装以及名称空间
-        const components = {
-            Time: <h1>time组件</h1>,
-            Name: <h1>name组件</h1>,
-            Avatar: <Avatar />
-        }
+            // 测试组件封装以及名称空间
+            const components = {
+                Time: <h1>time组件</h1>,
+                Name: <h1>name组件</h1>,
+                Avatar: <Avatar />
+            };
 
-        ReactDOM.render(
-            <MyComponent name="tony" />,
-            document.getElementById("app1")
-        )
+            ReactDOM.render(
+                <MyComponent name='tony' />,
+                document.getElementById('app1')
+            );
 
-        ReactDOM.render(
-            components.Time,
-            document.getElementById("app2")
-        )
+            ReactDOM.render(components.Time, document.getElementById('app2'));
 
-        ReactDOM.render(
-            components.Avatar,
-            document.getElementById("app3")
-        )
-
-    </script>
-
-
-
-</body>
-
+            ReactDOM.render(components.Avatar, document.getElementById('app3'));
+        </script>
+    </body>
 </html>

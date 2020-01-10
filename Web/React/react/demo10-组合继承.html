@@ -1,122 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <script
+            crossorigin
+            src="https://unpkg.com/react@16/umd/react.development.js"
+        ></script>
+        <script
+            crossorigin
+            src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+        ></script>
+        <script
+            crossorigin
+            src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"
+        ></script>
+        <title>组合继承</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
-    <title>组合继承</title>
-</head>
+    <body>
+        <div id="app"></div>
+        <hr />
+        <div id="app1"></div>
+        <hr />
+        <div id="app2"></div>
 
-<body>
-
-    <div id="app"></div>
-    <hr>
-    <div id="app1"></div>
-    <hr>
-    <div id="app2"></div>
-
-    <script type="text/babel">
-
-        // 基础插槽设计
-        function FancyBorder(props) {
-            return (
-                <div className={'FancyBorder FancyBorder-' + props.color}>
-                    {props.children}
-                </div>
-            );
-        }
-
-        function WelcomeDialog() {
-            return (
-                <FancyBorder color="blue">
-                    <h1 className="Dialog-title">Welcome</h1>
-                    <p className="Dialog-message">Thank you for visiting our spacecraft!</p>
-                    <p>more</p>
-                    <p>more</p>
-                </FancyBorder>
-            );
-        }
-
-        ReactDOM.render(
-            <WelcomeDialog />,
-            document.getElementById("app")
-        )
-
-        // 指定名称的插槽设计
-        function SplitPane(props) {
-            return (
-                <div className="SplitPane">
-                    <div className="SplitPane-left">
-                        {props.left}
+        <script type="text/babel">
+            // 基础插槽设计
+            function FancyBorder(props) {
+                return (
+                    <div className={'FancyBorder FancyBorder-' + props.color}>
+                        {props.children}
                     </div>
-                    <div className="SplitPane-right">
-                        {props.right}
+                );
+            }
+
+            function WelcomeDialog() {
+                return (
+                    <FancyBorder color='blue'>
+                        <h1 className='Dialog-title'>Welcome</h1>
+                        <p className='Dialog-message'>
+                            Thank you for visiting our spacecraft!
+                        </p>
+                        <p>more</p>
+                        <p>more</p>
+                    </FancyBorder>
+                );
+            }
+
+            ReactDOM.render(<WelcomeDialog />, document.getElementById('app'));
+
+            // 指定名称的插槽设计
+            function SplitPane(props) {
+                return (
+                    <div className='SplitPane'>
+                        <div className='SplitPane-left'>{props.left}</div>
+                        <div className='SplitPane-right'>{props.right}</div>
                     </div>
-                </div>
-            );
-        }
+                );
+            }
 
-        function Contacts() {
-            return <h1>left</h1>;
-        }
-        function Chat() {
-            return <h1>right</h1>
-        }
+            function Contacts() {
+                return <h1>left</h1>;
+            }
+            function Chat() {
+                return <h1>right</h1>;
+            }
 
-        function App() {
-            return (
-                <SplitPane left={<Contacts />} right={<Chat />} />
-            );
-        }
-        ReactDOM.render(
-            <App />,
-            document.getElementById("app1")
-        )
+            function App() {
+                return <SplitPane left={<Contacts />} right={<Chat />} />;
+            }
+            ReactDOM.render(<App />, document.getElementById('app1'));
 
+            // 组件的继承关系
+            function Dialog(props) {
+                return (
+                    <FancyBorder color='blue'>
+                        <h1 className='Dialog-title'>{props.title}</h1>
+                        <p className='Dialog-message'>{props.message}</p>
+                    </FancyBorder>
+                );
+            }
 
-        // 组件的继承关系
-        function Dialog(props) {
-            return (
-                <FancyBorder color="blue">
-                    <h1 className="Dialog-title">
-                        {props.title}
-                    </h1>
-                    <p className="Dialog-message">
-                        {props.message}
-                    </p>
-                </FancyBorder>
-            );
-        }
+            function WelcomeDialog() {
+                return (
+                    <Dialog
+                        title='Welcome'
+                        message='特殊组件，继承并且渲染新的组件'
+                    />
+                );
+            }
 
-        function WelcomeDialog() {
-            return (
-                <Dialog
-                    title="Welcome"
-                    message="特殊组件，继承并且渲染新的组件" />
-
-            );
-        }
-
-        ReactDOM.render(
-            <WelcomeDialog />,
-            document.getElementById("app2")
-        )
-
-
-
-
-
-
-
-
-
-    </script>
-
-
-</body>
-
+            ReactDOM.render(<WelcomeDialog />, document.getElementById('app2'));
+        </script>
+    </body>
 </html>

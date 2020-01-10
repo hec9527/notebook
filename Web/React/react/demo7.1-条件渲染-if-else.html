@@ -1,103 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <script
+            crossorigin
+            src="https://unpkg.com/react@16/umd/react.development.js"
+        ></script>
+        <script
+            crossorigin
+            src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+        ></script>
+        <script
+            crossorigin
+            src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"
+        ></script>
+        <title>条件渲染</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
-    <title>条件渲染</title>
-</head>
+    <body>
+        <div id="app"></div>
 
-<body>
-
-    <div id="app"></div>
-
-    <script type="text/babel">
-        function Profile(props) {
-            return (
-                <div className="user_info">
-                    <h1>用户信息</h1>
-                    <p>用户名： {props.name}</p>
-                    <p>性别： {props.sex}</p>
-                </div>
-            )
-        }
-
-        function NoProfile() {
-            return (
-                <div>
-                    <p>请登录</p>
-                </div>
-            )
-        }
-
-        function Login(props) {
-            
-            return (
-                <button onClick={props.callback}>登录</button>
-            )
-        }
-
-        function Logout(props) {
-            return (
-                <button onClick={props.callback}>登出</button>
-            )
-        }
-
-        class UserInfo extends React.Component {
-            constructor(props) {
-                super(props);
-                this.state = {
-                    isLogged: false,
-                    userName: 'tom',
-                    userSex: "男"
-                }
-                this.handlerLogin = this.handlerLogin.bind(this);
-                this.handlerLogout = this.handlerLogout.bind(this);
+        <script type="text/babel">
+            function Profile(props) {
+                return (
+                    <div className='user_info'>
+                        <h1>用户信息</h1>
+                        <p>用户名： {props.name}</p>
+                        <p>性别： {props.sex}</p>
+                    </div>
+                );
             }
 
-            handlerLogin() {
-                this.setState({ isLogged: true })
+            function NoProfile() {
+                return (
+                    <div>
+                        <p>请登录</p>
+                    </div>
+                );
             }
 
-            handlerLogout() {
-                this.setState({ isLogged: false });
+            function Login(props) {
+                return <button onClick={props.callback}>登录</button>;
             }
 
+            function Logout(props) {
+                return <button onClick={props.callback}>登出</button>;
+            }
 
-
-
-            render() {
-                const isLogin = this.state.isLogged;
-                let result;
-
-                if (isLogin) {
-                    result = (
-                        <div>
-                            <Profile name={this.state.userName} sex={this.state.userSex} />
-                            <Logout callback={this.handlerLogout} />
-                        </div>
-                    );
-                } else {
-                    result = <div><NoProfile /><Login callback={this.handlerLogin} /></div>
+            class UserInfo extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state = {
+                        isLogged: false,
+                        userName: 'tom',
+                        userSex: '男'
+                    };
+                    this.handlerLogin = this.handlerLogin.bind(this);
+                    this.handlerLogout = this.handlerLogout.bind(this);
                 }
 
-                return result;
+                handlerLogin() {
+                    this.setState({ isLogged: true });
+                }
+
+                handlerLogout() {
+                    this.setState({ isLogged: false });
+                }
+
+                render() {
+                    const isLogin = this.state.isLogged;
+                    let result;
+
+                    if (isLogin) {
+                        result = (
+                            <div>
+                                <Profile
+                                    name={this.state.userName}
+                                    sex={this.state.userSex}
+                                />
+                                <Logout callback={this.handlerLogout} />
+                            </div>
+                        );
+                    } else {
+                        result = (
+                            <div>
+                                <NoProfile />
+                                <Login callback={this.handlerLogin} />
+                            </div>
+                        );
+                    }
+
+                    return result;
+                }
             }
 
-        }
-
-        ReactDOM.render(
-            <UserInfo />,
-            document.getElementById("app")
-        )
-
-    </script>
-
-
-</body>
-
+            ReactDOM.render(<UserInfo />, document.getElementById('app'));
+        </script>
+    </body>
 </html>

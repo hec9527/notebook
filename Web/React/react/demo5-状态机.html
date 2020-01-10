@@ -1,76 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
-    <title>状态机</title>
-</head>
-<body>
-
-    <div id="app"></div>
-    <hr>
-    <ul>
-        <li>state是每个组件私有的，类似于在函数当中的this</li>
-        <li>使用 this.setState 方法修改组件的 state属性的时候才会自动触发组件的render</li>
-        <li>组件的state 作为组件的私有属性，其它组件不能访问，但是可以作为props传递给子组件</li>
-    </ul>
-    <hr>
-    <ul>
-        <li>组件的生命周期包括</li>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <script
+            crossorigin
+            src="https://unpkg.com/react@16/umd/react.development.js"
+        ></script>
+        <script
+            crossorigin
+            src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+        ></script>
+        <script
+            crossorigin
+            src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"
+        ></script>
+        <title>状态机</title>
+    </head>
+    <body>
+        <div id="app"></div>
+        <hr />
         <ul>
-            <li>componentWillMount</li>
-            <li>componentDidMount</li>
-            <li>componentWillUpdae</li>
-            <li>componentDidUpdae</li>
-            <li>componentWillUnmount</li>
-            <li>shuld</li>
-
+            <li>state是每个组件私有的，类似于在函数当中的this</li>
+            <li>
+                使用 this.setState 方法修改组件的
+                state属性的时候才会自动触发组件的render
+            </li>
+            <li>
+                组件的state
+                作为组件的私有属性，其它组件不能访问，但是可以作为props传递给子组件
+            </li>
         </ul>
-    </ul>
+        <hr />
+        <ul>
+            <li>组件的生命周期包括</li>
+            <ul>
+                <li>componentWillMount</li>
+                <li>componentDidMount</li>
+                <li>componentWillUpdae</li>
+                <li>componentDidUpdae</li>
+                <li>componentWillUnmount</li>
+                <li>shuld</li>
+            </ul>
+        </ul>
 
-    <script type="text/babel">
-        class Tick extends React.Component{
-            constructor(porps){
-                super(porps);
-                this.state = {
-                    date:new Date().toLocaleString(),
-                    timer:null
+        <script type="text/babel">
+            class Tick extends React.Component {
+                constructor(porps) {
+                    super(porps);
+                    this.state = {
+                        date: new Date().toLocaleString(),
+                        timer: null
+                    };
+                }
+
+                componentDidMount() {
+                    this.timer = setInterval(() => {
+                        // 只有通过  this.setState() 方法修改 state 才能 自动触发 render
+                        // this.state.date = new Date().toLocaleString();
+                        this.setState({ date: new Date().toLocaleString() });
+                    });
+                }
+
+                componentWillUnmount() {
+                    clearInterval(this.timer);
+                }
+
+                render() {
+                    return (
+                        <div>
+                            <h1>Hello React</h1>
+                            <span>Time: {this.state.date}</span>
+                        </div>
+                    );
                 }
             }
 
-            componentDidMount(){
-                this.timer = setInterval(()=>{
-                    // 只有通过  this.setState() 方法修改 state 才能 自动触发 render
-                    // this.state.date = new Date().toLocaleString();
-                    this.setState({date:new Date().toLocaleString()})
-                })
-            }
-
-            componentWillUnmount(){
-                clearInterval(this.timer);
-            }
-
-            render(){
-                return(
-                    <div>
-                        <h1>Hello React</h1>
-                        <span>Time: {this.state.date}</span>
-                    </div>
-                )
-            }
-        }
-    
-
-        ReactDOM.render(
-            <Tick/>,
-            document.getElementById("app")
-        )
-    
-    </script>
-
-</body>
+            ReactDOM.render(<Tick />, document.getElementById('app'));
+        </script>
+    </body>
 </html>
