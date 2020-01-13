@@ -387,3 +387,34 @@ foo().then(res=>{})
       - 在`package.json`添加字段`"type": "module"`
       - `type`默认为`commonjs`，`.js`解析为commonJS模块，修改为`module`之后，`.js`文件被解析为`ES6模块`,`commonJS`模块需要修改后缀为`.cjs`
     - **在NodeJs中加载存在某些问题**
+
+## `getter/setter`
+
+- 可以在对象初始化的时候提供，或者在对象初始化之后使用`Reflect.defineProperties(target, property, option)`
+
+- `getter/setter`不能存在同名的属性或者函数，如下是不允许的:
+
+```js
+    // 不允许出现和属性同名的存取器
+    const obj = {
+        a:1,
+
+        get a(){
+            return this.a;
+        }
+
+        set a(val){
+            this.a = val;
+        }
+    }
+
+    // 不允许出现同名的存取器
+    const obj = {
+        get x(){
+            return 1;
+        }
+        get x(){
+            return 1;
+        }
+    }
+```
