@@ -8,6 +8,7 @@
  *
  */
 
+//  websocket 协议
 const ws = new WebSocket('ws://localhost:8008');
 const btn = document.getElementsByClassName('btn')[0];
 
