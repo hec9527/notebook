@@ -8,32 +8,23 @@ import re
 
 
 class Spider360():
+
     def __init__(self):
         self.root = os.getcwd()
         self.image_path = self.root + "/images/"
         self.header = {
-            "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.26 Safari/537.36 Core/1.63.5603.400 QQBrowser/10.1.1775.400",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.26 Safari/537.36 Core/1.63.5603.400 QQBrowser/10.1.1775.400",
         }
         self.header1 = {
-            "Accept":
-            "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
-            "Accept-Encoding":
-            "gzip, deflate",
-            "Accept-Language":
-            "zh-CN,zh;q=0.9,en;q=0.8",
-            "Cache-Control":
-            "no-cache",
-            "Connection":
-            "keep-alive",
-            "Host":
-            "p19.qhimg.com",
-            "Pragma":
-            "no-cache",
-            "Upgrade-Insecure-Requests":
-            "1",
-            "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36"
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+            "Accept-Encoding": "gzip, deflate",
+            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "Host": "p19.qhimg.com",
+            "Pragma": "no-cache",
+            "Upgrade-Insecure-Requests": "1",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36"
         }
         self.api1 = 'http://cdn.apc.360.cn/index.php?c=WallPaper&a=getAllCategoriesV2&from=360chrome'
         # cid , start , count
@@ -41,7 +32,7 @@ class Spider360():
         if not os.path.isdir(self.image_path):
             os.makedirs(self.image_path)
         self.data = {
-            "get": 0,  # 总共获取到多少张壁纸
+            "get": 0,   # 总共获取到多少张壁纸
             "download": 0,  # 总共下载到多少张壁纸
         }
         self.task_get = None
@@ -87,8 +78,7 @@ class Spider360():
                 time.sleep(1)
             else:
                 info = self.downLoad_lis.pop(0)
-                print(f"正在下载>> {info[3]} <<分类，第{self.data['download']}张图片",
-                      end='\r')
+                print(f"正在下载>> {info[3]} <<分类，第{self.data['download']}张图片", end='\r')
                 "id,url,ReSolution,type"
                 url = info[1]
                 # response = requests.get(url, headers=self.header1)
@@ -108,13 +98,9 @@ class Spider360():
                     with open(filePath + fileName, 'wb') as f:
                         f.write(response.content)
                     self.data['download'] += 1
-                    print(
-                        f">> {info[3]} <<分类，第{self.data['download']}张图片下载完成   --OK"
-                    )
+                    print(f">> {info[3]} <<分类，第{self.data['download']}张图片下载完成   --OK")
                     if self.data['download'] % 10 == 0:
-                        print(
-                            f"\n当前找到{self.data['get']}张图片，已下载{self.data['download']}张\n"
-                        )
+                        print(f"\n当前找到{self.data['get']}张图片，已下载{self.data['download']}张\n")
 
     def checkPath(self, path):
         filePath = path
@@ -133,7 +119,10 @@ class Spider360():
         html = json.loads(response.text)['data']
         # print(html, response.status_code)
         for data in html:
-            d = {"id": data["id"], "name": data["name"]}
+            d = {
+                "id": data["id"],
+                "name": data["name"]
+            }
             self.categories.append(d)
 
     def getImageInfo(self, item):
@@ -157,8 +146,7 @@ class Spider360():
                     imRes = re.findall(r"\d+", info["resolution"])
                     imName = str(info["url"]).split("/")[-1]
                     imURL = f"http://p19.qhimg.com/bdm/{imRes[0]}_{imRes[1]}_100/{imName}"
-                    self.downLoad_lis.append(
-                        (imId, imURL, info["resolution"], item['name']))
+                    self.downLoad_lis.append((imId, imURL, info["resolution"], item['name']))
                     self.data['get'] += 1
             time.sleep(5)
 
@@ -170,11 +158,11 @@ class Spider360():
 
 if __name__ == "__main__":
     tt = time.time()
-    # try:
-    spider = Spider360()
-    spider.start()
-    # except Exception as e:
-    #     print(e)
-    # finally:
-    #     print(f"总共耗时：{time.time()-tt}")
-    #     input(">Please press any key to continue...")
+    try:
+        spider = Spider360()
+        spider.start()
+    except Exception as e:
+        print(e)
+    finally:
+        print(f"总共耗时：{time.time()-tt}")
+        input(">Please press any key to continue...")
