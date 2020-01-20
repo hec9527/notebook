@@ -1,0 +1,136 @@
+相关库
+    numpy
+    opencv-python
+    scipy
+    pillow(python3)      --PIL(python2)
+    matplotlob       python绘图库
+
+
+注意事项
+    ！中文路径   读取中文路径会读取失败
+    
+
+其它
+    效率评估
+        cv2.getTickCount()    获取电脑启动后的时钟周期   获取两个取差值
+    提高效率
+        尽量避免循环 尤其嵌套循环
+        优先使用numpy封装的函数
+        尽量将数据向量化  变量numpy数据格式
+        尽量避免数组的复制操作
+
+
+
+读取图像
+    --imread(path,mod)
+        path:读取文件的路径
+        mod：读取文件的方式
+            IMREAD_COLOR        读取一副彩色图像，不包含图像透明度 默认
+            IMREAD_GRAYSCALE    以灰度模式读入图像
+            IMREAD_UNCHANGED    读取图像包括alpha通道
+        
+显示图像
+    --imshow("title",image)
+        title:windowName
+        image:显示的图像   cmap=
+    --namedWindow("title:)
+        新建一个名为"title"的窗体
+    --waitKey(x)
+        等待时间按键操作返回ASCII码   0为一直等待 单位毫秒
+    --destroyAllWindows()
+        销毁所有窗体
+    --destroyWindow("title") 
+        销毁名为title的窗体
+
+保存图像
+    --imWrite("fileName",image)
+        将图片保存为fileName
+
+摄像头
+    --VideoCapture(0)
+        返回一个视频捕获对象     0 表示本机的视频标号
+
+    --cap.read()
+        ret:返回值  True / False  是否成功打开摄像头
+        frame:帧  一帧一帧的图像信息 
+    --cap.isOpened()
+        如果返回True就没问题  否则使用  open() 函数打开
+    --cap.get(propld)
+        可以用来获取视频的参数信息 0-21的整数，每个数代表一个信息
+        0 -- CV_CAP_PROP_ POS_MUEC：视频的当前播放时间或者时间戳
+        1 -- CV_CAP_PROP_POS_FRAMES：将要解码的帧   基于0
+        2 -- CV_CAP_PROP_AVI_RATIO: 视频文件的相对位置 0 开始  1 结束
+        3 -- CV_CAP_PROP_FRAME_WIDth: 视频帧的宽度
+        4 -- CV_CAP_PROP_FRAME_HEIGHT：视频帧的高度
+        5 -- CV_CAP_PROP_FPS: 视频帧数
+        6 -- CV_CAP_PROP_FOURCE： 4字节编码解释器
+        7 -- CV_CAP_PROP_FRAME_COUNT： 视频帧的总数
+        8 -- CV_CAP_PROP_FORMAT：通过retieve()函数格式化 mat 对象
+        9 -- CV_CAP_PROP_MODE:当前捕获模式的后端特定值
+        10 -- CV_CAP_PROP_BRIGHTNESS：图像亮度  仅相机
+        11 -- CV_CAP_PROP_CONTRAST： 图像对比度  仅相机
+        12 -- CV_CAP_PROP_SATURATION：图像饱和度  仅相机
+        13 -- CV_CAP_PROP_HUE ： 图像色调 仅相机
+        14 -- CV_CAP_PROP_GAIN： 图像增益 仅相机
+        15 -- CV_CAP_PROP_EXPOSURE: 曝光度   仅相机
+        16 -- CV_CAP_PROP_CONVERT_RGB：boolean  是否转换为RGB值
+        17 -- CV_CAP_PROP_WHITE_BALANCE_U: 白平衡 U值
+        18 -- CV_CAP_PROP_BALANCE——V：白平衡 V值
+        19 -- CV_CAP_PROP_RECTIFICATION：立体相机流标志
+        20 -- CV_CAP_PROP_ISO_SPEED: 相机ISO速度   感光时间
+        21 -- CV_CAP_PROP_BUFFERSIZE ：在存储在内部缓冲存储器中的帧的数量
+
+    --cap.set(propld)
+        可以用来设置视频的信息例如可是使用cap.set(3,320)来设置视频的宽度
+        使用 cap.set(4,240)来设置视频的高度
+    
+从文件播放视频
+    --VideoCapture(path)
+        返回一个打开的视频文件
+        
+    ----按照上面的显示在屏幕上面
+
+保存视频
+    --VideoWriter("fileName",FourCC,FPS,display)
+        --例：
+            out=cv2.VideoWriter("outputVideoTest.avi",*'XVID',20.0,(640,480))
+            cv2.imshow("Video",frame)
+    MJPG编码可以这样写：cv2.VideoWriter_fourcc(*'MJPG')或cv2.VideoWriter_fourcc('M','J','P','G')
+
+openCV中绘图
+    --绘制一条直线
+        line(img,(beginposx,beginposy),(endposx,endposy),(255,255,0),width)
+    --绘制一个圆   
+        circle(img,(centerx,centery),r,(255,255,0),width)
+    --绘制一个方块
+        rectangle(img,(beginposx,beginposy),(endposx,endposy),(255,255,0),width)
+    --绘制一个椭圆
+        ellipse()
+    --添加文字信息
+        putText(img,"text",(10,500),font,4,(255,255,255),c,cv2.LINE_AA)
+    --绘制多边形
+        pts=numpy([[10,5],[20,30],[70,20],[50,10]])
+        pts=pts.reshape((-1,1,2))
+        cv2.polylines(img,[pts],True,(0,255,255))
+
+    -- 以上函数需用用到的参数
+        img:需要绘制图形的画像
+        color：绘制的颜色 传入一个元组 例如(255,255,0)
+        thickness:线条粗细   默认为1  如果给闭合图形设置为-1 则会填充
+        linetype：线条类型、抗锯齿等   8相连
+
+调色板
+    --creatTrackbar()
+        arg1:滑动条名字
+        arg2:滑动条窗口名字
+        arg3:滑动条默认位置
+        arg4:滑动条最大位置
+        arg5:回调函数    每次滑动条的华东都会调用回调函数  回调函数包含一个默认值--滑动条的位置
+    --getTackbarPos()
+        获取滑动条的值
+
+
+
+图像的基础操作
+    img[x,y,z]  可以用户获取图像的
+

@@ -1,0 +1,95 @@
+PHP集成开发环境
+	PHP工具箱、appserver
+推荐使用sublime text/notepad++/VS code修改配置文件，支持语法高亮、跳转到指定行、可读性更高
+
+我的百度云apache2.4    php7.0  mysql5.6（解压版）
+如果比较懒的可以直接下载
+	将apache24解压到C盘根目录 相应绝对路径为C:\Apache24\bin
+	将PHP解压到C盘根目录	相应绝对路径为C:\PHP
+	mysql安装请参阅我的另外一片博客----Tomcat的安装与配置
+
+安装Apache
+1.百度下载apache的压缩文件注意软件位数32/64，官网只有二进制文件没有安装文件
+2.将压缩包解压到指定文件eg:C:\Apache24
+3.设置网站根目录:DocumentRoot "path"      #默认为c:/Apache24/htdocs   有引号 可以不修改
+4.<Directory "c:/Apache24/htdocs">	  #路径DocumentRoot一样
+5.设置服务器名称:ServerName     eg: ServerName www.demo.com:80     #80为端口号
+6.管理员邮箱:ServerAdmin        eg: demo@qq.com			本地测试可以不设置
+7.ScriptAlias	    ScriptAlias /cgi-bin/ "c:/Apache24/cgi-bin/"    #默认位置即可
+
+启动服务器:
+	控制台输入:   httpd.exe   (可以在文件管理器相应目录输入cmd，也可以配置系统环境变量）    运行apache服务器需要打开控制台
+	注册服务:httpd.exe -k install  将apache作为系统服务	运行apache服务器不需要一直打开控制台
+测试安装结果:
+	方法1：在浏览器地址栏输入localhost    页面显示   It works！ 则安装成功
+	方法2：在浏览器地址栏输入127.0.0.1
+	方法3：查看本机局域网ip，在地址栏输入相应ip
+
+
+
+整合PHP与Apache
+1.下载解压PHP压缩包（必须与apache位数一致都是64位或者32位的）
+2.修改配置文件名php.ini-development   ——>php.ini
+3.整合PHP、MySQL
+    打开apache配置文件，在最后一行  #LoadModule ....     后面添加   #为注释、提示内容
+	LoadModule php%_module "path"
+	# 上面的  %  是php的版本，例如5,6,7     path是你安装PHP的绝对路径  注意带引号，不是等号连接
+	
+	PHPIniDir path
+	# 注意大小写PHP大写后面首字母大写    path为PHP配置文件的路径，不需要引号，不是等号连接
+
+	AddType application/x-http-php .php
+	#设置默认提交到Apache服务器处理的文件类型    一个字符都不能错
+
+	#设置默认首页: 在DirectoryIndex 后面添加 index.php default.html default.php  可以不用这么多但是至少得有index.php
+		
+		<IfModule dir_module>
+   			DirectoryIndex index.html
+		</IfModule>
+	
+	#测试是否成功php是否可以使用
+		#在配置文件指定的DocumentRoot路径下创建index.php
+			<?php 
+			    phpinfo();
+			?>
+	#重启apache服务器
+		如果重启提示  The requested operation has filed!  则检查Apache的配置文件是否正确，
+		也可以在控制台输入httpd.exe查看错误原因（前提配置系统环境变量，可以参见我的另外一篇博客--tomcat安装与配置）
+		在浏览器地址栏输入localhost/index.php
+		显示如下则安装完成，如果浏览器下载该PHP文件则检查  AddType application/x-http-php .php   是否拼写正确
+
+
+整合PHP与MySQL
+1.下载安装MySQL注意软件位数32/64，可以使用压缩包，也可以使用安装包(.mis)	
+	安装包方式一直下一步就行了，注意设置root用于，以及其密码
+	压缩包方式安装可以参见我的另外一片博客----tomcat的安装与配置
+2.设置PHP配置文件php.ini
+	MySQL是作为php的安装和扩展使用的
+	1.找到一下内容  （分号是注释）
+		; On windows:
+	        ; extension_dir = "ext" 
+	  修改为：(修改为你的PHP安装目录下的ext)
+		; On windows:
+	        extension_dir = "C:\PHP\ext"
+	2.查找;extension=php_.... 的内容，去掉前面的注释
+		eg:   ;extension=php_mysqli.dll
+		      ;extension=php_pdo_mysql.dll
+		修改为:
+		       extension=php_mysqli.dll
+		       extension=php_pdo_mysql.dll
+		如果还有其他对的都可以把注释去掉
+	重启apache服务器
+测试PHP是否可以使用MySQL：
+	方法一：在浏览器中打开之前创建的index.php，搜索MySQL（ctrl+F）
+	方法二：在DocumentRoot指定的目录下创建mysql.php
+			<?php
+    				$mysql =new mysqli("localhost","root","963987","javaweb_2017");
+    				if ( $mysql -> connect_errno){
+     			   		die('数据库链接失败！'.$mysql ->connect_errno);
+   			         }
+   			        echo '<h1 style="color:red">数据库链接成功！</h1>';
+			?>
+		#root是数据库的用户名，963987是用户对应的密码，javaweb_2017是对应的数据库名称
+		保存后在浏览器输入localhost/mysql.php,查看显示结果，如果乱码可以在第二行添加：
+			 header('content-type:text/html;charset=utf-8');
+		如果显示数据库连接失败，先确认MySQL是否成功安装并且可用

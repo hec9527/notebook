@@ -1,0 +1,295 @@
+
+程序结构
+    基本结构
+        pages目录下为项目的所有页面，每个页面为一个文件夹
+            .js         当前页面的JS文件     （必须）
+            .json       当前页面的数据配置文件      （可选）
+            .wxml       当前页面的页面结构，同web的html文件     （必须）
+            .wxss       当前页面的样式文件，同web的CSS文件      （可选）
+            ***为了减少配置项，每个页面文件夹下面的文件名都为 index
+        
+        app.json  
+            全局配置项，
+                pages       配置了项目页面的存储路径
+                            默认pages字段的第一个页面路径为小程序的首页。
+                window      配置了小程序的窗体样式
+                sitemapLocation         https://developers.weixin.qq.com/miniprogram/dev/framework/sitemap.html
+
+        project.config
+            项目配置文件
+
+        app.js  
+            全局配置项
+
+
+ 数据绑定
+
+    数据绑定使用vue类似的方法
+    在wxml文件中想要使用js变量的时候使用 {{temp}} 在页面中加载变量
+    数据绑定只是维护数据的一种状态
+    数据绑定可以放在wxml元素的属性中
+    数据绑定中可以添加简单的运算
+    三元运算符   a==10? 1:10
+    数学运算     1+2+3+4
+    字符粗拼接   "hello"+name
+
+
+
+条件判断
+    <view wx:if="{{condition}}"></view>
+    <view wx:elif="{{condition}}"></view>
+    <view wx:else="{{condition}}"></view>       
+    当以上代码中的condition为true的时候渲染该模块
+
+列表渲染
+    <view wx:for="{{arrary}}">
+        {{index}}:{{item}}
+    </view>   
+    默认的下标为index，可以使用 wx:for-index="" 来改变
+    默认的变量名为item，可以使用 wx:for-item="" 来修改
+
+
+    wx:key 指定列表中项目的唯一标识符
+
+
+
+模板
+    类似于web的中data
+    <template name='msg'>
+        <viem>
+            ....
+        </viem>
+    </template> 
+    // 以下代码将模板指定的页面元素显示在页面上，模板本身不会被渲染，
+
+    <template is='msg'></template>
+
+
+
+引用
+    在wxml文件中添加 <import src="Path2File"/>引用文件
+    引用只能引用文件的中模板 
+    引用不能递归
+
+
+包含
+    包含将会拷贝目标文件中除 <template/> <wxs/> 以外的所有元素到includ位置
+    <include src="Path2File"/>
+
+
+通用属性
+    index           string          组件的唯一标识，整个页面唯一
+    class           string          组件的样式
+    style           string          组件的内联样式，可以动态设置
+    hidden          Boolean         是否显示组件，默认全部显示
+    data-*          any             自定义属性，组件触发事件时，发送给处理函数
+    bind*/catch*    EventHandler    组件的事件
+
+
+
+
+wxss样式
+    公共样式    app.wxss为公共样式，它会被应用到每一个页面
+    页面样式    app.json注册后的页面同名同级的wxss文件
+    其它样式    其它样式可以被页面的公共样式以及页面样式引用
+
+
+    单位 
+        rpx     375物理像素时   1rpx=1px  
+
+    样式引用
+        @import  'url'
+        @import url('url')  // 这种方式的请求不会合并两个css文件
+
+
+    内联样式
+        小程序的内联样式和web一样，但是可以使用数据绑定进行修改
+
+
+    WXSS选择器
+        类选择器        .class          选择所有拥有class=''的组件
+        id选择器        #elementID      选择拥有id="elementID"的组件
+        元素选择器      element         选择文档中的所有view组件和checkbox组件
+        伪选择器        ::after         view组件前面插入内容
+        伪选择器        ::befor         view组件后面插入内容
+
+    WXSS优先级
+        !import > style > id > class > element
+
+    官方样式库      https://github.com/Tencent/weui-wxss
+
+
+
+JavaScript
+
+    JavaScript 是 ECMAScript 的一种实现
+    node.js 也是 ECMAScript 的一种实现
+
+    不同JS的区别
+        浏览器中的JavaScript = ECMAScript + DOM + BOM
+        nodejs 中JavaScript = ECMAScript + NPM + Native
+        小程序中的JavaScript = ECMAScript +小程序框架 + 小程序API
+    
+    模块化
+        小程序中可以将任何一个JavaScript 文件作为一个模块，通过module.exports 或者 exports 对外暴露接口
+        其它模块可以使用require('path') 导入该模块的方法
+
+    作用域
+        局部变量
+            小程序中的变量的作用域只存在于当前的文件中
+        全局变量
+            getApp() 获取全局的实例，并设置相关属性值
+            var global = getApp()
+            global.globalValue = 'globalValue'
+            全局变量最好在app.js中设置
+
+逻辑层
+    小程序中的js文件为逻辑层负责产生、处理数据
+    逻辑层使用Page实例的setData({a:2},callback)方法传递数据到渲染层
+
+渲染层
+    WXML页面为渲染层 ，负责将数据显示在页面上
+
+通信模型
+    渲染层和逻辑层分别由两个线程管理，相关通信由Native（微信客户端）完成
+
+程序构造器App()
+    宿主环境提供了App()构造器注册程序，App构造器必须写在根目录
+    其它JS需要使用getApp()看来获取程序实例
+    App({
+        onLaunch: function(options) {},     // 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
+        onShow: function(options) {},     // 当小程序启动，或从后台进入前台显示，会触发 onShow
+        onHide: function() {},         // 当小程序从前台进入后台，会触发 onHide
+        onError: function(msg) {},     // 当小程序发生脚本错误，或者 API 调用失败时，会触发 onError 并带上错误信息
+        globalData: 'I am global data'  //任意字段
+    })
+
+onLaunch/onShow 中的options参数
+    path            string          打开小程序的页面
+    query           Object          打开小程序页面的参数
+    scene           Number          打开小程序的场景值    https://mp.weixin.qq.com/debug/wxadoc/dev/framework/app-service/app.html。
+    shareTicket     string          详见小程序官方文档
+    referrerInfo    Object          从另一个小程序或公众号或App打开
+    referrerInfo.appId  String      来源小程序或公众号或App的 appId
+    referrerInfo.extraData Object   来源小程序传过来的数据
+
+    以下场景支持返回 referrerInfo.appId
+        1020        公众号profile              页相关小程序列表 返回来源公众号 appId
+        1035        公众号自定义菜单            返回来源公众号 appId
+        1036        App 分享消息卡片            返回来源应用 appId
+        1037        小程序打开小程序            返回来源小程序 appId
+        1038        从另一个小程序返回          返回来源小程序 appId
+        1043        公众号模板消息              返回来源公众号 appId
+
+全局处理
+    特别留意一点，所有页面的脚本逻辑都跑在同一个JsCore线程
+    页面使用setTimeout或者setInterval的定时器，然后跳转到其他页面时
+    这些定时器并没有被清除，需要开发者自己在页面离开的时候进行清理。
+
+
+页面构造器Page()
+    Page({
+        data: { text: "This is page data." },       
+        onLoad: function(options) { },
+        onReady: function() { },
+        onShow: function() { },
+        onHide: function() { },
+        onUnload: function() { },
+        onPullDownRefresh: function() { },
+        onReachBottom: function() { },
+        onShareAppMessage: function () { },
+        onPageScroll: function() { }
+    })
+
+
+Page构造器的参数
+    data	Object	    页面的初始数据
+    onLoad	Function	生命周期函数--监听页面加载，触发时机早于onShow和onReady
+    onReady	Function	生命周期函数--监听页面初次渲染完成
+    onShow	Function	生命周期函数--监听页面显示，触发事件早于onReady
+    onHide	Function	生命周期函数--监听页面隐藏
+    onUnload	Function	生命周期函数--监听页面卸载
+    onPullDownRefresh	Function	页面相关事件处理函数--监听用户下拉动作
+    onReachBottom	Function	页面上拉触底事件的处理函数
+    onShareAppMessage	Function	用户点击右上角转发
+    onPageScroll	Function	页面滚动触发事件的处理函数
+    其他	Any	可以添加任意的函数或数据，在Page实例的其他函数中用 this 可以访问
+
+
+页面数据
+    Page实例中的data字段是用于在页面加载的时候传递到渲染层进行处理的数据
+    直接修改data字段中的数据而不调用this.setData()是无法修改页面的，而且还会导致数据不同意
+    setData()每次传递的数据不应该超过1Mb
+    不要将data中的任意一项value设置为undefined
+
+页面用户行为
+    下拉刷新
+        事件触发： onPullDownRefresh()
+        在app.json中将window选择或者页面配置page.json中的enablePullDownRefresh=true
+        wx.stopPullDownRefresh
+    上拉触底
+        事件触发：  onReachBottom()
+        可以在app.json的window选项中或页面配置page.json中设置触发距离 onReachBottomDistance
+    页面滚动
+        事件触发：  onPageScroll()
+        监听用户滑动页面事件，参数为 Object，包含 scrollTop 字段，表示页面在垂直方向已滚动的距离（单位px）
+    用户转发    
+        事件触发：  onShareAppMessage()
+        在定义了此事件后，右上角的菜单中才会显示转发按钮，
+        Page({
+            onShareAppMessage: function () {
+                return {
+                    title: '自定义转发标题',
+                    path: '/page/user?id=123'
+                }
+            }
+        })
+
+
+页面跳转
+    微信小程序中的页面保存在页面栈当中的
+    页面栈 最大层级为10层，到达10层之后就无法再使用navigateTo(),而自动使用redirectTo()
+    wx.navigateTo({ url: 'page1' })   可以往当前页面栈多推入一个 page1
+    wx.navigateBack()       可以退出当前页面栈的最顶上页面
+    wx.redirectTo({ url: 'page2' })     将当前页面变成page2
+    Tabbar支持
+        wx.switchTab({ url: 'page1' })  清空页面栈，并且返回page1
+        wx.navigateTo和wx.redirectTo只能打开非TabBar页面，wx.switchTab只能打开Tabbar页面。
+    wx.reLaunch({ url: 'page1' }) 
+
+
+
+页面路由及其生命周期
+    路由方式	    触发时机	               路由前页面生命周期	路由后页面生命周期
+    初始化	        小程序打开的第一个页面	                        onLoad, onShow
+    打开新页面  	API wx.navigateTo	      onHide              onLoad, onShow
+    页面重定向  	API wx.redirectTo	      onUnload            onLoad, onShow
+    页面返回    	API wx.navigateBack	      onUnload            onShow
+    Tab	切换       API wx.switchTab	          请参考表3-6	      请参考表3-6
+    重启动	        API wx.reLaunch	          onUnload	          onLoad, onShow
+
+
+    当前页面	路由后页面	触发的生命周期（按顺序）
+    A	        A	        无
+    A	        B	        A.onHide(), B.onLoad(), B.onShow()
+    A	        B(再次打开)	 A.onHide(), B.onShow()
+    C	        A	        C.onUnload(), A.onShow()
+    C	        B	        C.onUnload(), B.onLoad(), B.onShow()
+    D	        B	        D.onUnload(), C.onUnload(), B.onLoad(), B.onShow()
+    D(从转发进入)  A	        D.onUnload(), A.onLoad(), A.onShow()
+    D(从转发进入)  B	        D.onUnload(), B.onLoad(), B.onShow()
+
+
+微信API
+    小程序提供的API按照功能主要分为几大类：网络、媒体、文件、数据缓存、位置、设备、界面、界面节点信息还有一些特殊的开放接口 
+    微信小程序的API大多数都是异步的
+    API一般调用的约定：
+        wx.on* 开头的 API 是监听某个事件发生的API接口，接受一个 Callback 函数作为参数。当该事件触发时，会调用 Callback 函数
+        如未特殊约定，多数 API 接口为异步接口 ，都接受一个Object作为参数
+        API的Object参数一般由success、fail、complete三个回调来接收接口调用结果，示例代码如代码清单3-17所示，详细说明如表3-9所示
+        wx.get* 开头的API是获取宿主环境数据的接口
+        wx.set* 开头的API是写入数据到宿主环境的接口
+
+        success 回调函数    当API调用成功的时候调用函数
+        fail    回调函数    当API调用失败的时候调用
+        complete    回调函数    API调用结束的术后调用

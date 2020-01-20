@@ -1,0 +1,148 @@
+通用
+    chinese (simplified) language ..
+    Path autocomplete	    自动补全路径
+    Path intellisens	     # 上面的替选
+    visual studio intellicode    vscode  代码检测
+    Vim
+    Setting Sunc    同步设置
+    vscode-icon
+    bracket pair colorizer       括号匹配 彩色更好看
+    auto rename tag        自动更改修改的配对标签
+    auto close tag
+    project manager       多个项目之间快速切换工具
+    Atom one dark theme
+    beautiful             代码格式化工具
+    code runner             代码快速运行
+    MarkDown All in one       markdown编写，预览工具
+    Material theme          主题设置工具可以修改  强调 下划线等颜色
+    
+HTML、CSS、JS、JQ
+    HTML snippets         HTML5的 代码段 提示
+    HTML CSS Support	     在HTML标签上面智能添加当前所支持的样式
+    HTML Class Suggestions
+    HTML Preview            右侧预览HTML文件
+    Debugger for Chrome	    谷歌浏览器的代码调试工具
+    Jquery code snippets      JQuery 代码提示工具
+    document this         JS的注释模板
+    bootstrap 3 sinnpet        bootstrap 3智能提示并补全插件
+    bootstrap 4
+    View In Browser      可以使用快捷键ctrl+F1用浏览器打开文件、
+    Class autocomplete for HTML - README
+    Open HTML in Default Browser
+    css peek
+    JavaScript code Snippets
+    js-css-html formatter
+    vs code css comments
+    ESlint	        JavaScript  语法检测
+    class intellisens
+
+Python
+    Python
+    PythonExtension
+    Django                  Django模板自动补全
+
+PHP
+    PHP intellisens       PHP自动补全
+    php debuger
+
+vs code 常用快捷键
+    命令面板：F1
+    文件切换：Ctrl + Tab
+    转到行首/行尾：Home / End
+    转到文件头/文件尾：Ctrl + Home / Ctrl + End
+    重命名：F2
+    转定义：F12 or Ctrl + click
+    转定义（切出新编辑器）： Ctrl + Alt + click
+    查看定义：Alt + F12
+    查看引用：Shift + F12
+    上下移动一行：Alt + Up / Alt + Down
+    代码格式化：Shift＋Alt + F
+
+Setting.json  
+
+{
+    "editor.cursorSmoothCaretAnimation": true,
+    "editor.find.autoFindInSelection": true,
+    "editor.minimap.maxColumn": 80,
+    "editor.minimap.renderCharacters": true,
+    "editor.suggest.snippetsPreventQuickSuggestions": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true,
+    "editor.quickSuggestionsDelay": 0,
+    "editor.suggestSelection": "first",
+    "editor.fontSize": 18,
+    "editor.parameterHints.cycle": true,
+    "editor.hover.delay": 0,
+    "editor.largeFileOptimizations": true,
+    
+    "files.defaultLanguage": "python",
+    "files.autoGuessEncoding": true,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "breadcrumbs.enabled": true,
+    "workbench.colorTheme": "Atom One Dark",
+    "code-runner.clearPreviousOutput": true,
+    "materialTheme.accent": "Yellow",
+    "debug.enableAllHovers": true,
+    "code-runner.runInTerminal": true,
+    
+    "python.autoComplete.addBrackets": true,
+    "python.jediEnabled": true,
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.flake8Enabled": false,
+    "python.formatting.provider": "yapf",
+    "python.analysis.diagnosticPublishDelay": 0,
+    "python.pythonPath": "D:\\Program Files\\Python\\python.exe",
+    "python.linting.pylintPath": "C:/Users/90969/Envs/flask/Scripts/pylint.exe",
+    "python.autoComplete.extraPaths": [
+        "D:\\Program Files\\python\\Lib",
+        "D:\\Program Files\\python\\Lib\\site-packages",
+        "D:\\Program Files\\python\\libs",
+        "D:\\Program Files\\python\\Scripts",
+        "D:\\Program Files\\python\\include",
+        "C:\\Users\\90969\\Envs\\flask\\Lib",
+        "C:\\Users\\90969\\Envs\\flask\\Includ",
+        "C:\\Users\\90969\\Envs\\django\\Lib\\site-packages",
+    ],
+    "python.linting.pylintArgs": [
+        "--load-plugins",
+        "pylint_django",
+    ],
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "HookyQR.beautify"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "HookyQR.beautify"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "sync.gist": "7941653e3d61a91252e2976200c3973e723d7380",
+    "workbench.colorCustomizations": {
+        "activityBarBadge.background": "#FFA000",
+        "list.activeSelectionForeground": "#FFA000",
+        "list.inactiveSelectionForeground": "#FFA000",
+        "list.highlightForeground": "#FFA000",
+        "scrollbarSlider.activeBackground": "#FFA00050",
+        "editorSuggestWidget.highlightForeground": "#FFA000",
+        "textLink.foreground": "#FFA000",
+        "progressBar.background": "#FFA000",
+        "pickerGroup.foreground": "#FFA000",
+        "tab.activeBorder": "#FFA000",
+        "notificationLink.foreground": "#FFA000",
+        "editorWidget.resizeBorder": "#FFA000",
+        "editorWidget.border": "#FFA000",
+        "settings.modifiedItemIndicator": "#FFA000",
+        "settings.headerForeground": "#FFA000",
+        "panelTitle.activeBorder": "#FFA000",
+        "breadcrumb.activeSelectionForeground": "#FFA000",
+        "menu.selectionForeground": "#FFA000",
+        "menubar.selectionForeground": "#FFA000"
+    },
+}
+    
+{% comment %}  2018-11-17 {% endcomment %}
