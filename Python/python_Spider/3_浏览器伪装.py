@@ -6,10 +6,12 @@ url = "https://image.baidu.com/search/index?ct=&z=&tn=baiduimage&ipn=r&word=%E5%
 
 req = urllib.request.Request(url)
 
-req.add_header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.26 Safari/537.36 Core/1.63.6735.400 QQBrowser/10.2.2614.400")
+req.add_header(
+    "User-Agent",
+    "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.26 Safari/537.36 Core/1.63.6735.400 QQBrowser/10.2.2614.400"
+)
 # req.add_header(headers)
 
 data = urllib.request.urlopen(req).read()  #注意此处的参数使用的是 req
 
 print(data)
-

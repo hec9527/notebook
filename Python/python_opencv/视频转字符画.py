@@ -15,15 +15,12 @@ class Video2Char():
         fileName = 'captureVideo.avi'
         fource = cv2.VideoWriter_fourcc(*'XVID')
         # self.out = cv2.VideoWriter(fileName, fource, self.FPS, (self.videoWidth, self.videoHeight))
-        self.out = cv2.VideoWriter("outputVideoTest.avi", fource, 20.0, (640, 480))
-        
-        
+        self.out = cv2.VideoWriter("outputVideoTest.avi", fource, 20.0,
+                                   (640, 480))
 
     def main(self):
         print("未完成》。。。")
         input(">")
-
-
 
         self.cap = cv2.VideoCapture(0)
         self.initCapture()
@@ -53,12 +50,14 @@ class Video2Char():
             print("Some error,capture not opened")
 
     def img2char(self, frame):
-        frame_char = numpy.zeros((self.videoHeight * 5, self.videoWidth * 5, 3), dtype=numpy.uint8)
+        frame_char = numpy.zeros(
+            (self.videoHeight * 5, self.videoWidth * 5, 3), dtype=numpy.uint8)
         for col in range(self.videoWidth):
             for row in range(self.videoHeight):
                 pixel_lis = frame[row][col]
                 # gray = int(0.2126 * r + 0.71152 * g + 0.0722 * b)
-                pixel = int(0.2126 * pixel_lis[0] + 0.71152 * pixel_lis[1] + 0.0722 * pixel_lis[2])
+                pixel = int(0.2126 * pixel_lis[0] + 0.71152 * pixel_lis[1] +
+                            0.0722 * pixel_lis[2])
                 char = self.strs[(int(int(pixel) / 255) * self.strs_len)]
                 # cv2.putText(img, char, pos, font, fontSize, color, fontwidth)
                 # 图片，添加的文字，左上角坐标，字体，字体大小，颜色，字体粗细
@@ -71,7 +70,6 @@ class Video2Char():
         cv2.waitKey(30000)
         return frame_char
 
-
     def __del__(self):
         # 释放摄像头
         self.cap.release()
@@ -79,8 +77,6 @@ class Video2Char():
         self.out.release()
         cv2.destroyAllWindows()
 
+
 video = Video2Char()
 video.main()
-
-
-

@@ -1,11 +1,7 @@
-
-
 class StaticMethod():
-
     def __init__(self):
-        self.name="tom"
+        self.name = "tom"
         self.age = 18
-        
 
     def play(self):
         print("%s正在斗地主" % self.name)
@@ -20,4 +16,3 @@ StaticMethod.playGame()
 p = StaticMethod()
 p.play()
 p.playGame()
-

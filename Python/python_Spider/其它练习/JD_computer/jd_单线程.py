@@ -23,8 +23,8 @@ def getGoodsInfo(lis):
     # 用于临时存放单个商品的信息的字符串
     strs = ''
     # 品牌
-    band = re.findall(
-        r'''id="parameter-brand".*?<li title='(.*?)'>''', html, re.S)
+    band = re.findall(r'''id="parameter-brand".*?<li title='(.*?)'>''', html,
+                      re.S)
     if len(band) == 0 or band == '' or band == '其他':
         band = '其它'
     else:
@@ -70,8 +70,8 @@ def getGoodsInfo(lis):
         coreNum = coreNum[0]
     strs += str(coreNum) + ','
     # 显卡类型
-    disCard = re.findall(
-        r'''<h3>显卡</h3>.*?<dt>类型</dt><dd>(.*?)</dd>''', html, re.S)
+    disCard = re.findall(r'''<h3>显卡</h3>.*?<dt>类型</dt><dd>(.*?)</dd>''', html,
+                         re.S)
     if disCard == '' or not disCard:
         disCard = '其它'
     else:
@@ -80,8 +80,8 @@ def getGoodsInfo(lis):
     # 内存型号
     memoeryType = re.findall(r'''(DDR[234]{0,1} [0-9]{0,4})''', html, re.I)
     if memoeryType == '' or not memoeryType:
-        memoeryType = re.findall(
-            r'''(lpddr[1234]{0,1} [0-9]{0,4})''', html, re.I)
+        memoeryType = re.findall(r'''(lpddr[1234]{0,1} [0-9]{0,4})''', html,
+                                 re.I)
     if len(memoeryType) == 0:
         memoeryType = '其它'
     else:
@@ -123,15 +123,15 @@ def getGoodsInfo(lis):
     if useTime == '' or len(useTime) == 0 or useTime == '其他':
         useTime = '其它'
     else:
-        useTime = useTime[0].replace(",", '').replace(
-            "，", '').replace('具体时间视使用环境而定', '')
+        useTime = useTime[0].replace(",", '').replace("，", '').replace(
+            '具体时间视使用环境而定', '')
     strs += useTime + '\n'
     saveGoodsInfo(strs)
 
 
 def getGoodsURL(txt):
     ''' 获取页面中的所有的商品的URL\n返回一个列表 '''
-    _list = []   # 用于存储该页面的所有商品信息
+    _list = []  # 用于存储该页面的所有商品信息
     bs = BeautifulSoup(txt, "html.parser")
     oLi = bs.findAll('li', class_="gl-item")
     for element in oLi:
@@ -151,9 +151,9 @@ def main(txt):
     goodsPageAll = 100  # 商品的总页数
     # 首页的所有商品共100页，遍历这100页的商品   将页面中的每一个商品的URL添加到列表中
     for page in range(1, goodsPageAll + 1):
-        print("正在获取商品URL:" +
-              str('{:.2%}'.format(page / goodsPageAll)), end="\r")
-        _url = url + "&page=" + str(page*2)
+        print("正在获取商品URL:" + str('{:.2%}'.format(page / goodsPageAll)),
+              end="\r")
+        _url = url + "&page=" + str(page * 2)
         _page = urllib.request.urlopen(_url).read().decode()
         lis = getGoodsURL(_page)
         goodsURL.extend(lis)
@@ -161,7 +161,8 @@ def main(txt):
     clen = len(goodsURL)
     for lis in goodsURL:
         print('正在获取单个商品信息....' +
-              str('{:.2%}'.format(goodsURL.index(lis) / clen)), end="\r")
+              str('{:.2%}'.format(goodsURL.index(lis) / clen)),
+              end="\r")
         getGoodsInfo(lis)
 
 

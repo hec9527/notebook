@@ -1,4 +1,4 @@
-import pygame,sys
+import pygame, sys
 from pygame.locals import *
 
 pygame.init()
@@ -8,10 +8,10 @@ pygame.display.set_caption("加载音频")
 text = pygame.font.SysFont("SimHei", 50)
 
 mus1 = pygame.mixer.Sound("./resource/music/attack.wav")
-# mus1.set_volume(0.2)     
+# mus1.set_volume(0.2)
 # print(mus1.get_volume())   # 1.0
 
-mus2=pygame.mixer.Sound("./resource/music/attackOver.wav")
+mus2 = pygame.mixer.Sound("./resource/music/attackOver.wav")
 # mus2.set_volume(0.2)
 
 mus3 = pygame.mixer.Sound("./resource/music/pause.wav")
@@ -42,8 +42,7 @@ while True:
                 except:
                     pygame.mixer.music.unpasue()
 
-    screen.blit(text.render("Q开启音效1，W开启音效2,E开启音效3",
-                            True, (255, 255, 255)), (100, 300))
-    screen.blit(text.render("B关闭背景音效",
-                            True, (255, 255, 255)), (100, 400))
+    screen.blit(text.render("Q开启音效1，W开启音效2,E开启音效3", True, (255, 255, 255)),
+                (100, 300))
+    screen.blit(text.render("B关闭背景音效", True, (255, 255, 255)), (100, 400))
     pygame.display.flip()

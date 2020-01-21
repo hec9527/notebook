@@ -1,7 +1,7 @@
 import pymysql
 
-class MySql():
 
+class MySql():
     def __init__(self):
         # connect 函数参数 arg1：数据库服务器  arg2：用户名，arg3：密码，arg4：数据库名
         self.cnn = pymysql.connect('localhost', "root", "123456", "wallpaper")
@@ -40,7 +40,8 @@ class MySql():
     def queryByType(self, type):
         if self.cursor:
             try:
-                self.cursor.execute(f"select * from images where type='{type}';")
+                self.cursor.execute(
+                    f"select * from images where type='{type}';")
                 result = self.cursor.fetchall()
                 return result
             except Exception as e:
@@ -52,17 +53,19 @@ class MySql():
         if self.cursor:
             try:
                 # result 为响应的行数
-                result = self.cursor.execute(f"update images set size='4k' where size='4k高清';")
+                result = self.cursor.execute(
+                    f"update images set size='4k' where size='4k高清';")
                 self.cnn.commit()
                 return result
             except Exception as e:
                 self.cnn.rollback()
                 print(e)
-    
+
     def deleteByType(self, type):
         if self.cursor:
             try:
-                result = self.cursor.execute(f"delete from images where type='{type}'")
+                result = self.cursor.execute(
+                    f"delete from images where type='{type}'")
                 self.cnn.commit()
                 return result
             except Exception as e:
@@ -77,13 +80,29 @@ class MySql():
 if __name__ == "__main__":
     db = MySql()
     # 增
-    result = db.insert(url="2dsafaf", size="4K高清", type="汽车", tag="美女,靓仔,潮男", cached="1", url_local="none", dislike="3", dislike_usr="123113,123132,144141", likeNum="1000")
+    result = db.insert(url="2dsafaf",
+                       size="4K高清",
+                       type="汽车",
+                       tag="美女,靓仔,潮男",
+                       cached="1",
+                       url_local="none",
+                       dislike="3",
+                       dislike_usr="123113,123132,144141",
+                       likeNum="1000")
     print(f'insert result:{result}')
-    result = db.insert(url="xbchfd", size="2K高清", type="动漫", tag="美女,靓仔,潮男", cached="1", url_local="none", dislike="2", dislike_usr="23,123153532,234", likeNum="10")
+    result = db.insert(url="xbchfd",
+                       size="2K高清",
+                       type="动漫",
+                       tag="美女,靓仔,潮男",
+                       cached="1",
+                       url_local="none",
+                       dislike="2",
+                       dislike_usr="23,123153532,234",
+                       likeNum="10")
     print(f'insert result:{result}')
     # 查
     data = db.queryById(18)
-    print("id查询结果："+str(data))
+    print("id查询结果：" + str(data))
     data = db.queryByType("4K高清")
     print("分类查询结果", data, type(data))
     # 改

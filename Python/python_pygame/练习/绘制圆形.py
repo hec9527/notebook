@@ -10,7 +10,7 @@ pos = w // 2, h // 2
 moving = False
 ''' 
     获取鼠标位置信息 ，移动绘制的位置  
-''' 
+'''
 
 while 1:
     for e in pygame.event.get():

@@ -15,6 +15,7 @@ imTuRect = imTu.get_rect()
 
 timer = pygame.time.Clock()
 
+
 def getAlpha(target, source, location, opacity):
     x = location[0]
     y = location[1]
@@ -23,18 +24,14 @@ def getAlpha(target, source, location, opacity):
     temp.blit(source, (0, 0))
     target.blit(temp, location)
 
-getAlpha(screen, imTu, imBgRect, 200)
 
+getAlpha(screen, imTu, imBgRect, 200)
 
 while 1:
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
             sys.exit()
-    pygame.display.update()      
-
-
-
-
+    pygame.display.update()
 ''' 
     并没有实现的一个案例
         原来的实现思路
@@ -45,4 +42,4 @@ while 1:
         5.由于temp是不带aplha通道的surface对象，此时使用set_aplha()方法设置整个图像的透明度
         6.最后将设置好透明度的图像贴到指定的位置就OK了
 
-''' 
+'''

@@ -4,6 +4,7 @@ from os import getcwd
 from sys import exit
 from random import randint
 
+
 class SpriteBg(pygame.sprite.Sprite):  # 背景精灵类
     '''背景精灵类
         背景精灵需要有精灵的图像、速度、x坐标、y坐标'''
@@ -12,7 +13,7 @@ class SpriteBg(pygame.sprite.Sprite):  # 背景精灵类
         self.image = pygame.image.load(img_path).convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.x = 0
-        self.rect.y = 0 if flag else - self.rect.h
+        self.rect.y = 0 if flag else -self.rect.h
         self.speed = 1
 
     def update(self):  # 背景精灵的update()方法
@@ -23,7 +24,7 @@ class SpriteBg(pygame.sprite.Sprite):  # 背景精灵类
 
 
 class SpriteHero(pygame.sprite.Sprite):  # 英雄精灵类
-    def __init__(self,img_path):
+    def __init__(self, img_path):
         super().__init__()
         self.image = pygame.image.load(img_path).convert_alpha()
         self.rect = self.image.get_rect()
@@ -42,7 +43,7 @@ class SpriteHero(pygame.sprite.Sprite):  # 英雄精灵类
             bullet2 = SpriteBullet(self.im_bullet, self.rect, True)
             game.Group_bullet.add(bullet1, bullet2)
             CAN_SHOOT = False
-        
+
     def check_keyborad(self):  # 检测键盘按键  指挥英雄飞机做出对应的动作
         self.speed = [0, 0]
         for key in KEYS_SET:
@@ -74,7 +75,7 @@ class SpriteHero(pygame.sprite.Sprite):  # 英雄精灵类
 
 class SpriteEnemy(pygame.sprite.Sprite):  # 敌方精灵类
     def __init__(self, img_path, life=1):
-        
+
         super().__init__()
         self.image = pygame.image.load(img_path)
         self.rect = self.image.get_rect()
@@ -82,7 +83,6 @@ class SpriteEnemy(pygame.sprite.Sprite):  # 敌方精灵类
         self.rect.y = randint(-self.rect.h * 2, -self.rect.h)
         self.speed = randint(3, 4)
         self.life = life
-
 
     def update(self):
         super().update()
@@ -94,7 +94,7 @@ class SpriteEnemy(pygame.sprite.Sprite):  # 敌方精灵类
 class SpriteBullet(pygame.sprite.Sprite):  # 子弹精灵类
     def __init__(self, im_path, rect, flag):
         super().__init__()
-        self.image= pygame.image.load(im_path).convert_alpha()
+        self.image = pygame.image.load(im_path).convert_alpha()
         self.rect = self.image.get_rect()
         if flag:
             self.rect.x = rect.x + self.rect.w * 2
@@ -102,7 +102,7 @@ class SpriteBullet(pygame.sprite.Sprite):  # 子弹精灵类
             self.rect.x = rect.x + rect.w - self.rect.w * 2
         self.rect.y = rect.y + rect.h // 3
         self.speed = -4
-        
+
     def update(self):
         super().update()
         self.rect.y += self.speed
@@ -117,7 +117,7 @@ class Game():  # 游戏入口   游戏循环
         pygame.time.set_timer(USEREVENT_1, INTERVAL_NEWENEMY)  # 定时器 设定事件新增敌人飞机
         pygame.time.set_timer(USEREVENT_2, INTEVAL_SHOOT)  # 允许射击的间隔事件
 
-        self.screen = pygame.display.set_mode(WIN_SIZE,DOUBLEBUF)
+        self.screen = pygame.display.set_mode(WIN_SIZE, DOUBLEBUF)
         self.FPS = pygame.time.Clock()
         # 背景精灵组
         self.im_bg = CWD + "/image/bg.png"
@@ -129,11 +129,8 @@ class Game():  # 游戏入口   游戏循环
         self.hero = SpriteHero(self.im_hero)
         self.Group_hero = pygame.sprite.Group(self.hero)
         # 敌人精灵组
-        self.im_enemy = [
-            CWD + "/image/enemy.png",
-            CWD + "/image/enemy1.png"
-        ]
-        self.Group_enemy=pygame.sprite.Group()
+        self.im_enemy = [CWD + "/image/enemy.png", CWD + "/image/enemy1.png"]
+        self.Group_enemy = pygame.sprite.Group()
         # 子弹精灵组
         self.Group_bullet = pygame.sprite.Group()
 
@@ -171,10 +168,11 @@ class Game():  # 游戏入口   游戏循环
         self.Group_bullet.update()
         self.Group_bullet.draw(self.screen)
         pygame.display.update()
-        
+
     def sprite_collision(self):  # 碰撞检测
         # 敌人和子弹之间的碰撞检测
-        pygame.sprite.groupcollide(self.Group_bullet, self.Group_enemy, True, True)
+        pygame.sprite.groupcollide(self.Group_bullet, self.Group_enemy, True,
+                                   True)
         # 敌人和英雄之间的碰撞检测
         # pygame.sprite.groupcollide(self.Group_hero, self.Group_enemy, True, True)
         lis = pygame.sprite.spritecollide(self.hero, self.Group_enemy, True)
@@ -198,32 +196,25 @@ class Game():  # 游戏入口   游戏循环
         pygame.quit()
         exit()
 
-    
-        
+
 #  游戏常量  全局可用
 WIN_SIZE = 480, 700
 # CWD = getcwd()
-CWD = getcwd()+"/.."
+CWD = getcwd() + "/.."
 FRAME_PER_SECOND = 120
 KEYS_SET = set()
-GAME_TITLE="飞机大战"
+GAME_TITLE = "飞机大战"
 USEREVENT_1 = pygame.USEREVENT + 1
 USEREVENT_2 = pygame.USEREVENT + 2
 INTEVAL_SHOOT = 300
-INTERVAL_NEWENEMY=500
+INTERVAL_NEWENEMY = 500
 CAN_SHOOT = True
-
-
 
 if __name__ == "__main__":
     game = Game()
     game.start()
 
-
-
-
 input()
-
 '''
 pygame.key.get_presswd()
     获取所有按下的键盘按键信息

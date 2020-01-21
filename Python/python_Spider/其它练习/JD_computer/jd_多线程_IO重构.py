@@ -1,5 +1,6 @@
 import time, threading, requests, os, re, shutil
 
+
 def checkAlltaskOver():
     '''检测任务：\n
         检测每个任务的完成情况，全部完成则返回True\n
@@ -9,6 +10,7 @@ def checkAlltaskOver():
         if taskPercent[i] != 1:
             return False
     return True
+
 
 def task_showMsg():
     '''显示消息队列里面的消息，显示一条删除一条\n
@@ -35,6 +37,7 @@ def task_showMsg():
                 msg.pop(0)
         time.sleep(1)
 
+
 def task_getGoodsInfo(taskIndex, lis):
     '''
         子线程任务\n
@@ -46,9 +49,9 @@ def task_getGoodsInfo(taskIndex, lis):
     _url = 'https:' + lis[0]
     try:
         req = requests.get(_url)
-    except Exception:   # 如果请求被强制关闭则递归调用，直到返回网页源码
+    except Exception:  # 如果请求被强制关闭则递归调用，直到返回网页源码
         print(f'Task_{taskIndex}被强制关闭，正在重新访问...\n')
-        return task_getGoodsInfo(taskIndex, lis) 
+        return task_getGoodsInfo(taskIndex, lis)
     req.encoding = req.encoding
     html = req.text
     # 用于临时存放单个商品的信息的字符串
@@ -56,27 +59,32 @@ def task_getGoodsInfo(taskIndex, lis):
     # 品牌
     exp = re.compile(r'''id="parameter-brand".*?<li title='(.*?)'>''', re.S)
     band = re.findall(exp, html)
-    band = '其它' if len(band) == 0 or band == '' or band == '其他' else band[0]   # 三元运算符
+    band = '其它' if len(band) == 0 or band == '' or band == '其他' else band[
+        0]  # 三元运算符
     strs += str(band) + ','
     # 价格
     strs += str(lis[1]) + ","  # 价格用参数传递过来
     # 内存容量
-    exp=re.compile(r'''内存容量：(.*?)</li>''')
+    exp = re.compile(r'''内存容量：(.*?)</li>''')
     mSize = re.findall(exp, html)
-    mSize = '其它' if mSize == '' or len(mSize) == 0 or mSize[0] == '其他' else mSize[0]
+    mSize = '其它' if mSize == '' or len(
+        mSize) == 0 or mSize[0] == '其他' else mSize[0]
     strs += str(mSize) + ','
     # 屏幕尺寸
     exp = re.compile(r'''<dt>屏幕规格</dt><dd>(.*?)</dd>''', re.S)
     screen = re.findall(exp, html)
-    screen = '其它' if len(screen) == 0 or screen == '' or screen[0] == '其他' else screen[0]
+    screen = '其它' if len(
+        screen) == 0 or screen == '' or screen[0] == '其他' else screen[0]
     strs += "".join(screen) + ','
     # 毛重
     exp = re.compile(r'''<dt>净重</dt><dd>(.*?)</dd>''', re.S)
     weight = re.findall(exp, html)
-    weight == '其它' if weight == '' or len(weight) == '0' or weight == '其他' else weight[0]
+    weight == '其它' if weight == '' or len(
+        weight) == '0' or weight == '其他' else weight[0]
     strs += "".join(weight) + "\n"
     # 返回该商品的信息
     return strs
+
 
 def task_getGoodsURL(txt):
     ''' 子线程任务\n
@@ -99,6 +107,7 @@ def task_getGoodsURL(txt):
     #     lis.append(i)
     return lis
 
+
 def task_Main(Tindex, Pstart, Pend):
     '''子线程的主函数\n
         遍历给定的页面数据获取相应的URL\n
@@ -116,7 +125,7 @@ def task_Main(Tindex, Pstart, Pend):
         # 遍历获取到的网页地址  遍历获取它们中的商品信息
         strs = ''
         for u in task_getGoodsURL(txt):  # 遍历列表中的所有数据
-            strs += task_getGoodsInfo(Tindex, u) #  将获取到的商品信息写  保存到字符串中
+            strs += task_getGoodsInfo(Tindex, u)  #  将获取到的商品信息写  保存到字符串中
         goodsInfo.append(strs)  # 将保存的商品信息存放到列表中
         # 修改当前的进度条
         percent = (i - Pstart) / (Pend - Pstart)
@@ -129,6 +138,7 @@ def task_Main(Tindex, Pstart, Pend):
     msg.pop(0)  # 删除消息列表中的部分数据  添加线程信息
     msg.append(ms)
 
+
 def taskManager(taskIndex, pageStart, pageEnd):
     ''' --任务管理器--\n
         负责从传递的参数中开启相应的任务\n
@@ -138,11 +148,15 @@ def taskManager(taskIndex, pageStart, pageEnd):
     global msg
     if not taskIndex or not pageEnd or not pageStart:
         print('子线程启动错误，部分参数为空！')
-        print(f'当前taskIndex:{taskIndex}\n\t当前pageStart:{pageStart}\n\t当前pageEnd:{pageEnd}')
+        print(
+            f'当前taskIndex:{taskIndex}\n\t当前pageStart:{pageStart}\n\t当前pageEnd:{pageEnd}'
+        )
         return False
     else:
-        task = threading.Thread(target=task_Main, args=(taskIndex, pageStart, pageEnd))
+        task = threading.Thread(target=task_Main,
+                                args=(taskIndex, pageStart, pageEnd))
         task.start()
+
 
 def main(tt):
     '''程序主函数\n
@@ -159,7 +173,7 @@ def main(tt):
         if taskIndex > 5:  # 线程数大于5退出   因为只打开5个线程
             break
         else:
-            taskManager(taskIndex, cpage, cpage + 20)   # 生成新的线程、分别爬取部分数据
+            taskManager(taskIndex, cpage, cpage + 20)  # 生成新的线程、分别爬取部分数据
             cpage += 20
             taskIndex += 1
     # 当文件已经存在的时候删除文件
@@ -181,10 +195,11 @@ def main(tt):
                 time.sleep(1)
     f.close()
 
+
 if __name__ == "__main__":
     ''' 程序入口  '''
     msg = ['正在初始化程序...', '正在开启多线程任务...']  # 设置全局消息显示
-    taskPercent = [0, 0, 0, 0, 0]   # 每个子进程的进度条   同时用于检测任务是否完成
+    taskPercent = [0, 0, 0, 0, 0]  # 每个子进程的进度条   同时用于检测任务是否完成
     goodsInfo = []  # 用于保存所有的商品信息
     tt = time.time()  # 用于保存程序运行开始的时间   方便计算程序运行的总时间
     main(tt)

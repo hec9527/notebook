@@ -1,13 +1,13 @@
 # 基数排序法
 # 递归从个位开始排序，到数组最大的一个的长度
 
+arr = [1, 21, 121, 212, 1111, 23131, 467894689034778934, 2323, 5435345546]
 
-arr = [1, 21, 121, 212, 1111, 23131, 467894689034778934, 2323,5435345546]
 
 def radixSort(arr, numLen=0, sortTime=0):
-    if numLen==0:
+    if numLen == 0:
         numLen = len(str(max(arr)))
-    dic = { x: [] for x in range(10)}
+    dic = {x: [] for x in range(10)}
     # 排序次数和数组中最长的数字长度相等
     if numLen == sortTime:
         return arr

@@ -1,6 +1,7 @@
 import pygame, sys, random, math
 from pygame.locals import *
 
+
 # 小球类
 class Ball(pygame.sprite.Sprite):
     def __init__(self, img, postion, speed):
@@ -24,6 +25,7 @@ class Ball(pygame.sprite.Sprite):
         if self.rect.top < 0:
             self.speed[1] = - \
                 self.speed[1] if self.speed[1] < 0 else self.speed[1]
+
 
 def main():
     pygame.init()
@@ -51,8 +53,8 @@ def main():
         screen.blit(background, (0, 0))  # 绘制背景图像
         # 遍历每一个小球  移动并且检测他们的状态
         for one in ballLst:
-            one.move()  
-            screen.blit(one.image, one.rect)   # 移动小球之后绘制到屏幕上   
+            one.move()
+            screen.blit(one.image, one.rect)  # 移动小球之后绘制到屏幕上
         pygame.display.flip()
         clock.tick(30)
 

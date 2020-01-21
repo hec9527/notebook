@@ -4,17 +4,14 @@ from os import getcwd
 from sys import exit
 
 
-
-
 class SpriteEnemy(pygame.sprite.Sprite):
-
     def __init__(self, image_flag, speed=1):
         super().__init__()
         if image_flag == 1:
             img_path = CWD + "/image/enemy.png"
         elif image_flag == 2:
             img_path = CWD + "/image/enemy1.png"
-        self.image_down = CWD+"/image/enemy_down"
+        self.image_down = CWD + "/image/enemy_down"
         self.image = pygame.image.load(img_path).convert_alpha()
         self.rect = self.image.get_rect()
         self.speed = speed
@@ -35,16 +32,15 @@ class SpriteHero(pygame.sprite.Sprite):
         # self.bullet_num = 10
         # self.bullet_sprite_group = pygame.sprite.Sprite()
         # self.screen = screen
-        
 
     def move(self):
-        for key in Game.keyLis:   #  w  s  a   d
+        for key in Game.keyLis:  #  w  s  a   d
             # 上下
             if key == K_w:
                 self.speed[1] = -self.sp
             elif key == K_s:
                 self.speed[1] = self.sp
-            # 左右 
+            # 左右
             if key == K_a:
                 self.speed[0] = -self.sp
             elif key == K_d:
@@ -52,13 +48,12 @@ class SpriteHero(pygame.sprite.Sprite):
             # # 射击
             # if key == K_j or key == K_k:
             #     self.shoot()
-    
+
     # def shoot(self):
     #     # 英雄飞机射击
     #     if len(self.bullet_sprite_group) < self.bullet_num:
     #         self.bullet_sprite_group.add(Bullet("hero", self.rect, 1), Bullet("hero", self.rect, 2))
     #         print("shoot")
-
 
     def update(self, *args):
         super().update()
@@ -79,8 +74,6 @@ class SpriteHero(pygame.sprite.Sprite):
         # self.bullet_sprite_group.draw(self.screen)
         # print("bullet_move")
         # print(self.bullet_sprite_group)
-            
-        
 
 
 # class Bullet(pygame.sprite.Sprite):
@@ -90,7 +83,7 @@ class SpriteHero(pygame.sprite.Sprite):
 #         self.camp = camp
 #         self.image = pygame.image.load(CWD + "/image/enemy.png").convert_alpha()
 #         self.rect = self.image.get_rect()
-        
+
 #         if self.camp == "hero":
 #             self.speed = -3
 #             if t == 1:
@@ -112,14 +105,14 @@ class SpriteHero(pygame.sprite.Sprite):
 #             self.kill()
 
 
-
 class SpriteBackground(pygame.sprite.Sprite):
-    def __init__(self,flag = False):
+    def __init__(self, flag=False):
         super().__init__()
         self.image = pygame.image.load(CWD + "/image/bg.png").convert_alpha()
         self.rect = self.image.get_rect()
         if flag:
             self.rect.y = -WINDOW_SIZE[1]
+
     def update(self):
         super().update()
         self.rect.y += 1
@@ -138,7 +131,7 @@ class Game():
         self.screen = pygame.display.set_mode(WINDOW_SIZE)
         self.FPS = pygame.time.Clock()
         self.tick = pygame.time.Clock()
-        
+
         # 背景精灵组
         bg1 = SpriteBackground()
         bg2 = SpriteBackground(True)
@@ -148,12 +141,9 @@ class Game():
         self.sprite_group_hero = pygame.sprite.Group(self.hero)
         # 英雄子弹精灵组
 
-
         # 敌人精灵组
 
-
         # 敌人子弹精灵组
-
 
     def start(self):
         while 1:
@@ -162,7 +152,6 @@ class Game():
             self.event_handler()
             self.sprite_update()
             self.sprite_collision()
-
 
     def event_handler(self):
         # 事件处理
@@ -184,7 +173,6 @@ class Game():
                 #     if key == event.key:
                 #         Game.keyLis.remove(key)
 
-
     def sprite_update(self):
         # 更新显示
         self.screen.fill((0, 0, 0))
@@ -193,7 +181,6 @@ class Game():
         self.sprite_group_hero.update()
         self.sprite_group_hero.draw(self.screen)
         pygame.display.update()
-        
 
     def sprite_collision(self):
         # 碰撞检测
@@ -204,13 +191,10 @@ class Game():
         pygame.quit()
         exit()
 
-        
-        
-        
+
 #  游戏常量  全局可用
 WINDOW_SIZE = 480, 700
 CWD = getcwd()
-
 
 if __name__ == "__main__":
     game = Game()

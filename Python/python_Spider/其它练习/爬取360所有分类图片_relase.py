@@ -1,32 +1,41 @@
 import urllib.request
 import re, datetime, os, time
 
+
 def getTimeCurrent():
     ''' 获取当前的时间作为文件名字的一部分 '''
     t = datetime.datetime.now()
-    return str(t).replace('-', '').replace(' ','').replace(':','').replace('.','')[2:-4]
+    return str(t).replace('-', '').replace(' ',
+                                           '').replace(':',
+                                                       '').replace('.',
+                                                                   '')[2:-4]
+
 
 def getImageURL(txt):
-    ''' 调用360壁纸图片的API 获取加载的图片信息 ''' 
+    ''' 调用360壁纸图片的API 获取加载的图片信息 '''
     exp = r'"qhimg_url":"(.*?)"'
     urls = re.findall(exp, txt, re.S)
     return urls
 
-def saveImage(lis,file_path):
+
+def saveImage(lis, file_path):
     ''' 从地址中获取并且保存图片 '''
     leng = len(lis)
     for i in range(leng):
         print("正在下载第" + str(i + 1) + "/" + str(leng) + "张图片...", end="\r")
         url = lis[i].replace(r"\/", '/')
-        urllib.request.urlretrieve(url, file_path + getTimeCurrent() + "." + url.split('.')[-1])
+        urllib.request.urlretrieve(
+            url, file_path + getTimeCurrent() + "." + url.split('.')[-1])
     return i + 1
 
-def main(imType,file_path):
+
+def main(imType, file_path):
     flag = 0  # 出现错误的次数   连续错误则结束循环
     sn = 0
     sumImage = 0
     while True:
-        url = 'http://image.so.com/zj?ch=' + imType + '&sn=' + str(sn) + '&listtype=new&temp=1'
+        url = 'http://image.so.com/zj?ch=' + imType + '&sn=' + str(
+            sn) + '&listtype=new&temp=1'
         print("正在获取第" + str(sn // 30 + 1) + "页的图片地址...", end="\n")
         txt = urllib.request.urlopen(url).read().decode()
         lis = getImageURL(txt)
@@ -43,9 +52,13 @@ def main(imType,file_path):
         sumImage += saveImage(lis, file_path)
     return sumImage
 
+
 if __name__ == "__main__":
-    begin_time=time.time()
-    imtype = ['beauty', 'wallpaper', 'funny', 'video', 'go', 'art', 'car', 'photography', 'food', 'home', 'pet', 'design']
+    begin_time = time.time()
+    imtype = [
+        'beauty', 'wallpaper', 'funny', 'video', 'go', 'art', 'car',
+        'photography', 'food', 'home', 'pet', 'design'
+    ]
     sumImage = 0
     for t in imtype:
         file_path = r"./resource/" + str(t) + "/"
@@ -61,8 +74,6 @@ if __name__ == "__main__":
     print(strt.center(46))
     print("".center(50, "*"))
     input("\nPlease press Enter to close...")
-
-
 """
     copy-right:hc
     @time:2018-11-24

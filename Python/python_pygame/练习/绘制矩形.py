@@ -1,13 +1,10 @@
 import pygame, sys
 from pygame.locals import *
 
-
 pygame.init()
 size = w, h = (800, 600)
 screen = pygame.display.set_mode(size, RESIZABLE)
 pygame.display.set_caption("绘制矩形")
-
-
 
 while 1:
     for e in pygame.event.get():

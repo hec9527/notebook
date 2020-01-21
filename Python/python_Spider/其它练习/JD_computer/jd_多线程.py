@@ -101,7 +101,7 @@ def task_saveGoodsInfo(taskIndex, txt, flag):
         ms = 'Task_' + str(taskIndex) + "运行结束..."
         log(ms)
         ifTaskOver.append(taskIndex)  # 添加当前的线程的编号到列表
-        taskOver[taskIndex-1] = True
+        taskOver[taskIndex - 1] = True
     return False
 
 
@@ -128,7 +128,8 @@ def task_getGoodsInfo(taskIndex, lis, flag):
     # 用于临时存放单个商品的信息的字符串
     strs = ''
     # 品牌
-    band = re.findall(r'''id="parameter-brand".*?<li title='(.*?)'>''', html, re.S)
+    band = re.findall(r'''id="parameter-brand".*?<li title='(.*?)'>''', html,
+                      re.S)
     if len(band) == 0 or band == '' or band == '其他':
         band = '其它'
     else:
@@ -227,8 +228,8 @@ def taskManager(taskIndex, pageStart, pageEnd):
         log(ms)
     else:
         ms = 'Task_' + str(taskIndex) + '成功开启'
-        task = threading.Thread(target=taskMain, args=(
-            taskIndex, pageStart, pageEnd))
+        task = threading.Thread(target=taskMain,
+                                args=(taskIndex, pageStart, pageEnd))
         task.start()
         log(ms)
 
@@ -253,7 +254,7 @@ def main():
         if taskIndex > taskNum:
             break
         else:
-            taskManager(taskIndex, cpage, cpage + 20)   # 生成新的线程、分别爬取部分数据
+            taskManager(taskIndex, cpage, cpage + 20)  # 生成新的线程、分别爬取部分数据
             cpage += 20
             taskIndex += 1
 
