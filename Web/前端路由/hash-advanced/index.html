@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="hash.css" />
+        <title>Hash前端路由</title>
+    </head>
+    <body>
+        <div id="router" class="router container">
+            <div class="router-nav glass">
+                <ul>
+                    <li class="router-link" data-path="home">主页</li>
+                    <li class="router-link" data-path="product">产品</li>
+                    <li class="router-link" data-path="case">案例</li>
+                    <li class="router-link" data-path="about">关于我们</li>
+                    <li class="router-link" data-path="join">加入我们</li>
+                    <li class="router-link" data-path="partner">友情链接</li>
+                </ul>
+            </div>
+            <div class="router-view">
+                <section class="router-section" data-path="home">home</section>
+                <section class="router-section" data-path="product">
+                    product
+                </section>
+                <section class="router-section" data-path="case">case</section>
+                <section class="router-section" data-path="about">
+                    about
+                </section>
+                <section class="router-section" data-path="join">join</section>
+            </div>
+        </div>
+
+        <script src="hash.js"></script>
+    </body>
+</html>
