@@ -5,61 +5,83 @@
  */
 
 class MyRouter {
-    constructor() {
+    constructor(defaultPath = 'home') {
         this.el = document.getElementById('router');
         this.link = this.el.getElementsByClassName('router-link');
         this.view = this.el.getElementsByClassName('router-section');
-        this.history = [];
-
-        // 事件委托
-        this.el.addEventListener(
-            'click',
-            e => {
-                // 路由跳转
-                if (e.target.classList.contains('router-link')) {
-                    window.location.hash = e.target.dataset.path;
-                    Array.from(this.link).forEach(item => {
-                        if (item === e.target) {
-                            item.classList.add('router-this');
-                        } else {
-                            item.classList.remove('router-this');
-                        }
-                    });
-                }
-            },
-            true
-        );
+        this.history = [defaultPath];
+        this.routerChange();
+        window.location.hash = defaultPath;
 
         // 路由监听
-        window.addEventListener('hashchange', e => {
-            let mapPath = false; // 匹配到路由？
-            this.history.push(e.newURL);
-            Array.from(this.view).forEach(item => {
-                const path = item.getAttribute('data-path');
-                if (path === window.location.hash.slice(1)) {
-                    item.classList.add('section-this');
-                    mapPath = true;
-                } else {
-                    item.classList.remove('section-this');
-                }
-            });
-            if (!mapPath) {
-                console.error(
-                    `未找到hash路径对应页面：${window.location.hash}`
-                );
-                window.location.hash = 'home';
+        window.addEventListener('hashchange', () => this.routerChange());
+    }
+
+    routerChange() {
+        let mapPath = false; // 成功匹配路由？
+
+        Array.from(this.view).forEach(item => {
+            const hash = item.getAttribute('data-path');
+            if (hash === window.location.hash.slice(1)) {
+                item.classList.add('section-this');
+                this.history.push(hash);
+                mapPath = true;
+            } else {
+                item.classList.remove('section-this');
             }
         });
 
-        // call it
-        this.init();
-    }
+        Array.from(this.link).forEach(item => {
+            const hash = item.href.split('#')[1];
+            if (hash === window.location.hash.slice(1)) {
+                item.classList.add('router-this');
+            } else {
+                item.classList.remove('router-this');
+            }
+        });
 
-    init() {
-        this.link[0].classList.add('router-this');
-        this.view[0].classList.add('section-this');
-        window.location.hash = this.link[0].getAttribute('data-path');
+        if (!mapPath) {
+            const msg = `路由匹配错误：${window.location.hash}`;
+            console.error(msg);
+            new Toast(msg);
+            window.location.hash = this.history.pop();
+        }
     }
 }
 
-new MyRouter();
+class Toast {
+    constructor(message, timeout) {
+        this.message = message;
+        this.timeout = timeout || 2000;
+        this.el = this.initEl();
+        this.mount();
+    }
+
+    initEl() {
+        const el = document.createElement('div');
+        el.classList.add('toast');
+        el.classList.add('fade-in');
+        el.innerHTML = this.message;
+        return el;
+    }
+
+    mount() {
+        if (Toast.instance) {
+            Toast.instance.destory();
+        }
+
+        Toast.instance = this;
+        this.timer = setTimeout(() => {
+            this.destory();
+        }, this.timeout);
+        document.getElementsByTagName('body')[0].appendChild(this.el);
+    }
+
+    destory() {
+        Toast.instance = null;
+        clearTimeout(this.timer);
+        document.getElementsByTagName('body')[0].removeChild(this.el);
+    }
+}
+
+new MyRouter('home');
