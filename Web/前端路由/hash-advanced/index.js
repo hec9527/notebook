@@ -1,65 +1,93 @@
 /**
  * @author   hec9527
- * @time     2020-2-12
- * @change   2020-2-14
+ * @time     2020-2-18
+ * @change   2020-2-18
+ * @description
+ *
+ *   简单模仿 Vue-router
  */
 
+/**
+ * @param {DOM} DOM 挂载dom节点
+ * @param {object} Option  路由配置表
+ */
 class MyRouter {
-    constructor() {
-        this.el = document.getElementById('router');
-        this.link = this.el.getElementsByClassName('router-link');
-        this.view = this.el.getElementsByClassName('router-section');
+    constructor(dom, config = []) {
+        this.config = config;
+        this.routers = {}; // 存放每个路由对应的处理函数
+        this.couterThis = {};
         this.history = [];
+        this.view = dom.getElementsByClassName('router-view')[0];
 
-        // 事件委托
-        this.el.addEventListener(
-            'click',
-            e => {
-                // 路由跳转
-                if (e.target.classList.contains('router-link')) {
-                    window.location.hash = e.target.dataset.path;
-                    Array.from(this.link).forEach(item => {
-                        if (item === e.target) {
-                            item.classList.add('router-this');
-                        } else {
-                            item.classList.remove('router-this');
-                        }
-                    });
-                }
-            },
-            true
-        );
-
-        // 路由监听
-        window.addEventListener('hashchange', e => {
-            let mapPath = false; // 匹配到路由？
-            this.history.push(e.newURL);
-            Array.from(this.view).forEach(item => {
-                const path = item.getAttribute('data-path');
-                if (path === window.location.hash.slice(1)) {
-                    item.classList.add('section-this');
-                    mapPath = true;
-                } else {
-                    item.classList.remove('section-this');
-                }
-            });
-            if (!mapPath) {
-                console.error(
-                    `未找到hash路径对应页面：${window.location.hash}`
-                );
-                window.location.hash = 'home';
-            }
-        });
-
-        // call it
+        window.addEventListener('hashchange', () => this.routerChange());
         this.init();
     }
 
     init() {
-        this.link[0].classList.add('router-this');
-        this.view[0].classList.add('section-this');
-        window.location.hash = this.link[0].getAttribute('data-path');
+        this.config.forEach(item => {
+            const callback =
+                item.redirect !== undefined
+                    ? () => (window.location.hash = item.redirect)
+                    : item.component;
+            this.register(item.path, callback);
+        });
+        window.location.hash = '/';
+    }
+
+    register(hash, callback = () => {}) {
+        this.routers[hash] = callback;
+    }
+
+    routerChange() {
+        const hash = window.location.hash.slice(1);
+        if (this.routers[hash] === undefined) {
+            return alert(`未注册的路径：${hash}`);
+        }
+
+        Reflect.ownKeys(this.routers).forEach(item => {
+            if (hash === item) {
+                this.view.innerHTML = this.routers[item]();
+                this.history.push(item);
+            }
+        });
     }
 }
 
-new MyRouter();
+// Vue的路由表
+const routes = [
+    {
+        // hash为空的时候
+        path: '/',
+        name: 'root',
+        redirect: '/home'
+    },
+    {
+        path: '/home',
+        name: 'home',
+        component: () => `<div class='router-section home'>home</div>`
+    },
+    {
+        path: '/category',
+        name: 'category',
+        component: () => `<div class='router-section category'>category</div>`
+    },
+    {
+        path: '/bing',
+        name: 'bing',
+        component: () => `<div class='router-section bing'>bing</div>`
+    },
+    {
+        path: '/daily',
+        name: 'daily',
+        component: () => `<div class='router-section daily'>daily</div>`
+    },
+    {
+        path: '/indiv',
+        name: 'individual',
+        component: () => `<div class='router-section indiv'>individual</div>`
+    }
+];
+
+// 挂载点
+const dom = document.getElementById('router');
+new MyRouter(dom, routes);
