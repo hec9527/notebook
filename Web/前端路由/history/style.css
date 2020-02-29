@@ -43,18 +43,25 @@ body {
 .router .router-nav {
     width: 100%;
     height: 55px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-size: 18px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
         Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     z-index: 10;
 }
 
+.router-link-cover {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .router .router-nav .router-link {
     display: inline-block;
-    padding: 8px 15px 7px 15px;
+    height: 100%;
+    line-height: 55px;
+    padding: 0 15px;
     cursor: pointer;
 }
 
@@ -83,22 +90,6 @@ body {
 
 .router .section-this {
     display: block;
-}
-
-.router-view .router-section.product {
-    background: #30a9de;
-}
-
-.router-view .router-section.case {
-    background: #efdc05;
-}
-
-.router-view .router-section.about {
-    background: #a593e0;
-}
-
-.router-view .router-section.join {
-    background: #5cab7d;
 }
 
 .toast {

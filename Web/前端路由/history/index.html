@@ -10,15 +10,28 @@
         <div class="container">
             <div id="router" class="router">
                 <div class="router-nav glass">
-                    <ul>
-                        <li class="router-link"><a href="#">首页</a></li>
-                        <li class="router-link"><a href="#">热门</a></li>
-                        <li class="router-link"><a href="#">军事</a></li>
-                        <li class="router-link"><a href="#">资讯</a></li>
+                    <ul class="router-link-cover">
+                        <li class="router-link router-this">首页</li>
+                        <li class="router-link">热门</li>
+                        <li class="router-link">军事</li>
+                        <li class="router-link">资讯</li>
                     </ul>
                 </div>
 
-                <div class="router-view"></div>
+                <div class="router-view">
+                    <section class="router-section section-this home">
+                        <h1 class="title">主页</h1>
+                    </section>
+                    <section class="router-section hot">
+                        <h1 class="title">热门</h1>
+                    </section>
+                    <section class="router-section military">
+                        <h1 class="title">军事</h1>
+                    </section>
+                    <section class="router-section info">
+                        <h1 class="title">资讯</h1>
+                    </section>
+                </div>
             </div>
         </div>
 

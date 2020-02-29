@@ -42,3 +42,19 @@
 // }
 
 // const router = new Routers();
+
+class Router {
+    constructor(el) {
+        this.links = el.getElementsByClassName('router-link');
+        this.state = {};
+
+        el.addEventListener('click', e => {
+            if (e.target.classList.contains('router-link')) {
+                history.pushState();
+            }
+        });
+    }
+}
+
+const dom = document.getElementById('router');
+new Router(dom);
