@@ -18,42 +18,42 @@ VsCode 是微软开发的一款基于`Electron`开源的文本编辑器，它不
 
 ### 通用扩展
 
-| 扩展名                    | 叙述                                                                   |
-| ------------------------- | ---------------------------------------------------------------------- |
-| Chinese (Simplified)      | language 中文                                                          |
-| path autoComplate         | 路径自动补全                                                           |
-| path intellisens          | 路径自动补全 上下二选一即可                                            |
-| Visual Studio Intellicode | Vscode 代码检查，在本文本出现过的词可以智能提示                        |
-| Vim                       | Vim 编辑器 习惯使用的就安装                                            |
-| Setting Sync              | 使用 GitHub 同步设置                                                   |
-| VsCode-icon               | 在左侧资源管理器中的文件图标                                           |
-| bracket pair colorzer     | 阔高匹配，彩色样式更好看一眼就能查看哪些是一对的括号                   |
-| Auto rename tag           | 自动重命名标签                                                         |
-| Auto colse tag            | 自动闭合变迁                                                           |
-| ProJect Manager           | 多个标签快速切换                                                       |
-| Atom One Dark Theme       | Atom 主题 支持自定义样式 使用`Ctrl+k Ctrl+t` 打开切换面板              |
-| beautiful                 | 代码格式化                                                             |
-| prettier code formatter   | code formatter                                                         |
-| Code runner               | 代码快速运行，支持的语言非常多，甚至 C/C++/python/Java。。。           |
-| MarkDown All In One       | Markdown 编写，预览工具                                                |
-| Material Theme            | 主题设置工具，支持自定义样式，特俗样式                                 |
-| change-case               | 修改变量的明明规则                                                     |
-| color info                | 快捷插件，鼠标悬浮在 css 颜色上时，提示信息                            |
-| filesize                  | 在底部状态栏显示当前文件的大小                                         |
-| git history               | 以图标的形式查看 git 日志                                              |
-| gitlens                   | 显示文件最近的 commit 和作者 当前行的 commit 信息                      |
-| image preview             | 图像预览                                                               |
-| vscode-fileHeader         | vscode 顶部注释模板，可自定义作者时间等信息，并且自动更新 `Ctrl+Alt+I` |
-| better-comments           | 更好的注释，可以根据注释的内容不同，更改注释的颜色                     |
-| style                     | CSS 代码检测工具                                                       |
-| import cost               | 一款用于计算导入的库的大小的工具                                       |
-| Rest client               | 用于后端 API 测试的工具 可以直接发起网络请求 `Ctrl + shift +p`         |
-| toggle quotes             | 快速切换引号 快捷键 `Ctrl + '`                                         |
-| better align              | 更好的对齐方式，使代码根据`= -=`对其 需要自定义快捷键                  |
-| One monokai theme         | 一款主题                                                               |
-| Minify                    | 压缩 HTML、CSS、Javascript 的工具，非工程化极度推荐                    |
-| TODO hightlight           | TODO 注释高亮                                                          |
-| live Server               | 本地预览服务器                                                         |
+| 扩展名                    | 叙述                                                                        |
+| ------------------------- | --------------------------------------------------------------------------- |
+| Chinese (Simplified)      | language 中文                                                               |
+| path autoComplate         | 路径自动补全                                                                |
+| path intellisens          | 路径自动补全 上下二选一即可                                                 |
+| Visual Studio Intellicode | Vscode 代码检查，在本文本出现过的词可以智能提示                             |
+| Vim                       | Vim 编辑器 习惯使用的就安装                                                 |
+| Setting Sync              | 使用 GitHub 同步设置                                                        |
+| VsCode-icon               | 在左侧资源管理器中的文件图标                                                |
+| bracket pair colorzer     | 阔高匹配，彩色样式更好看一眼就能查看哪些是一对的括号                        |
+| Auto rename tag           | 自动重命名标签                                                              |
+| Auto colse tag            | 自动闭合变迁                                                                |
+| ProJect Manager           | 多个标签快速切换                                                            |
+| Atom One Dark Theme       | Atom 主题 支持自定义样式 使用`Ctrl+k Ctrl+t` 打开切换面板                   |
+| beautiful                 | 代码格式化                                                                  |
+| prettier code formatter   | code formatter                                                              |
+| Code runner               | 代码快速运行，支持的语言非常多，甚至 C/C++/python/Java。。。                |
+| MarkDown All In One       | Markdown 编写，预览工具                                                     |
+| Material Theme            | 主题设置工具，支持自定义样式，特俗样式                                      |
+| change-case               | 修改变量的明明规则                                                          |
+| color info                | 快捷插件，鼠标悬浮在 css 颜色上时，提示信息                                 |
+| filesize                  | 在底部状态栏显示当前文件的大小                                              |
+| git history               | 以图标的形式查看 git 日志                                                   |
+| gitlens                   | 显示文件最近的 commit 和作者 当前行的 commit 信息                           |
+| image preview             | 图像预览                                                                    |
+| vscode-fileHeader         | vscode 顶部注释模板，可自定义作者时间等信息，并且自动更新 `Ctrl+Alt+I`      |
+| better-comments           | 更好的注释，可以根据注释的内容不同，更改注释的颜色 , 使用 ! * ? // 改变颜色 |
+| style                     | CSS 代码检测工具                                                            |
+| import cost               | 一款用于计算导入的库的大小的工具                                            |
+| Rest client               | 用于后端 API 测试的工具 可以直接发起网络请求 `Ctrl + shift +p`              |
+| toggle quotes             | 快速切换引号 快捷键 `Ctrl + '`                                              |
+| better align              | 更好的对齐方式，使代码根据`= -=`对其 需要自定义快捷键                       |
+| One monokai theme         | 一款主题                                                                    |
+| Minify                    | 压缩 HTML、CSS、Javascript 的工具，非工程化极度推荐                         |
+| live Server               | 本地预览服务器                                                              |
+| TODO tree                 | todo标签管理，快速访问                                                      |
 
 ### 前端插件
 
@@ -69,7 +69,7 @@ VsCode 是微软开发的一款基于`Electron`开源的文本编辑器，它不
 | BootStrap 3 Snippet                      | Bs3 的智能提示并且自动补全工具           |
 | BootStrap 4 Snippet                      | Bs4 的智能提示并且自动补全工具           |
 | View In Brower                           | 在浏览器中查看 快捷键`Ctrl+F1`           |
-| Open HTML in Default Browser             | 浏览器中查看 快捷键`Alt+b` 上下二选一    |
+| Open in  Browser                         | 浏览器中查看 快捷键`Alt+b` 上下二选一    |
 | Class autocomplete for html              |
 | CSS peek                                 | 跳转到 CSS 定义未知                      |
 | Javascript code Snippts                  | js 代码段                                |
@@ -100,6 +100,12 @@ VsCode 是微软开发的一款基于`Electron`开源的文本编辑器，它不
 | PythonExtension | Python 开发工具扩展                      |
 | Django          | 用于 Django 的模板提示                   |
 | Kite            | 通过机器学习提供python的智能提示，赞👍｜ |
+
+## SQL
+
+| 扩展名   | 叙述                   |
+| -------- | ---------------------- |
+| SQLtools | SQL 图表可视化管理工具 |
 
 ## vs code 常用快捷键
 
