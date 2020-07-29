@@ -1,0 +1,40 @@
+.block {
+    background: #abf3;
+    height: auto;
+    padding: 16px;
+    border-radius: 4px;
+    margin: 8px;
+}
+
+.flex-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-msg {
+    display: flex !important;
+    justify-content: flex-start;
+}
+
+.flex-msg > div :nth-child(1) {
+    width: 200px;
+}
+
+.flex-box > a {
+    display: block;
+    padding: 5px;
+    margin: 0 8px;
+    text-decoration: none;
+    border-bottom: 3px solid #abf0;
+}
+.flex-box > a:hover {
+    border-bottom: 3px solid #abf9;
+}
+
+.page {
+    display: block;
+    min-height: 300px;
+    background: #abf9;
+    padding: 8px;
+}

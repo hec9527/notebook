@@ -1,0 +1,28 @@
+{
+  "name": "parcel",
+  "version": "1.0.0",
+  "description": "parcel打包测试",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf node_modules dist/* && echo '> clean over' ",
+    "clean:dist": "rm -rf dist/* && echo '> clean dist fold ...'",
+    "init": "npm i && npm run dev",
+    "dev": "echo '> run dev server...' && parcel src/index.html --open",
+    "build": "npm run clean:dist &&  echo '> build production assets ...' && parcel build src/index.html --no-source-maps",
+    "build:dev": "npm run clean:dist && NODE_ENV=development parcel build src/index.html",
+    "reinstall": "npm run clean && npm run init",
+    "serve:prod": "npm run build && parcel server -p 10086 -o index.html --no-source-maps --no-autoinstall",
+    "test": "echo 'test command not found!'"
+  },
+  "keywords": [],
+  "author": "hec9527",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "less": "^3.12.2",
+    "parcel-bundler": "^1.12.4"
+  },
+  "dependencies": {
+    "preact": "^10.4.6"
+  }
+}

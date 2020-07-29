@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                user-select: none;
+            }
+            html,
+            body,
+            .container {
+                width: 100vw;
+                height: 100vh;
+            }
+            .option {
+                margin-bottom: 40px;
+                background: #abf3;
+                width: 100%;
+                height: auto;
+            }
+            .box {
+                color: #abf;
+                background: #abf9;
+                margin: 4px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 24px;
+            }
+            /* 网格基础布局 */
+            .grid-basic {
+                display: grid;
+
+                /* 定义3行，以及每一列的高度 */
+                /* grid-template-rows: 300px 200px 600px; */
+                /* 定义3列，以及每一列的宽度 */
+                /* grid-template-columns: 400px 600px 200px; */
+
+                /* 使用 repeat 函数确定重复，第一个参数为重复次数，第二个参数为重复的值 或者重复的模式 */
+                grid-template-columns: repeat(2, 45%);
+                /* grid-template-rows: repeat(3, 120px); */
+                grid-template-rows: repeat(2, 40px 90px 120px);
+
+                width: 100%;
+                height: auto;
+            }
+
+            /* fr 比例 */
+            .grid-fr {
+                display: grid;
+                grid-template-columns: repeat(2, 330px 1fr 3fr);
+                grid-template-rows: repeat(2, 120px 50px);
+            }
+
+            /* minmax 函数*/
+            .minmax {
+                display: grid;
+                /* 这种比例计算的长宽都是先去除固定数值之后再计算的 */
+                grid-template-columns: 1fr 2fr 4fr minmax(200px, 2fr);
+                grid-template-rows: 2fr 1fr minmax(100px, 4fr);
+            }
+
+            /* auto 关键字 */
+            .auto {
+                display: grid;
+                /* 如果存在其他关键字如 fr 则auto显示最小宽度 */
+                /* grid-template-columns: 1fr auto 200px; */
+                grid-template-columns: 300px auto 200px;
+                /* 如果小于显示申明的min-width则使用最小宽度 */
+                grid-template-rows: 1fr 200px auto;
+            }
+            .auto .box {
+                min-height: 40px;
+            }
+
+            /* 12栅格布局 */
+            .grid12 {
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+            }
+            .grid24 {
+                display: grid;
+                grid-template-columns: repeat(24, 1fr);
+            }
+
+            /* 项目之间的间隙 */
+            .gird-gap {
+                display: grid;
+                grid-template-columns: 200px repeat(2, 1fr);
+                grid-template-rows: 100px repeat(2, 1fr);
+                row-gap: 30px;
+                /* 项目之间除了gap之外，每个元素还有自己的margin 去掉之后还是最后的间隔 */
+                column-gap: 1px;
+                /* 相当于同时设置了 行间距以及列间距，如果给定一个值，则第二个值等同于第一个值 */
+                /* gap: 20px; */
+            }
+            .gird-gap .box {
+                margin: 0;
+            }
+
+            /* areas布局 */
+            .areas {
+                display: grid;
+                grid-template-columns: 100px 200px;
+                grid-template-rows: 200px 100px 50px;
+                /* 当划分区域之后，如果行列小于划分的区域则自动添加并且响应式的占满全部屏幕 */
+                grid-template-areas: 'a b c' 'd e f' 'h i j';
+            }
+
+            /* grid 布局 自动填充  */
+            .gird-auto-flow {
+                display: grid;
+                grid-template-columns: repeat(3, 100px);
+                grid-template-rows: repeat(5, 100px);
+                grid-auto-flow: row dense;
+            }
+            .gird-auto-flow .box:nth-child(1),
+            .gird-auto-flow .box:nth-child(2),
+            .gird-auto-flow .box:nth-child(6),
+            .gird-auto-flow .box:nth-child(7) {
+                grid-column-start: 1;
+                grid-column-end: 3;
+            }
+
+            /* 手动设置项目的位置，自适应自动填充 */
+            .item-position {
+                display: grid;
+                grid-template-columns: repeat(6, 100px);
+                grid-template-rows: repeat(3, 100px);
+                /* grid-auto-flow + 项目大小设置  可以非常方便的制作出复杂的页面分块 */
+                grid-auto-flow: row dense;
+            }
+            .item-position .box:nth-child(1) {
+                grid-column-start: 2;
+                grid-column-end: 4;
+                grid-row-start: 2;
+                grid-row-end: 4;
+            }
+            .item-position .box:nth-child(2) {
+                grid-column-start: 1;
+                grid-column-end: 2;
+            }
+            .item-position .box:nth-child(4) {
+                grid-column-start: span 2;
+            }
+            .item-position .box:nth-child(6) {
+                grid-column-start: span 3;
+            }
+
+            /* 通过设置子项目展示的area来设置布局 */
+            .setplacement {
+                display: grid;
+                grid-template-rows: repeat(3, minmax(50px, 2fr, 1fr));
+                grid-template-columns: repeat(5, 150px);
+                grid-template-areas: 'a1 a2 a3 a4 a5' '. . b3 b4 b5' 'c1 c2 c3 c4 c5';
+            }
+            .setplacement .box:nth-child(1) {
+                grid-area: a3;
+                grid-row: 1 / span 3;
+            }
+            .setplacement .box:nth-child(4) {
+                grid-area: a1;
+                grid-column: 1 / span 2;
+            }
+        </style>
+        <title>Grid 网格布局Demo</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="option">
+                <h1>网格布局基础</h1>
+                <div class="grid-basic">
+                    <div class="box">项目01</div>
+                    <div class="box">项目02</div>
+                    <div class="box">项目03</div>
+                    <div class="box">项目04</div>
+                    <div class="box">项目05</div>
+                    <div class="box">项目06</div>
+                    <div class="box">项目07</div>
+                    <div class="box">项目08</div>
+                    <div class="box">项目09</div>
+                    <!-- 超出部分为隐式表网格 -->
+                    <div class="box">项目10</div>
+                </div>
+            </div>
+
+            <div class="option">
+                <h1>fr片段</h1>
+                <ul>
+                    <li>
+                        使用fr关键字，剩余部分将按照比例瓜分，同时即使有固定宽度的项目，也会改变大小使得一行竟可能的占满
+                    </li>
+                </ul>
+                <div class="grid-fr">
+                    <div class="box">项目01</div>
+                    <div class="box">项目02</div>
+                    <div class="box">项目03</div>
+                    <div class="box">项目04</div>
+                    <div class="box">项目05</div>
+                    <div class="box">项目06</div>
+                    <div class="box">项目07</div>
+                    <div class="box">项目08</div>
+                    <div class="box">项目09</div>
+                    <div class="box">项目10</div>
+                </div>
+            </div>
+
+            <div class="option">
+                <h1>minmax限定长度</h1>
+                <ul>
+                    <li>所有的比例宽度都是先去除固定的宽度之后再计算的</li>
+                </ul>
+                <div class="minmax">
+                    <div class="box">项目01</div>
+                    <div class="box">项目02</div>
+                    <div class="box">项目03</div>
+                    <div class="box">项目04</div>
+                    <div class="box">项目05</div>
+                    <div class="box">项目06</div>
+                    <div class="box">项目07</div>
+                    <div class="box">项目08</div>
+                    <div class="box">项目09</div>
+                    <div class="box">项目10</div>
+                </div>
+            </div>
+
+            <div class="option">
+                <h1>auto 关键字</h1>
+                <div class="auto">
+                    <div class="box">项目01</div>
+                    <div class="box">项目02</div>
+                    <div class="box">项目03</div>
+                    <div class="box">项目04</div>
+                    <div class="box">项目05</div>
+                    <div class="box">项目06</div>
+                    <div class="box">项目07</div>
+                    <div class="box">项目08</div>
+                    <div class="box">项目09</div>
+                    <div class="box">项目10</div>
+                </div>
+            </div>
+
+            <div class="option">
+                <h1>12栅格布局</h1>
+                <div class="grid12">
+                    <div class="box">项目01</div>
+                    <div class="box">项目02</div>
+                    <div class="box">项目03</div>
+                    <div class="box">项目04</div>
+                    <div class="box">项目05</div>
+                    <div class="box">项目06</div>
+                    <div class="box">项目07</div>
+                    <div class="box">项目08</div>
+                    <div class="box">项目09</div>
+                    <div class="box">项目10</div>
+                    <div class="box">项目11</div>
+                    <div class="box">项目12</div>
+                    <div class="box">项目13</div>
+                    <div class="box">项目14</div>
+                    <div class="box">项目15</div>
+                    <div class="box">项目16</div>
+                    <div class="box">项目17</div>
+                    <div class="box">项目18</div>
+                    <div class="box">项目19</div>
+                    <div class="box">项目20</div>
+                    <div class="box">项目21</div>
+                    <div class="box">项目22</div>
+                    <div class="box">项目23</div>
+                    <div class="box">项目24</div>
+                    <div class="box">项目25</div>
+                    <div class="box">项目26</div>
+                    <div class="box">项目27</div>
+                    <div class="box">项目28</div>
+                    <div class="box">项目29</div>
+                    <div class="box">项目30</div>
+                </div>
+            </div>
+
+            <div class="option">
+                <h1>gird-gap</h1>
+                <div class="gird-gap">
+                    <div class="box">项目01</div>
+                    <div class="box">项目02</div>
+                    <div class="box">项目03</div>
+                    <div class="box">项目04</div>
+                    <div class="box">项目05</div>
+                    <div class="box">项目06</div>
+                    <div class="box">项目07</div>
+                    <div class="box">项目08</div>
+                    <div class="box">项目09</div>
+                    <div class="box">项目10</div>
+                </div>
+            </div>
+
+            <div class="option">
+                <h1>areas布局</h1>
+                <div class="areas">
+                    <div class="box">项目01</div>
+                    <div class="box">项目02</div>
+                    <div class="box">项目03</div>
+                    <div class="box">项目04</div>
+                    <div class="box">项目05</div>
+                    <div class="box">项目06</div>
+                    <div class="box">项目07</div>
+                    <div class="box">项目08</div>
+                    <div class="box">项目09</div>
+                    <div class="box">项目10</div>
+                </div>
+            </div>
+
+            <div class="option">
+                <h1>自动填充</h1>
+                <div class="gird-auto-flow">
+                    <div class="box">项目01</div>
+                    <div class="box">项目02</div>
+                    <div class="box">项目03</div>
+                    <div class="box">项目04</div>
+                    <div class="box">项目05</div>
+                    <div class="box">项目06</div>
+                    <div class="box">项目07</div>
+                    <div class="box">项目08</div>
+                    <div class="box">项目09</div>
+                    <div class="box">项目10</div>
+                </div>
+            </div>
+
+            <div class="option">
+                <h1>手动设置项目位置</h1>
+                <div class="item-position">
+                    <div class="box">项目01</div>
+                    <div class="box">项目02</div>
+                    <div class="box">项目03</div>
+                    <div class="box">项目04</div>
+                    <div class="box">项目05</div>
+                    <div class="box">项目06</div>
+                    <div class="box">项目07</div>
+                    <div class="box">项目08</div>
+                    <div class="box">项目09</div>
+                    <div class="box">项目10</div>
+                    <div class="box">项目11</div>
+                    <div class="box">项目12</div>
+                </div>
+            </div>
+
+            <div class="option">
+                <h1>指定项目展示的区域</h1>
+                <div class="setplacement">
+                    <div class="box">项目01</div>
+                    <div class="box">项目02</div>
+                    <div class="box">项目03</div>
+                    <div class="box">项目04</div>
+                    <div class="box">项目05</div>
+                    <div class="box">项目06</div>
+                    <div class="box">项目07</div>
+                    <div class="box">项目08</div>
+                    <div class="box">项目09</div>
+                    <div class="box">项目10</div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                list-style: none;
+                user-select: none;
+                outline: none;
+            }
+            #main {
+                width: 100%;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .btn {
+                padding: 7px 15px 7px 15px;
+                font-size: 18px;
+                border-radius: 5px;
+                margin-right: 15px;
+                cursor: pointer;
+            }
+        </style>
+        <title>测试Jsonp</title>
+    </head>
+    <body>
+        <ul id="main">
+            <li><button class="btn">测试1</button></li>
+            <li><button class="btn">测试2</button></li>
+        </ul>
+
+        <script>
+            const btn = document.querySelectorAll('.btn');
+
+            $.ajax = function(option) {
+                let url = option.url,
+                    data = option.data || {},
+                    method = option.method.toUpperCase || 'GET',
+                    dataType = option.dataType.toUpperCase || 'JSONP',
+                    callBack =
+                        option.callBack ||
+                        `jquery${(Math.random() * 1000000000000000) | 0}`,
+                    success = option.success || callBack;
+
+                let ajax = new XMLHttpRequest();
+
+                ajax.open(method, url);
+
+                ajax.send();
+            };
+
+            btn[0].addEventListener('click', () => {
+                //
+            });
+        </script>
+    </body>
+</html>

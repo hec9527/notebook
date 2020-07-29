@@ -1,0 +1,14 @@
+{
+    "name": "websocket_demo",
+    "version": "1.0.0",
+    "description": "demo chat room",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "hec9527",
+    "license": "ISC",
+    "dependencies": {
+        "ws": "^7.2.1"
+    }
+}

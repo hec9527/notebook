@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    list-style: none;
+    text-decoration: none;
+    user-select: none;
+}
+
+body,
+html {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+body {
+    background: url(../bilibili.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.glass {
+    backdrop-filter: blur(10px);
+    position: relative;
+}
+.glass::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.router {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.router .router-nav {
+    width: 100%;
+    height: 55px;
+    font-size: 18px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    z-index: 10;
+}
+
+.router-link-cover {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.router .router-nav .router-link {
+    display: inline-block;
+    height: 100%;
+    line-height: 55px;
+    padding: 0 15px;
+    cursor: pointer;
+}
+
+.router-this,
+.router .router-nav .router-link:hover {
+    color: rgb(186, 56, 52);
+}
+
+.router .router-section,
+.router .router-nav,
+.router .router-view {
+    position: absolute;
+}
+
+.router .router-section {
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    overflow-y: auto;
+    display: none;
+    /* 简单展示效果 */
+    padding-top: 150px;
+    font-size: 99px;
+    color: red;
+}
+
+.router .section-this {
+    display: block;
+}
+
+.toast {
+    position: absolute;
+    display: inline-block;
+    top: 5em;
+    margin-left: 50%;
+    height: 30px;
+    line-height: 30px;
+    padding: 5px 15px;
+    width: auto;
+    min-width: 120px;
+    max-width: 700px;
+    overflow: hidden;
+    text-align: center;
+    color: #fff;
+    border-radius: 7px;
+    backdrop-filter: blur(33px);
+}
+
+.toast:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background: #0003;
+    z-index: -1;
+}
+
+.fade-in {
+    animation: fadeDown 0.5s forwards ease-in-out;
+}
+
+@keyframes fadeDown {
+    from {
+        transform: translateX(-50%) translateY(-30px);
+        opacity: 0.1;
+    }
+    to {
+        transform: translateX(-50%) translateY(0px);
+        opacity: 1;
+    }
+}

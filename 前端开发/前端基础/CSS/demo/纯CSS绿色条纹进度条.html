@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <title>绿色条纹css3进度条代码</title>
+
+        <style type="text/css">
+            * {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+            }
+            html,
+            body {
+                background-repeat: no-repeat;
+                background-position: center;
+                background-image: radial-gradient(circle, #c0e979, #96d923);
+                height: 100%;
+                position: absolute;
+                width: 100%;
+            }
+
+            .container {
+                width: 80vw;
+                margin: 45vh auto 0;
+            }
+            .container .warning {
+                height: 10vh;
+            }
+            .warning {
+                position: relative;
+                background-color: #6da807;
+                border: 1px solid #6da807;
+                border-radius: 10px;
+                box-shadow: 1vw 3vh 10vh rgba(109, 168, 7, 0.8);
+                background-size: 3em 3em;
+                background-image: linear-gradient(
+                    -45deg,
+                    transparent 0em,
+                    transparent 0.8em,
+                    #96d923 0.9em,
+                    #96d923 2.1em,
+                    transparent 2.1em,
+                    transparent 2.9em,
+                    #96d923 3.1em
+                );
+                -webkit-animation: warning-animation 750ms infinite linear;
+                -moz-animation: warning-animation 750ms infinite linear;
+                animation: warning-animation 750ms infinite linear;
+            }
+            .warning:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 100%;
+                border-radius: 10px;
+                background-image: linear-gradient(
+                    to bottom,
+                    #6da807,
+                    rgba(171, 226, 77, 0.6) 15%,
+                    transparent 60%,
+                    #6da807
+                );
+            }
+
+            @-webkit-keyframes warning-animation {
+                0% {
+                    background-position: 0 0;
+                }
+                100% {
+                    background-position: 3em 0;
+                }
+            }
+            @-moz-keyframes warning-animation {
+                0% {
+                    background-position: 0 0;
+                }
+                100% {
+                    background-position: 3em 0;
+                }
+            }
+            @keyframes warning-animation {
+                0% {
+                    background-position: 0 0;
+                }
+                100% {
+                    background-position: 3em 0;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="warning"></div>
+        </div>
+    </body>
+</html>

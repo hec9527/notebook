@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <script
+            crossorigin
+            src="https://unpkg.com/react@16/umd/react.development.js"
+        ></script>
+        <script
+            crossorigin
+            src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+        ></script>
+        <script
+            crossorigin
+            src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"
+        ></script>
+        <title></title>
+    </head>
+    <body>
+        <div id="app"></div>
+
+        <script type="text/babel">
+            const name = 'tom';
+            const el = <span style={{ color: 'red' }}>hello react</span>;
+
+            function foo() {
+                return <span>hello react</span>;
+            }
+
+            ReactDOM.render(
+                <div>
+                    <p>算數運算：2 + 3 = {2 + 3}</p>
+                    <p>读取JS变量：{name}</p>
+                    <p>引用其它JSX变量: {el}</p>
+                    <p>调用函数： {foo()}</p>
+                    <p></p>
+                    <b>
+                        在JSX当中，class使用className代替，for使用HTMLfor代替，tabindex使用tabIndex代替，
+                        <strong>统一采用小驼峰的方式命名</strong>
+                    </b>
+                    <p>
+                        <b>
+                            在jsx当中遇到大括号使用js解析，遇到圆括号使用HTML解析
+                        </b>
+                    </p>
+                </div>,
+                document.getElementById('app')
+            );
+        </script>
+    </body>
+</html>

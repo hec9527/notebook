@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SVG多边形图片网格布局特效 - 站长素材</title>
+
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+    </head>
+    <body>
+        <script src="js/snap.svg-min.js"></script>
+        <script type="text/javascript">
+            window.onload = function(argument) {
+                (w = window.innerWidth), (h = window.innerHeight);
+
+                /* svg init */
+                var paper = Snap(w, h);
+
+                var team_rwby = {
+                    ruby: 'img/4.jpg',
+                    weiss: 'img/3.jpg',
+                    blake: 'img/2.jpg',
+                    yang: 'img/1.jpg'
+                };
+
+                /* this polygons' array include coordinates and image's source  */
+                var polygons = [];
+                polygons.push(
+                    {
+                        coordinates: [
+                            [0, 0],
+                            [w * 0.6, 0],
+                            [0, h * 0.5]
+                        ],
+                        strokeStyle: 'black',
+                        strokeWidth: 10,
+                        image_src: team_rwby.ruby
+                    },
+                    {
+                        coordinates: [
+                            [0, h * 0.5],
+                            [w * 0.3, h * 0.25],
+                            [w * 0.55, h],
+                            [0, h]
+                        ],
+                        strokeStyle: 'black',
+                        strokeWidth: 10,
+                        image_src: team_rwby.yang
+                    },
+                    {
+                        coordinates: [
+                            [w * 0.3, h * 0.25],
+                            [w * 0.75, h * 0.55],
+                            [w * 0.55, h]
+                        ],
+                        strokeStyle: 'black',
+                        strokeWidth: 10,
+                        image_src: team_rwby.blake
+                    },
+                    {
+                        coordinates: [
+                            [w * 0.55, h],
+                            [w, 0],
+                            [w, h]
+                        ],
+                        strokeStyle: 'black',
+                        strokeWidth: 10,
+                        image_src: team_rwby.ruby
+                    },
+                    {
+                        coordinates: [
+                            [w * 0.6, 0],
+                            [w, 0],
+                            [w * 0.75, h * 0.55],
+                            [w * 0.3, h * 0.25]
+                        ],
+                        strokeStyle: 'black',
+                        strokeWidth: 10,
+                        image_src: team_rwby.weiss
+                    }
+                );
+
+                for (var i = 0; i < polygons.length; i++) {
+                    make_polygon_layout(paper, polygons[i]);
+                }
+            };
+
+            function make_polygon_layout() {
+                paper = arguments[0];
+                polygon = arguments[1];
+                tempA = [];
+                for (var i = 0; i < polygon.coordinates.length; i++) {
+                    tempA[i] = polygon.coordinates[i];
+                }
+                /* get largest and smallest x coordinate */
+                tempA.sort(function(a, b) {
+                    return a[0] - b[0];
+                });
+                sX = tempA[0][0];
+                bX = tempA[tempA.length - 1][0];
+
+                /* get largest and smallest ycoordinate */
+                tempA.sort(function(a, b) {
+                    return a[1] - b[1];
+                });
+                sY = tempA[0][1];
+                bY = tempA[tempA.length - 1][1];
+
+                polygon.startPoint = [sX, sY];
+                polygon.endPoint = [bX, bY];
+
+                polygon.width = polygon.endPoint[0] - polygon.startPoint[0];
+                polygon.height = polygon.endPoint[1] - polygon.startPoint[1];
+
+                var pattern = paper
+                    .image(
+                        polygon.image_src,
+                        0,
+                        0,
+                        polygon.width,
+                        polygon.height
+                    )
+                    .attr('preserveAspectRatio', 'xMidYMid slice')
+                    .pattern({
+                        x: polygon.startPoint[0],
+                        y: polygon.startPoint[1],
+                        width: polygon.width,
+                        height: polygon.height
+                    })
+                    .attr('viewBox', '');
+
+                var path = paper.path({
+                    d: make_path(polygon.coordinates),
+                    strokeWidth: polygon.strokeWidth,
+                    'stroke-linejoin': 'round',
+                    stroke: polygon.strokeStyle,
+                    fill: pattern
+                });
+
+                path.click(function(event) {});
+            }
+
+            function make_path() {
+                d = 'M';
+                coordinates = arguments[0];
+                for (var i = 0; i < coordinates.length; i++) {
+                    if (i == 0) {
+                        d += coordinates[i][0] + ' ' + coordinates[i][1];
+                    } else {
+                        d += 'L' + coordinates[i][0] + ' ' + coordinates[i][1];
+                    }
+                }
+                return d + 'z';
+                // return d;
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <script
+            crossorigin
+            src="https://unpkg.com/react@16/umd/react.development.js"
+        ></script>
+        <script
+            crossorigin
+            src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+        ></script>
+        <script
+            crossorigin
+            src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"
+        ></script>
+        <title>事件处理</title>
+    </head>
+
+    <body>
+        <div id="app"></div>
+        <hr />
+        <div id="app1"></div>
+        <ul>
+            <li>react中的事件已小驼峰的方式命名，例如：onClick而不是onclick</li>
+            <li>阻止默认事件采用： e.preventDefault() 而不能通过返回false，</li>
+        </ul>
+
+        <script type="text/babel">
+            // 给事件处理函数   也就是： 组件的方法中 添加this
+            // 使用  foo=()={}     实验性语法 可能会废纸
+            // 使用  onClcik = {(e)=> this.handler(e)}     不推荐 性能
+            // 使用  this.handler = this.handler.bind(this)   推荐在constructor当中给会用到this的方法绑定this
+
+            class Table extends React.Component {
+                // 组件中的this 包含： contenxt、props、refs、state、updater
+                delete() {
+                    console.log(arguments);
+                }
+
+                render() {
+                    return (
+                        <p
+                            onClick={this.delete.bind(
+                                '通过bind实现参数传递',
+                                this
+                            )}
+                        >
+                            点我传递参数
+                        </p>
+                    );
+                }
+            }
+
+            class Table1 extends React.Component {
+                // 组件中的this 包含： contenxt、props、refs、state、updater
+                delete() {
+                    console.log(arguments);
+                }
+
+                render() {
+                    return (
+                        <p
+                            onClick={e =>
+                                this.delete('通过箭头函数传递参数', this)
+                            }
+                        >
+                            点我传递参数
+                        </p>
+                    );
+                }
+            }
+
+            ReactDOM.render(<Table />, document.getElementById('app'));
+            ReactDOM.render(<Table1 />, document.getElementById('app1'));
+        </script>
+    </body>
+</html>

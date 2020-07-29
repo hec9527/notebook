@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
+
+            html,
+            body {
+                height: 100vh;
+                width: 100vw;
+            }
+
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                font-family: 'Open Sans', 'PingFang SC', 'Microsoft YaHei',
+                    'Helvetica Neue', 'Hiragino Sans GB', 'WenQuanYi Micro Hei',
+                    Arial, sans-serif;
+            }
+
+            @keyframes move {
+                0% {
+                    background-position: 20% 0;
+                }
+                50% {
+                    background-position: 70% 0;
+                }
+            }
+
+            .bg {
+                background: url(https://sp-webfront.skypixel.com/skypixel/v2/public/website/assets/1535027674204-f6eca6369ec03e70262b58b0e25cda7b.jpg);
+                background-size: cover;
+                position: fixed;
+                top: -20px;
+                left: -20px;
+                right: -20px;
+                bottom: -20px;
+                filter: blur(10px);
+                z-index: -1;
+            }
+
+            .slogan {
+                color: white;
+                margin-top: 24px;
+                font-size: 36px;
+                font-weight: 400;
+            }
+
+            .mask {
+                width: 512px;
+                height: 288px;
+                -webkit-animation: move 100s infinite linear;
+                animation: move 50s infinite;
+                background-image: url(https://sp-webfront.skypixel.com/skypixel/v2/public/website/assets/1535027674204-f6eca6369ec03e70262b58b0e25cda7b.jpg);
+                background-size: cover;
+                -webkit-mask: url(http://www2.djicdn.com/assets/images/v3/logo-black2-145dcb13c56f36a65d084180a42136fa.svg);
+                mask: url(http://www2.djicdn.com/assets/images/v3/logo-black2-145dcb13c56f36a65d084180a42136fa.svg);
+                -webkit-mask-size: cover;
+                mask-size: cover;
+            }
+        </style>
+        <title>Mask镂空效果</title>
+    </head>
+    <body>
+        <div class="bg"></div>
+        <div class="mask"></div>
+        <h1 class="slogan">The Future Of Possible</h1>
+    </body>
+</html>

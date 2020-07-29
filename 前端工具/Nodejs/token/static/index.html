@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #nav {
+            min-width: 600px;
+            z-index: 3;
+            height: 60px;
+            border: 1px solid black;
+            background: linear-gradient(to top, rgb(1, 1, 1), rgb(30, 30, 20));
+            color: #ccc;
+            text-decoration: none;
+        }
+
+        .nav-items {
+            height: 60px;
+            line-height: 60px;
+            padding: 0 15px;
+            display: inline-block;
+        }
+
+        .nav-items:hover {
+            background: yellow;
+            color: red;
+            cursor: pointer;
+        }
+
+        #login {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 60px;
+            display: inline-block;
+        }
+
+        .login-items {
+            line-height: 60px;
+            list-style: none;
+            float: right;
+            padding: 0 10px;
+        }
+
+        .login-items:hover {
+            cursor: pointer;
+            color: yellow;
+        }
+
+        #section {
+            z-index: -1;
+            position: absolute;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .bg-image {
+            position: absolute;
+            background-image: url("./img/江南烧酒4k动漫壁纸_彼岸图网.jpg");
+            background-size: cover;
+            height: 100vh;
+            width: inherit;
+            z-index: 0;
+        }
+
+        .bg-mask {
+            position: absolute;
+            background: rgba(70, 70, 70, 0.5);
+            height: 100vh;
+            width: inherit;
+            z-index: 1;
+        }
+
+        .span-container {
+            color: #fff;
+        }
+
+        .wrap {
+            z-index: 5;
+            position: absolute;
+            height: 30px;
+            width: 300px;
+            text-align: center;
+            right: 0;
+            left: 0;
+            margin: auto;
+            top: 50vh;
+        }
+
+        #login-wrap {
+            display: none;
+            position: absolute;
+            top: 20%;
+            margin: auto;
+            right: 0;
+            left: 0;
+            width: 400px;
+            height: 270px;
+            z-index: 10;
+            background: #fff;
+            box-shadow: 3px 3px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-login {
+            line-height: 30px;
+            height: 30px;
+            background: #ddd;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .nav-login-close {
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding-right: 15px;
+        }
+
+        .nav-login-close:hover {
+            cursor: pointer;
+            color: yellow;
+        }
+
+        .user-name {
+            margin-left: 70px;
+            margin-top: 70px;
+        }
+
+        .user-passwd {
+            margin-left: 70px;
+            margin-top: 30px;
+        }
+
+        .btn-wrap {
+            margin-top: 30px;
+            margin-left: 70px;
+            display: flex;
+            justify-items: start;
+            justify-content: space-around;
+            width: 200px;
+        }
+
+        .btn-submit:hover,
+        .btn-close:hover {
+            color: yellow;
+            cursor: pointer;
+        }
+    </style>
+    <title>首页</title>
+</head>
+
+<body>
+    <div id="nav">
+        <ul id="menu">
+            <li class="nav-items"><a href="#">首页</a></li>
+            <li class="nav-items"><a href="#">文档</a></li>
+            <li class="nav-items"><a href="#">下载</a></li>
+            <li class="nav-items"><a href="#">帮助</a></li>
+            <li class="nav-items"><a href="#">关于我们</a></li>
+        </ul>
+        <ul id="login">
+            <li class="login-items"><a href="#">登陆</a></li>
+            <li class="login-items"><a href="#">注册</a></li>
+        </ul>
+    </div>
+
+    <div id="section">
+        <div class="bg-image"></div>
+        <div class="bg-mask"></div>
+        <div class="wrap">
+            <span class="span-container">欢迎使用，请登录</span>
+        </div>
+    </div>
+
+
+    <div id="login-wrap">
+        <div class="nav-login">
+            <span>title</span>
+            <div class="nav-login-close">X</div>
+        </div>
+        <div class="body-login">
+            <form action="/login/" method="post">
+                <div class="user-name">用户名：<input class="username" name="username" type="text" value="123" placeholder="请输入用户名"></div>
+                <div class="user-passwd">密 &nbsp; 码：<input class="passwd" name="passwd" type="password" value="123" placeholder="请输入密码"></div>
+                <div class="btn-wrap">
+                    <div class="btn-submit"><input type="submit" value="提交"></div>
+                    <div class="btn-close">取消</div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var login_box = document.getElementById("login-wrap");
+        var login_menu = document.getElementsByClassName("login-items")[0];
+        var btn_login = document.getElementsByClassName("btn-submit")[0];
+        var btn_close = document.getElementsByClassName("btn-close")[0];
+        var close_x = document.getElementsByClassName("nav-login-close")[0];
+
+        login_menu.onclick = function () {
+            login_box.style.display = "block";
+        }
+        btn_close.onclick = close_x.onclick = function () {
+            login_box.style.display = "none";
+        }
+
+        btn_login.onclick = function (e) {
+            var userName = document.getElementsByClassName("username")[0].value;
+            var passwd = document.getElementsByClassName("passwd")[0].value;
+            if (userName === '' || passwd === '') {
+                userName ==='' && alert("请输入用户名！");
+                passwd === '' && alert("请输入密码!");
+                window.event ? window.event.cancelBubble = true : e.stopPropagation();
+                e.preventDefault && e.preventDefault();
+                return false;
+            }
+        }
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>计算属性Vs监听器</title>
+</head>
+
+<body>
+    <li>计算属性</li>
+    <hr>
+    <ol>
+        <li>计算属可以响应式的依赖Vue的数据对象</li>
+        <li>计算属性是基于它们的响应式依赖进行缓存的</li>
+        <li>计算属性当中使用到的响应式数据如果没有发生改变，那么会直接返回之前计算的结果而不必再次计算</li>
+        <li>计算属性默认只有getter访问器，但是可以手动添加setter</li>
+    </ol>
+    <div id="app1">
+        <p># demo</p>
+        <p>原始消息：{{message}}</p>
+        <p>消息反转：{{reversedmessage}}</p>
+        <input type="text" v-model:value="message">
+    </div><br><br><br><br><br><br>
+    <script>
+        const vm = new Vue({
+            el: "#app1",
+            data: {
+                message: "hello world"
+            },
+            computed: {
+                reversedmessage: function () {
+                    return this.message.split("").reverse().join("")
+                }
+            }
+        })
+    </script>
+
+
+
+    <li>监听器</li>
+    <hr>
+    <ol>
+        <li>监听器用于监听数据变动</li>
+        <li>监听器中的属性为监听的属性的变量名</li>
+        <li>监听器的demo请查看源码</li>
+    </ol>
+    <div id="app2">
+        <p># 监听器demo</p>
+        <button @click="click">获取信息</button>
+        <p>获取的信息：{{message}}</p>
+        <p>
+            <ul class="itemlist" v-html='messagehtml'></ul>
+        </p>
+    </div>
+    <script>
+        const vm1 = new Vue({
+            el: "#app2",
+            data: {
+                message: "hello world",
+                messagehtml: "",
+                html: document.getElementsByTagName("html")[0],
+            },
+            methods: {
+                click: function (index) {
+                    if (index) {
+                        if (index > 10) { return }
+                        else { index++; }
+                    } else { index = 1; }
+                    const self = this;
+                    setTimeout(() => {
+                        self.message = Math.random() * 20000;
+                    }, 500);
+                    setTimeout(() => {
+                        this.click(index);
+                    }, 200);
+                }
+            },
+            watch: {
+                message: function () {
+                    this.messagehtml += `<li>${new Date().toLocaleString()}: ${this.message}</li>`;
+                    this.html.scrollTop = 9999999999;
+                }
+            }
+        })
+    </script>
+
+
+</body>
+
+</html>

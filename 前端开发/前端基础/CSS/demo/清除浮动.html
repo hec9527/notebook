@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            .float {
+                float: left;
+                width: 200px;
+                height: 200px;
+                background: #abf;
+                margin: 5px;
+            }
+            .section {
+                border: 1px solid red;
+                padding: 8px;
+                margin-bottom: 32px;
+            }
+
+            /* 可以使用over来消除浮动引起的高度塌陷  BFC */
+            .section1 {
+                overflow: auto;
+            }
+
+            /* 通过给父级容器添加浮动效果   BFC */
+            .section2 {
+                float: left;
+            }
+
+            /* 空元素清除浮动 */
+            .section3 .clear {
+                clear: both;
+            }
+
+            /* 最后一个元素清除浮动 */
+            .section4 .float:nth-last-child(1) {
+                clear: both;
+                float: none;
+                display: inline-block;
+            }
+
+            /* 父级伪元素 */
+            .section5.clearfix {
+                /* 兼容IE6，7 */
+                zoom: 1;
+            }
+            .clearfix::after {
+                content: '';
+                display: block;
+                height: 0;
+                clear: both;
+            }
+        </style>
+        <title>清除浮动</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="section section1">
+                <h1>使用overflow清除浮动 <b>BFC</b></h1>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+            </div>
+
+            <div class="section section2">
+                <h1>父级容器添加 float属性 清除浮动 <b>BFC</b></h1>
+                <ul>
+                    <li>缺点：父级也变成了浮动元素，后端的margin无效了</li>
+                </ul>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+            </div>
+
+            <div class="section section3">
+                <h1>添加空元素"clear: both" 清除浮动</h1>
+                <ul>
+                    <li>缺点：增加了一些无效的元素</li>
+                </ul>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="section section4">
+                <h1>最后一个元素“clear:both”</h1>
+                <ul>
+                    <li>
+                        缺点：最后一个元素取消浮动，并且增加"clear:both"，根据需求调整显示状态
+                        display?
+                    </li>
+                </ul>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+            </div>
+
+            <div class="section section5 clearfix">
+                <h1 style="color: brown;">万能用法：父级伪元素</h1>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+                <div class="float"></div>
+            </div>
+        </div>
+    </body>
+</html>

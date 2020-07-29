@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Vue中的数据与方法</title>
+</head>
+
+<body>
+    <!-- 实例1 -->
+    <li>数据响应式</li>
+    <hr>
+    <p>响应式：当Vue中的Data对象的数据被修改的时候，视图层会自动更新</p>
+    <p>只有当实例被创建时就已经存在于 data 中的属性才是响应式的</p>
+    <p>响应式系统中的属性被Object.freeze()函数修改之后，不再是响应式的</p>
+    <div id="app1">
+        <p v-on:click="response" v-on:dblclick="freeze">message是响应式的，点击鼠标左键修改点击次数，双击之后冻结：{{ message }}</p>
+        <p v-on:click="noresponse">Error不是响应式的，点击鼠标左键查看效果：{{  }}</p>
+        <p>------</p>
+        <p>如果在界面中使用了还未定义的变量，Vue会报错</p>
+        <p>使用freeze冻结对象必须是在Vue实例创建之前,否则不能冻结对象</p>
+    </div><br><br><br>
+    <script>
+        const obj = {
+            times: 0,
+            message: "这里会变动",
+        }
+        const app1 = new Vue({
+            el: "#app1",
+            data: obj,
+            methods: {
+                response: function () {
+                    this.message = `点击了${++this.times}次`;
+                },
+                freeze: function () {
+                    this.message = "这里被冻结了，不在响应式修改！";
+
+                    Object.freeze(obj);
+                },
+                noresponse: function () {
+                    this.message = `这里不会变动：${this.times}`
+                }
+            }
+        })
+        // app1.Error = '测试文档'
+    </script>
+
+
+
+
+    <!-- 实例2 -->
+    <li>钩子</li>
+    <hr>
+    <p>定义:处理被拦截的函数调用、事件、消息的代码，被称为钩子</p>
+    <p>钩子能够在特定的时期增加处理函数,增强系统的功能,例如Js中的各种事件</p>
+    <p>Vue中常用的钩子</p>
+    <ul>
+        <li>beforeCreate</li>
+        <li>created</li>
+        <li>beforeMount</li>
+        <li>mounted</li>
+        <li>beforeUpdate</li>
+        <li>updated</li>
+        <li>beforeDestory</li>
+        <li>destoryed</li>
+    </ul>
+    <div id="app2">
+        <p v-on:click="click">{{ message }}</p>
+
+    </div>
+    <script>
+        let app2 = new Vue({
+            el: "#app2",
+            data: {
+                message: "# 点击这里查看更新"
+            },
+            methods: {
+                click: function () {
+                    this.message = new Date().toLocaleString();
+                }
+            },
+            beforeCreate: function () {
+                alert("beforeCreate: 此时对象还未创建");
+            },
+            created: function () {
+                alert("created: Vue对象创建完成");
+            },
+            beforeMount: function () {
+                alert("beforeMount: 对象挂载之前");
+            },
+            mounted: function () {
+                alert("mounted: 对象挂载完成");
+            },
+            beforeUpdate: function () {
+                alert("beforeUpdate: 对象更新之前");
+            },
+            updated: function () {
+                alert("updated: 对象更新完成");
+                
+            },
+            beforeDestroy: function () {
+                alert("beforeDestory: 对象销毁之前");
+            },
+            destroyed: function () {
+                alert("destoryed: 对象销毁");
+            }
+        })
+        document.ondblclick = function () {
+            console.log("删除对象");
+            app2.$destroy();
+        }
+    </script>
+
+
+
+</body>
+
+</html>

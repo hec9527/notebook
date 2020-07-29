@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>声明式渲染</title>
+</head>
+
+<body>
+    <!-- 示例1 模板语法 -->
+    <li>插值：</li>
+    <hr>
+    <p>采用 插值 {{ message }} 单向数据绑定</p>
+    <p>采用声明式渲染，Vue对象上的数据单向绑定到视图界面，但是视图界面的数据不会同步到Vue对象</p>
+    <p>下面的案例，鼠标左键单击更新时间到界面，鼠标右键点击更新点击次数到界面</p>
+    <p>但是在使用标签属性的时候，不能使用插值的方式，采用v-bind</p>
+    <div id="app1" v-on:click="clickData" v-on:contextmenu.prevent="rClickDate">
+        # {{ message }}
+    </div>
+    <br><br><br>
+    <script>
+        const app1 = new Vue({
+            el: "#app1",
+            data: {
+                message: "hello world！",
+                times: 0
+            },
+            methods: {
+                clickData: function () {
+                    const date = new Date();
+                    this.message = date.toLocaleString();
+                },
+                rClickDate: function () {
+                    this.times++;
+                    this.message = `右键点击次数：${this.times} 次`
+                }
+            }
+        })
+    </script>
+
+
+
+    <!-- 示例2 -->
+    <li>数据绑定</li>
+    <hr>
+    <p>使用数据绑定，可以将标签的属性与变量绑定，当变量的值修改的时候，标签的属性响应式的更改</p>
+    <div id="app2" v-bind:title="message" v-on:click.prevent="click">
+        # 鼠标悬浮查看当前时间，鼠标点击更新时间
+    </div>
+    <script>
+        const app2 = new Vue({
+            el: "#app2",
+            data: {
+                message: new Date().toLocaleString()
+
+            },
+            methods: {
+                click: function () {
+                    this.message = new Date().toLocaleString();
+                }
+            }
+        })
+    </script>
+    <br><br><br>
+
+
+    <!-- 示例三 -->
+    <li>条件</li>
+    <hr>
+    <p>使用v-if控制元素是否显示，v-if用于控制元素的display属性</p>
+    <div id="app3">
+        <button v-on:click="click">点击我切换显影</button>
+        <span v-if="see">能看见我么？</span>
+    </div><br><br><br>
+    <script>
+        const app3 = new Vue({
+            el: "#app3",
+            data: {
+                see: false
+            },
+            methods: {
+                click: function () {
+                    this.see = this.see ? false : true;
+                }
+            }
+        })
+    </script>
+
+
+    <!-- 示例四 -->
+    <li>循环</li>
+    <p>遍历一个元素的属性，并且将它打印到屏幕</p>
+    <p>采用V-for循环，将数组中的元素打印到界面上</p>
+    <div id="app4">
+        <p>项目清单</p>
+        <ul>
+            <li v-for="todo in todos">
+                {{todo}}
+            </li>
+        </ul>
+    </div><br><br><br>
+    <script>
+        const app4 = new Vue({
+            el: "#app4",
+            data: {
+                todos: ["做作业", "写文档", "做测试"]
+            }
+        })
+    </script>
+
+
+    <!-- 示例五 -->
+    <li>监听器</li>
+    <p>v-on指令用于添加监听，可以监听js中的事件</p>
+
+    <div id="app5">
+        <p>{{ message }}</p>
+        <ul>
+            <li v-on:click="click">点击</li>
+            <li v-on:contextmenu.prevent="context">右键</li>
+            <li v-on:mouseover="hover">悬浮</li>
+            <li v-on:mousemove="move">移动</li>
+            <li v-on:mouseout="moveout">移出</li>
+        </ul>
+    </div><br><br><br>
+    <script>
+        const app5 = new Vue({
+            el: "#app5",
+            data: {
+                message: "操作鼠标查看效果",
+            },
+            methods: {
+                click: function () {
+                    this.message = '鼠标左键'
+                },
+                hover: function () {
+                    this.message = "鼠标悬浮"
+                },
+                context: function () {
+                    this.message = '鼠标右键'
+                },
+                moveout: function () {
+                    this.message = '移出'
+                },
+                move: function (e) {
+                    this.message = `移动 x:${e.clientX} Y:${e.clientY}`
+                }
+            }
+        })
+    </script>
+
+
+
+    <!-- 示例六 -->
+    <li>双向数据绑定</li>
+    <p>数据同步，修改界面内容之后自动同步修改Vue对象数据，修改Vue对象数据之后同步到页面</p>
+    <p>下面的一行采用插值方式加入文档，属于单项数据邦绑定，但是v-model属于双向数据绑定：任何一方的数据修改之后都会影响到另外的一方的数据</p>
+    <div id="app6">
+        <p contenteditable="true">{{ message }}</p>
+        <input type="text" v-model="message">
+    </div><br><br><br>
+    <script>
+        const app6 = new Vue({
+            el: "#app6",
+            data: {
+                message: "双向数据绑定！"
+            },
+        })
+    </script>
+
+
+    <!-- 示例七 -->
+    <li>组件</li>
+    <p>组件在Vue中是一个重要的概念</p>
+    <p>它允许将界面拆分成为单个可复用的组件</p>
+    <p>组件定义:</p>
+    <p>
+        <pre>
+    Vue.component("list-temp", {
+        template: "&lt;li&gt;这是一个待办项&lt;/li&gt;"
+    })
+        </pre>
+    </p>
+    <div id="app7">
+        <p>简单的组件使用</p>
+        <ul>
+            <list-temp>asdsd</list-temp>
+            <list-temp>asdsd</list-temp>
+            <list-temp>asdsd</list-temp>
+            <list-temp>asdsd</list-temp>
+        </ul>
+        <p>可以传递参数的组件的使用</p>
+        <ul>
+            <list-item v-for="todo in items" v-bind:todo="todo" v-bind:key="todo"></list-item>
+        </ul>
+    </div><br><br><br>
+    <script>
+        Vue.component("list-temp", {
+            template: "<li>这是一个待办项</li>"
+        })
+        Vue.component('list-item', {
+            props: ['todo'],
+            template: '<li>我喜欢吃：{{ todo }}</li>'
+        })
+        const app7 = new Vue({
+            el: "#app7",
+            data: {
+                items: ["蔬菜", "水果", "零食", "正餐"]
+            }
+        })
+    </script>
+
+
+
+
+</body>
+
+</html>

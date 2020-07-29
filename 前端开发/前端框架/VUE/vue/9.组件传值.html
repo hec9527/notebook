@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <title>组件传值</title>
+</head>
+
+<body>
+    <li>组件传值</li>
+    <hr>
+    <ul>
+        <li>详细类容查看源码</li>
+        <li>传值细节查看源码</li>
+        <li>props属性允许使用数组或者对象指定属性信息</li>
+        <li>如果在属性当中使用短横线-在JS中可以将其转换为驼峰式的：</li>
+        <ul>
+            <li>my-admin</li>
+            <li>myAdmin</li>
+        </ul>
+    </ul>
+    <div id="app1">
+        <h1>{{title}}</h1>
+        <p>发表于：{{date|moment()}}</p>
+        <p>{{content}}</p>
+        <!--  -->
+        <hc-author :author="myauthor"></hc-author>
+    </div><br><br><br><br><br>
+    <script>
+        Vue.component("hc-author", {
+            // Vue组件的传值  基本类型
+            // props: ['author'],
+
+            // 如果想要指定类型的话，使用如下对象： 
+            // 如果类型不匹配的话仍然能使用，但是控制台会报错
+            // 指定类型可以指定多个类型，多个类型可以使用数组
+            // props: {
+            //     author: String,
+            // },
+
+            // Vue组件传值     默认值
+            // props: {
+            //     author: {
+            //         type: String,
+            //         default: "tom"   // 如果没有传值的话使用默认值
+            //     }
+            // },
+
+            // Vue组件传值    强制需要
+            props: {
+                author: {
+                    type: String,
+                    required: true    // 没有默认值，必须传递参数  和默认值相冲突
+                }
+            },
+            template: `<div><p>作者：{{author}}</p></div>`,
+        })
+        new Vue({
+            el: "#app1",
+            data: {
+                title: "今日头条",
+                content: "  今日成都市犀浦镇百叶路发生XXXX，造成了XX人受伤XX人死亡的重特大交通事故",
+                myauthor: "UC震惊部",
+                date: new Date(),
+            },
+            filters: {
+                // 过滤器     上面的用法智能在过滤器当中使用，但是不能在方法中使用
+                moment: function (date) {
+                    return date.toLocaleString();
+                }
+            }
+        })
+    </script>
+
+
+
+
+    <li>子属性传值到父组件</li>
+    <hr>
+    <ul>
+        <li>通过自定义事件，然后让父组件当中去触发这个事件</li>
+    </ul>
+    <div id="app2">
+        <h1>{{title}}</h1>
+        <p>发表于：{{date|moment()}} 分享次数：{{clickTime}}</p>
+        <p>{{content}}</p>
+        <!--  -->
+        <hc-author :author="myauthor"></hc-author>
+        <hc-share @s-share="foo"></hc-share>
+    </div><br><br><br><br><br>
+    <script>
+        Vue.component("hc-author", {
+            props: {
+                author: {
+                    type: String,
+                    required: true
+                }
+            },
+            template: `<div><p>作者：{{author}}</p></div>`,
+        })
+        Vue.component("hc-share", {
+            props: {},
+            template: `<p  @click="foo">点击我分享</p>`,
+            methods: {
+                foo() {
+                    // 这里触发一个自定义事件    H5属性中不能使用驼峰，这里使用短横线
+                    // 通过事件传值 后面的对象为传递的参数
+                    this.$emit("s-share", { name: "tom" });
+                }
+            }
+        })
+        new Vue({
+            el: "#app2",
+            data: {
+                title: "今日头条",
+                content: "  今日成都市犀浦镇百叶路发生XXXX，造成了XX人受伤XX人死亡的重特大交通事故",
+                myauthor: "UC震惊部",
+                clickTime: 0,
+                date: new Date(),
+            },
+            methods: {
+                foo(e) {
+                    // 这里是子组件传递的参数
+                    console.log(e)
+                    this.clickTime += 1;
+                }
+            },
+            filters: {
+                moment: function (date) {
+                    return date.toLocaleString();
+                }
+            }
+        })
+    </script>
+
+
+
+
+
+</body>
+
+</html>

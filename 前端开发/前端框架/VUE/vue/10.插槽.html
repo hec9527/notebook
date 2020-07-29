@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <style>
+        * {
+            user-select: none;
+        }
+
+        .tip-box {
+            padding: 15px 35px;
+            margin: 5px 0 15px 0;
+        }
+
+        .alert-box {
+            background: rgb(202, 34, 34);
+            color: #fff;
+        }
+
+        .warn-box {
+            background: rgb(181, 192, 22);
+            color: #fff;
+        }
+
+        .primary-box {
+            background: rgb(18, 62, 184);
+            color: #fff;
+        }
+
+        .post-box {
+            background: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 2px 2px 12px#ccc;
+            transition: all .1s ease-in;
+        }
+
+        .post-box:hover {
+            cursor: pointer;
+            transform: translate(-2px,-2px);
+            transition: all .1s ease-out;
+            box-shadow: 5px 5px 12px #ccc;
+        }
+    </style>
+    <title>插槽</title>
+</head>
+
+<body>
+
+    <li>插槽</li>
+    <hr>
+    <ul>
+        <li>默认的模板标签里面的内容会直接被覆盖</li>
+        <li>使用插槽之后模板里面的元素会被放进模板预先定义好的插槽之内</li>
+    </ul>
+    <div id="app1">
+        <alert-box><span> 初始化失败！</span></alert-box>
+        <warn-box>检测到相关库未安装</warn-box>
+        <primary-box><span>先安装依赖库方可完成初始化</span></primary-box>
+    </div><br><br><br><br><br>
+    <script>
+        let myAlert = {
+            template: "<div class='alert-box tip-box'><strong>Error: </strong><slot></slot></div>"
+        }
+        let myPrimary = {
+            template: "<div class='primary-box tip-box'><strong>Tips：</strong><slot></slot></div>"
+        }
+        let myWarn = {
+            template: "<div class='warn-box tip-box'><strong>Warn：</strong><slot></slot></div>"
+        }
+        new Vue({
+            el: "#app1",
+            components: {
+                alertBox: myAlert,
+                primaryBox: myPrimary,
+                warnBox: myWarn
+            },
+        })
+    </script>
+
+
+
+    <li>插槽默认值</li>
+    <hr>
+    <ul>
+        <li>插槽可以添加默认值</li>
+        <li>如果没有给插槽传入值得话将会使用默认的值</li>
+    </ul>
+    <div id="app2">
+        <alert-box>自定义的值</alert-box>
+        <alert-box></alert-box>
+    </div><br><br><br><br><br>
+    <script>
+        myAlert = {
+            template: `<div class="post-box tip-box"><slot>如果没有给定值，将会显示这个值</slot></div>`
+        }
+        new Vue({
+            el: "#app2",
+            components: {
+                alertBox: myAlert
+            }
+        })
+    </script>
+
+
+    <li>多插槽使用</li>
+    <hr>
+    <div id="app3">
+        <ul>
+            <li>slot插槽可以给 slot标签添加name属性</li>
+            <li>在HTML中给元素添加slot属性 使其等于slot中的name属性，则可以使用具名插槽</li>
+            <li>具名插槽可以使用多个插槽，HTML中可以不按照顺序写，排版以模板为准</li>
+        </ul>
+        <alert-box>
+            <!-- 以下第一个   因为具名插槽每个它名字  所以为  default  模板当中没有相应的插槽 -->
+            <p>我是优秀毕业生</p>
+            <p slot="content">优秀毕业生是指 .... 巴拉巴拉巴拉巴拉 ...... .. 反正就是我这样的就没错了</p>
+            <p slot="title">啥子是优秀毕业生？</p>
+        </alert-box>
+    </div><br><br><br><br><br>
+    <script>
+        myAlert = {
+            template: `<div class="post-box tip-box">
+            <slot name="title">{{msg}}</slot>
+            <slot name="content">{{msg}}</slot>
+            </div>`,
+            data: () => {
+                return {
+                    msg: "我是优秀毕业生"
+                }
+            }
+        }
+        new Vue({
+            el: "#app3",
+            components: {
+                alertBox: myAlert,
+            }
+        })
+    </script>
+
+
+    <li>插槽的作用域</li>
+    <hr>
+    <ul>
+        <li>插在模板中定义</li>
+        <li>插槽的作用域是在模板当中定义的，也仅限制于模板当中</li>
+    </ul>
+    <div id="app4">
+        <alert-box></alert-box>
+    </div>
+    <script>
+        myAlert = {
+            template: `<div class="post-box tip-box"><slot>{{msg}}</slot></div>`,
+            data: () => {
+                return {
+                    msg: "这里是模板自己的作用域和调用它的作用域无关",
+                }
+            }
+        }
+        new Vue({
+            el: "#app4",
+            data: () => {
+                return {
+                    msg: "这里是Vue实例创建的作用域",
+                }
+            },
+            components: {
+                alertBox: myAlert
+            }
+        })
+
+    </script>
+
+
+
+
+</body>
+
+</html>

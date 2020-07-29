@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <script
+            crossorigin
+            src="https://unpkg.com/react@16/umd/react.development.js"
+        ></script>
+        <script
+            crossorigin
+            src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+        ></script>
+        <script
+            crossorigin
+            src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"
+        ></script>
+        <title>Select下拉框</title>
+    </head>
+
+    <body>
+        <div id="app"></div>
+
+        <script type="text/babel">
+            class Sport extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state = {
+                        value: ''
+                    };
+                    this.handerChange = this.handerChange.bind(this);
+                }
+
+                handerChange(e) {
+                    this.setState({
+                        value: e.target.value
+                    });
+                }
+
+                render() {
+                    return (
+                        <div>
+                            <label htmlFor='sport'>
+                                <span>选择你中意的运动</span>
+                                <select
+                                    name='sport'
+                                    id='sport'
+                                    onChange={this.handerChange}
+                                    defaultValue='none'
+                                >
+                                    <option value='run'>跑步</option>
+                                    <option value='dance'>跳舞</option>
+                                    <option value='shoot'>射击</option>
+                                    <option value='swiming'>游泳</option>
+                                </select>
+                            </label>
+                            <p>选择内容{this.state.value}</p>
+                        </div>
+                    );
+                }
+            }
+
+            ReactDOM.render(<Sport />, document.getElementById('app'));
+        </script>
+    </body>
+</html>
