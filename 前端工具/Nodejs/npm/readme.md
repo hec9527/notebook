@@ -4,7 +4,7 @@
 
 - 在`package.json`里面添加`script`字段，里面的每一个属性对应一段脚本
 
-- 每次执行脚本都会新建一个shell，并且临时将当前目录`/node_modules/.bin/`子目录添加到PATH环境变量
+- 每次执行脚本都会新建一个 shell，并且临时将当前目录`/node_modules/.bin/`子目录添加到 PATH 环境变量
 
 - 在`package.json`中可以添加通配符匹配文件：
   - `*`表示任意文件名， `**`表示任意一层目录
@@ -19,7 +19,7 @@
 
 ## 传参
 
-- 向npm脚本添加参数需要使用`--`
+- 向 npm 脚本添加参数需要使用`--`
 
 ```json
     "script": {
@@ -47,7 +47,7 @@
 
 ## 默认值
 
-- npm提供了两个默认值
+- npm 提供了两个默认值
 
 ```json
     "script": {
@@ -60,7 +60,8 @@
 
 ## 钩子
 
-- Npm提供默认的钩子
+- Npm 提供默认的钩子
+
   - prepublish，postpublish
   - preinstall，postinstall
   - preuninstall，postuninstall
@@ -120,7 +121,7 @@
 
 ## 其它操作
 
-- `npm run -s xxx.js`表示关闭npm本身的输出，只输出脚本产生的结果
+- `npm run -s xxx.js`表示关闭 npm 本身的输出，只输出脚本产生的结果
 
 - 推荐模块`npm-run-all`，用于同时运行多个模块
 
@@ -145,12 +146,37 @@
 
 | 通配符                       | 效果                                                                       |
 | ---------------------------- | -------------------------------------------------------------------------- |
-| `*`                          | 匹配0个或多个字符                                                          |
-| `?`                          | 匹配1个字符                                                                |
+| `*`                          | 匹配 0 个或多个字符                                                        |
+| `?`                          | 匹配 1 个字符                                                              |
 | `[...]`                      | 匹配某个范围的字符。如果该范围的第一个字符是!或^，则匹配不在该范围的字符。 |
 | `!(pattern|pattern|pattern)` | 匹配任何不符合给定的模式                                                   |
-| `?(pattern|pattern|pattern)` | 匹配0个或1个给定的模式                                                     |
-| `+(pattern|pattern|pattern)` | 匹配1个或多个给定的模式                                                    |
-| `*(a|b|c)`                   | 匹配0个或多个给定的模式                                                    |
+| `?(pattern|pattern|pattern)` | 匹配 0 个或 1 个给定的模式                                                 |
+| `+(pattern|pattern|pattern)` | 匹配 1 个或多个给定的模式                                                  |
+| `*(a|b|c)`                   | 匹配 0 个或多个给定的模式                                                  |
 | `@(pattern|pat*|pat?erN)`    | 只匹配给定模式之一                                                         |
-| `**`                         | 如果出现在路径部分，表示0个或多个子目录。                                  |
+| `**`                         | 如果出现在路径部分，表示 0 个或多个子目录。                                |
+
+## 发布
+
+```shell
+npm config set registry https://registry.npmjs.org/
+cnpm config set registry https://registry.npm.taobao.org/
+```
+
+<!-- 发布包使用npm，平时使用cnpm -->
+
+#### 第一次发布包需要注册用户
+
+```shell
+npm adduser
+npm login
+npm publish --access public
+```
+
+#### 发布 72 小时内可以撤销包
+
+```shell
+npm unpublish @myOrg/tools@1.0.1   # 删除某个版本
+npm unpublish @myOrg/tools --force # 删除整个包
+npm deprecate @myOrg/tools '这里是一些提示信息，用户安装时就会看到这些提示' --force   # 不再维护，或者其他问题的强制提示信息
+```
