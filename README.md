@@ -2,7 +2,7 @@
 
 本仓库用于存放学习笔记仓库，保存学习过程中记录的笔记，这里记录新主机连接使用的方法
 
-# Git & GitHub
+## Git & GitHub
 
 `Git`是使用 C 语言编写的，世界最流行的分布式版本控制系统
 
@@ -20,7 +20,7 @@
 
 前往[官网下载](https://git-scm.com/downloads "从官网下载Git")
 
-## 设置用户名
+### 设置用户名
 
 ```
     <!-- 在Git的命令终端使用 -->
@@ -28,15 +28,15 @@
     git config --global user.email "email"
 ```
 
-# 远程仓库
+## 远程仓库
 
-## 创建密钥
+### 创建密钥
 
 ```
     ssh-keygen -t rsa -C "Email"
 ```
 
-## 连接 GitHub
+### 连接 GitHub
 
 ```
     #添加新的SSHkey
@@ -48,7 +48,11 @@
     // 远端名使用户自定义的，可以是任何合法名字
 ```
 
-## 推送本地仓库到远程
+### 克隆远程库
+
+    git clone <仓库地址>
+
+### 推送本地仓库到远程
 
 ```
     git push -u <remote> <local>
@@ -57,6 +61,20 @@
     #推送到一个非空仓库如果不曾克隆过会被拒绝，可以先pull过来
 ```
 
-# 克隆远程库
+## 使用本文档
 
-    git clone <仓库地址>
+### 安装
+
+```shell
+npm i -g docsify
+```
+
+### 使用
+
+```shell
+# 初始化   只需要在首次安装时运行该命令
+docsify init docs
+
+# 启动服务
+docsify serve docs
+```

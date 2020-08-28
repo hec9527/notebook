@@ -9,19 +9,144 @@
       name="viewport"
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
+    <style>
+      .theme-preview a {
+        padding-right: 10px;
+      }
+      .theme-preview a:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    </style>
+    <!-- 基础样式 -->
     <link
       rel="stylesheet"
+      theme="true"
+      title="vue"
       href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css"
+    />
+    <link
+      rel="stylesheet"
+      theme="true"
+      title="buble"
+      href="//cdn.jsdelivr.net/npm/docsify/lib/themes/buble.css"
+      disabled
+    />
+    <link
+      rel="stylesheet"
+      theme="true"
+      title="dark"
+      href="//cdn.jsdelivr.net/npm/docsify/lib/themes/dark.css"
+      disabled
+    />
+    <!-- 评论系统 -->
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css"
     />
   </head>
   <body>
-    <div id="app">Loading</div>
+    <div id="app"></div>
     <script>
+      if (typeof navigator.serviceWorker !== "undefined") {
+        navigator.serviceWorker.register("sw.js");
+      }
       window.$docsify = {
-        name: "",
-        repo: "",
+        // logo: "/assets/icon.svg",
+        coverpage: true,
+        loadSidebar: true,
+        loadNavbar: true,
+        subMaxLevel: 2,
+        auto2top: true,
+        onlyCover: false,
+        topMargin: 30,
+        name: "Hec9527的笔记",
+        repo: "//github.com/hec9527/notebook",
+        formatUpdated: "{YYYY}/{MM}/{DD} {HH}:{mm}",
+
+        count: {
+          language: "chinese",
+        },
+
+        search: {
+          maxAge: 86400000, // 过期时间，单位毫秒，默认一天
+          paths: "auto", // [] or 'auto'
+          placeholder: "Type to search",
+
+          noData: "No Results!",
+
+          // 搜索标题的最大层级, 1 - 6
+          depth: 2,
+
+          // 是否隐藏其他侧边栏内容
+          hideOtherSidebarContent: false,
+
+          // 避免搜索索引冲突 同一域下的多个网站之间
+          namespace: "hec9527",
+
+          // 初始化索引时，我们从侧边栏查找第一个路径
+          // 如果它与列表中的前缀匹配，我们将切换到相应的索引
+          pathNamespaces: /.*/,
+        },
+
+        plugins: [
+          function (hook, vm) {
+            hook.beforeEach(function (content) {
+              const el = `<hr/><div style="display:flex; justify-content:space-between">
+                  <span>copyright © 2020 by hec9527</span>
+                  <span>更新于：{docsify-updated}</span>
+                </div>`;
+              return (content += el);
+            });
+
+            hook.ready(function () {
+              var btns = Docsify.dom.findAll(".theme-preview");
+              var themes = Docsify.dom.findAll('[theme="true"]');
+
+              btns.forEach((el) => {
+                el.addEventListener("click", function (e) {
+                  var title = e.target.getAttribute("data-theme");
+                  themes.forEach(function (theme) {
+                    theme.disabled = theme.title !== title;
+                  });
+                });
+              });
+            });
+          },
+        ],
       };
     </script>
     <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+    <!-- Plugins -->
+    <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify-count@latest/dist/countable.min.js"></script>
+    <!-- parser -->
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1.21.0/components/prism-python.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1.21.0/components/prism-sass.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1.21.0/components/prism-scss.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1.21.0/components/prism-less.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1.21.0/components/prism-bash.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1.21.0/components/prism-powershell.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1.21.0/components/prism-json.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1.21.0/components/prism-typescript.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1.21.0/components/prism-jsx.min.js"></script>
+
+    <!-- 评论系统加载 -->
+    <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script>
+      const gitalk = new Gitalk({
+        clientID: "Github Application Client ID",
+        clientSecret: "Github Application Client Secret",
+        repo: "Github repo",
+        owner: "Github repo owner",
+        admin: [
+          "Github repo collaborators, only these guys can initialize github issues",
+        ],
+        distractionFreeMode: false,
+      });
+    </script>
   </body>
 </html>
