@@ -1,4 +1,4 @@
-![logo](/assets/icon.png/)
+![logo](icon.png)
 
 # Base on docsify <small>4.9.4</small>
 
