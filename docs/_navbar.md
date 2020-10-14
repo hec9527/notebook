@@ -1,15 +1,11 @@
 
 <!-- 顶部导航栏 -->
 
-- [主页](/)
-
-- [前端](fontend/)
-  - [CSS3](fontend/base/css/)
-  - [Less](fontend/base/css/)
-  - [Sass](fontend/base/css/sass.md)
-  - [Javascript](fontend/base/javascript/)
-  - [Typescript](fontend/base/typescript/README.md)
-  - [Webpack](/)
+- [前端](/md/fontend.md)
+  - [基础](/md/fontend.md?id=基础)
+  - [框架](/md/fontend.md?id=前端框架)
+  - [CSS预处理器](/md/fontend.md?id=CSS预处理)
+  - [Typescript](/md/fontend.md?id=typescript)
 
 - Node
   - [Log4js]()

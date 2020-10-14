@@ -1,4 +1,4 @@
-![logo](icon.png)
+![logo](/assets/icon.png)
 
 # Base on docsify <small>4.9.4</small>
 
@@ -9,4 +9,4 @@
 - 吹牛
 
 [GitHub](https://github.com/hec9527/notebook)
-[Get Started](#/?id=notebook)
+[Get Started](/md/fontend.md)
