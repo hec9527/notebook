@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            div {
+                width: 200px;
+                height: 90px;
+                margin: 0.3rem;
+                background: #f67;
+            }
+            .grid-center {
+                display: grid;
+                place-items: center;
+            }
+            .flex-margin {
+                display: flex;
+            }
+            .flex-margin > div {
+                width: 100px;
+                height: 30px;
+                background: #abf;
+                margin: auto;
+            }
+            li::marker {
+                color: blue;
+            }
+
+            p {
+                columns: 3;
+                column-rule: 2px solid pink;
+            }
+
+            input::placeholder {
+                color: pink;
+            }
+            input:focus {
+                background: #abf3;
+            }
+
+            html::-webkit-scrollbar {
+                width: 10px; /*对垂直流动条有效*/
+                height: 10px; /*对水平流动条有效*/
+            }
+            ​
+                        /*定义滚动条的轨道颜色、内阴影及圆角*/
+                        html::-webkit-scrollbar-track {
+                box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                background-color: rosybrown;
+                border-radius: 3px;
+            }
+            ​
+                        /*定义滑块颜色、内阴影及圆角*/
+                        html::-webkit-scrollbar-thumb {
+                border-radius: 7px;
+                box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                background-color: #e8e8e8;
+            }
+            ​
+                        /*定义两端按钮的样式*/
+                        html::-webkit-scrollbar-button {
+                background-color: cyan;
+            }
+            ​
+                        /*定义右下角汇合处的样式*/
+                        html::-webkit-scrollbar-corner {
+                background: khaki;
+            }
+
+            .demo {
+                width: 0;
+                height: 0;
+                border-width: 20px;
+                border-style: solid;
+                border-color: transparent transparent red transparent;
+            }
+        </style>
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>一些稀奇古怪的CSS</h1>
+
+        <div class="grid-center">grid place-items</div>
+
+        <div class="flex-margin"><div>I'am center</div></div>
+
+        <div>
+            <ol>
+                <li>0001</li>
+                <li>0002</li>
+                <li>0003</li>
+            </ol>
+        </div>
+
+        <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum deserunt recusandae mollitia, dolore ipsum ducimus cum soluta
+            alias optio in quis atque quasi numquam impedit voluptates eos quos non nulla. Culpa voluptatibus molestias aliquam consequuntur
+            maxime harum alias provident voluptas, ut nulla libero quos vel fugit, in saepe quae temporibus corporis reprehenderit
+            praesentium est explicabo perspiciatis laborum. Beatae, exercitationem quidem. Et magnam, deleniti laudantium labore voluptate
+            modi omnis fugit unde repudiandae quibusdam quisquam cupiditate blanditiis incidunt nam nulla? Debitis ipsa ratione quos dolor
+            sequi velit iure quam, veniam recusandae aperiam? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Mollitia corporis
+            asperiores autem ipsam maiores ratione fugit corrupti impedit dolor soluta incidunt, perferendis exercitationem, voluptates at
+            laboriosam eos ullam sapiente quaerat.
+        </p>
+
+        <input type="text" placeholder="请输入" />
+
+        <p class="demo"></p>
+    </body>
+</html>

@@ -103,7 +103,7 @@ def writePost(string, head=0):
 if __name__ == "__main__":
     url = "http://www.ip138.com/post/"  #初始URL
     dict_URL_privence = {}  #查看各个省的下级目录URL
-    f = open("./source/chinaPost.txt", 'at')
+    f = open("./chinaPost.txt", 'at')
 
     html = urllib.request.urlopen(url, timeout=10).read().decode("GBK")
     mapPrivence(html)

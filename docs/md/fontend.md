@@ -66,8 +66,7 @@ less相对sass更为简单，入门较快，相对的功能也比sass要少，�
 
 - [Vue2.0官方文档](https://cn.vuejs.org/v2/guide/)
 
-- [vue3.0官方文档](https://v3.vuejs.org/guide/introduction.html)
-
+- [vue3.0官方文档](https://v3.cn.vuejs.org/guide/instance.html)
 
 
 ### React
