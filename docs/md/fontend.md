@@ -10,6 +10,8 @@
 
 - [meta标签](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/meta)
 
+- [Viewport详解](http://ourjs.com/detail/54c73ba2232227083e00001a)
+
 - [H5新增标签](https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/HTML5/HTML5_element_list) 
  [H5废弃标签](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element)
 
@@ -30,6 +32,10 @@
 - [ECMAscript6 入门](https://es6.ruanyifeng.com/#docs/intro)
 
 - [ECMAScript最新特性](https://www.ecma-international.org/publications/standards/Ecma-262.htm)
+
+- `内置对象` - `原生对象`
+  - 内置对象不需要`new`，直接就可以调用， 比如`Math`,`Document`,`Window`等
+  - 原生对象是语言提供的对象，必须要自己定义，可以使用`new`调用
 
 
 ### TypeScript
