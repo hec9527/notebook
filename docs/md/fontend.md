@@ -44,6 +44,8 @@
 
 - [深入理解Typescript](https://jkchao.github.io/typescript-book-chinese/)
 
+- [重学Ts](http://book.bugstack.cn/#s/6TAYl8NQ)
+
 ## CSS预处理
 
 ### Sass
@@ -87,6 +89,8 @@ less相对sass更为简单，入门较快，相对的功能也比sass要少，�
 - [CommonJS、AMD、CMD、ES6](https://juejin.im/post/5aaa37c8f265da23945f365c)
 
 - [阮一峰ES6入门 -- Module加载的实现](https://es6.ruanyifeng.com/#docs/module-loader)
+
+- [webpack](https://www.webpackjs.com/loaders/)
 
 ## 其它问题
 
