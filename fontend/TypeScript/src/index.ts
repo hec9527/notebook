@@ -1,18 +1,18 @@
-import "./type.ts";
-import "./Interface.ts";
-import "./class.ts";
-import "./function.ts";
-import "./namespace.ts";
+import './type.ts';
+import './Interface.ts';
+import './class.ts';
+import './function.ts';
+import './namespace.ts';
 
 interface User {
-  type: "user";
+  type: 'user';
   name: string;
   age: number;
   occupation: string;
 }
 
 interface Admin {
-  type: "admin";
+  type: 'admin';
   name: string;
   age: number;
   role: string;
@@ -26,8 +26,8 @@ interface Admin {
 type B = Admin | User;
 
 let p: B = {
-  name: "1",
+  name: '1',
   age: 21,
-  type: "user",
-  occupation: "as",
+  type: 'user',
+  occupation: `as`,
 };

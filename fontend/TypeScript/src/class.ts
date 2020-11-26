@@ -16,10 +16,10 @@ class Person {
     return this.age;
   }
 }
-let person = new Person("张三", 23);
-console.log("\n\n\n", "=".repeat(10), "类", "=".repeat(10));
-console.log("公共属性直接访问：", person.name);
-console.log("私有属性使用访问器访问：", person.showAge());
+let person = new Person('张三', 23);
+console.log('\n\n\n', '='.repeat(10), '类', '='.repeat(10));
+console.log('公共属性直接访问：', person.name);
+console.log('私有属性使用访问器访问：', person.showAge());
 
 class Student extends Person {
   Sid: number;
@@ -29,9 +29,9 @@ class Student extends Person {
     this.Sid = Sid;
   }
 }
-let student = new Student("李四", 23, 164131031);
-console.log("公有属性，姓名：", student.name, "学号：", student.Sid);
-console.log("私有属性：", student.showAge());
+let student = new Student('李四', 23, 164131031);
+console.log('公有属性，姓名：', student.name, '学号：', student.Sid);
+console.log('私有属性：', student.showAge());
 
 // 单例模式
 class Sington {
@@ -42,11 +42,11 @@ class Sington {
   }
   add() {
     this.count++;
-    console.log("count:", this.count);
+    console.log('count:', this.count);
   }
   subtract() {
     this.count--;
-    console.log("count:", this.count);
+    console.log('count:', this.count);
   }
   static getInstance(): Sington {
     // return Sington.instance ? Sington.instance : new Sington();
@@ -62,7 +62,7 @@ class Sington {
 
 let Sington1 = Sington.getInstance();
 let Sington2 = Sington.getInstance();
-console.log("单例模式");
+console.log('单例模式');
 Sington1.add();
 Sington1.add();
 Sington1.add();
@@ -97,8 +97,8 @@ class TestB extends TestA {
     this.num;
   }
 }
-let test = new TestA("hello world", 22);
-let test1 = new TestB("hello world", 22);
+let test = new TestA('hello world', 22);
+let test1 = new TestB('hello world', 22);
 
 // 参数属性
 class TestC {
@@ -108,7 +108,7 @@ class TestC {
 
 // 存取器
 class TestD {
-  private name: string = "张三";
+  private name: string = '张三';
 
   // 只有get 没有set 的属性，自动添加 readonly
   get getName(): string {
@@ -125,7 +125,7 @@ abstract class TestE {
   // 抽象类可以有实现细节
   abstract move(): void;
   show() {
-    console.log("这是一个抽象方法");
+    console.log('这是一个抽象方法');
   }
 }
 // 如果一个派生类没有实现父类的抽象方法，那么它也应该是抽象的
