@@ -1,7 +1,5 @@
-import webpack from "webpack";
-
 // Ts 中的接口采用的是鸭子辨形法
-console.log("\n\n\n" + "==".repeat(10) + "接口" + "==".repeat(10));
+console.log('\n\n\n' + '=='.repeat(10) + '接口' + '=='.repeat(10));
 // 定义一个接口
 interface Pen {
   len: number;
@@ -10,7 +8,7 @@ interface Pen {
 
 let mypen = {
   len: 10,
-  color: "red",
+  color: 'red',
 };
 
 function show(pen: Pen): void {
@@ -25,9 +23,7 @@ interface Cat {
 }
 
 function showCat(cat: Cat) {
-  console.log(
-    `this cat has claws? ${cat.claws || "no"}, can jump? ${cat.jump || "no"}`
-  );
+  console.log(`this cat has claws? ${cat.claws || 'no'}, can jump? ${cat.jump || 'no'}`);
 }
 showCat({ claws: true });
 
@@ -39,7 +35,7 @@ interface myReadonly {
 let readonly1: myReadonly = { x: 1, y: 2 };
 // readonly1.x = 2;
 // 修改后编译保存
-console.log("修改只读属性：", readonly1);
+console.log('修改只读属性：', readonly1);
 
 // 鸭子辩型法
 interface Animal {
@@ -52,9 +48,9 @@ interface plant {
   name: string;
   [pro: string]: any; // 允许添加其他属性
 }
-let myPlant: plant = { age: 1, name: "fllower" };
+let myPlant: plant = { age: 1, name: 'fllower' };
 // 如果超出多余的属性则报错
-let myPlant2: plant = { age: 1, name: "fllower", place: "home", color: "red" };
+let myPlant2: plant = { age: 1, name: 'fllower', place: 'home', color: 'red' };
 function showAnimal(animal: Animal) {
   console.log(`Animal name:${animal.name}, animal age:${animal.age}`);
 }
@@ -76,10 +72,7 @@ let myObj: FunctionPro = {
   },
 };
 
-console.log(
-  "签名返回值为空的函数依然可以有返回值",
-  myObj.show({ time: "2020-5-6", times: 2 })
-);
+console.log('签名返回值为空的函数依然可以有返回值', myObj.show({ time: '2020-5-6', times: 2 }));
 
 // 可索引的类型
 interface StringArr {
@@ -88,7 +81,7 @@ interface StringArr {
 interface NumberArr {
   [index: string]: number;
 }
-let strArr: StringArr = ["1", "2", "3"];
+let strArr: StringArr = ['1', '2', '3'];
 let numArr: NumberArr = {
   1: 1,
   2: 2,
@@ -120,16 +113,16 @@ interface mulitPropertyObject {
 }
 
 const student: mulitPropertyObject = {
-  name: "xxx",
+  name: 'xxx',
   age: 21,
-  addr: "ssxxd",
+  addr: 'ssxxd',
   isMarried: false,
   guraduation: {
-    school: "xxx",
-    calss: "xx",
+    school: 'xxx',
+    calss: 'xx',
     stdNum: 3,
     habby: [],
-    qq: "1231231231",
-    wechat: "xd",
+    qq: '1231231231',
+    wechat: 'xd',
   },
 };
