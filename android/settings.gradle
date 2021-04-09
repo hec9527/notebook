@@ -1,2 +1,0 @@
-include ':app'
-rootProject.name = "00-helloworla"
