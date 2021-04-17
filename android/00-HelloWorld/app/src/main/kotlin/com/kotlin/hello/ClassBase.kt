@@ -1,20 +1,20 @@
 package com.kotlin.hello
 
-open class Person{
+open class Person {
     var name = "tom";
     var age = 22;
 
-    fun say(){
+    fun say() {
         println("hello my name is $name, and $age year old");
     }
 }
 
 
-class Student: Person(){
-    var num = 1641310231;
+class Student : Person() {
+    private var num = 1641310231;
 
-    fun sayNum(){
-        println("my number is :$num")
+    fun sayNum() {
+        println("my number is: $num")
     }
 }
 

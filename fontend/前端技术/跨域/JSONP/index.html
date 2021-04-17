@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSONP解决跨域</title>
+  </head>
+
+  <body>
+    <button class="btn" type="button">click me</button>
+
+    <script>
+      function ajax(url, option = {}) {
+        var url = url,
+          type = option.type || 'get',
+          jsonp = option.jsonp || '',
+          header = option.header,
+          async = option.async || true,
+          data = option.data,
+          onSuccess = option.onSuccess || (() => {}),
+          onError = option.onError || (() => {}),
+          timeout = option.timeout || 60,
+          callback = [],
+          target = document.head.firstChild || document.body,
+          script = null, // 缓存当前脚本
+          timer = null;
+
+        var ajax = new XMLHttpRequest();
+        ajax.open(type, url, true);
+        ajax.onreadystatechange = function () {
+          console.log(ajax);
+          if (ajax.readyState == XMLHttpRequest.DONE && ajax.status == 200) {
+            onSuccess(ajax.response);
+          }
+        };
+        ajax.send();
+
+        function clearScript() {
+          script && target.removeChild(script);
+          timer && clearTimeout(timer);
+        }
+      }
+
+      document.getElementsByClassName('btn')[0].addEventListener('click', () => {
+        // console.log(2);
+        ajax('http://localhost:10086/user', {
+          onSuccess: res => {
+            console.log(res.name);
+            console.log(res);
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

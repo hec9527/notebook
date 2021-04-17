@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rem</title>
+    <script>
+      (function (el) {
+        var d = document.documentElement;
+        var s = document.createElement('style');
+        d.firstElementChild.appendChild(s);
+
+        function resize() {
+          console.log('resize window');
+          var w = d.offsetWidth;
+          w = w < 320 ? 320 : w;
+          w = w > 1024 ? 1024 : w;
+          s.innerHTML = `html{ font-size: ${w / 100}px !important;}body{font-size: 12*${w / 320}px;max-width:${w}px}`;
+        }
+
+        el.addEventListener('resize', resize, true);
+        el.addEventListener('pageshow', resize, true);
+      })(window);
+    </script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      .box {
+        width: 100rem;
+        font-size: 0;
+        background: #abf;
+      }
+
+      .box > * {
+        display: inline-grid !important;
+        color: #fff;
+        font-size: 1rem;
+        place-items: center;
+      }
+
+      .inner {
+        display: inline-block;
+        box-sizing: border-box;
+        width: 48rem;
+        min-height: 20rem;
+        margin: 1rem;
+        padding: 0;
+        background: #f67;
+        border-radius: 2rem;
+      }
+
+      .inner:last-of-type {
+        width: 50rem;
+        margin: 1rem 0;
+      }
+      .row {
+        width: 100rem;
+        height: 25rem;
+        margin: 1rem 0;
+        background: pink;
+        border-radius: 1rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box">
+      <div class="inner">48rem</div>
+      <div class="inner">50rem</div>
+    </div>
+    <div class="row"></div>
+  </body>
+</html>
