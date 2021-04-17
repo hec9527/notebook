@@ -15,6 +15,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_layout)
 
+        // restore data
+        Log.d(tag, "savedInstanceState: ${savedInstanceState?.getString("data") ?: "null"}")
+
         Log.d(tag, "onCreate")
 
         val btnToNormal: Button = findViewById(R.id.btn_toNormal)
@@ -39,7 +42,9 @@ class MainActivity : AppCompatActivity() {
      * 在Active被回收的时候，一定会调用这个方法保存上下文
      */
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        Log.i(tag,"before active destory, and save instance now!")
+        Log.i(tag, "before active destory, and save instance now!")
+        // 保存当前的状态
+        outState.putString("data", "this data is stored by onSaveInstanceState function, and this can be restore in onCreate function")
         super.onSaveInstanceState(outState, outPersistentState)
     }
 
