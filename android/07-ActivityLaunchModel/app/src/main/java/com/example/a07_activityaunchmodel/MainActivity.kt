@@ -21,8 +21,10 @@ class MainActivity : BaseActivity() {
             startActivity(intent)
         }
         btnToSecond.setOnClickListener{
-            val intent = Intent(this, SecondActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, SecondActivity::class.java)
+//            startActivity(intent)
+            // 采用伴生对象的方式调用SecondActivity
+            SecondActivity.actionStart(this, "更优雅的调用Activity")
         }
     }
 

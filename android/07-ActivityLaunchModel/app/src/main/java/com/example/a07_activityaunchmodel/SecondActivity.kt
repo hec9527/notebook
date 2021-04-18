@@ -1,10 +1,12 @@
 package com.example.a07_activityaunchmodel
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 
 class SecondActivity : BaseActivity() {
     private val tag = "launchmode"
@@ -25,10 +27,20 @@ class SecondActivity : BaseActivity() {
             val intent = Intent(this, ThirdActivity::class.java)
             startActivity(intent)
         }
+
+        Toast.makeText(this, intent.getStringExtra("toast"), Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         Log.d(tag, "second activity destory")
+    }
+
+    companion object{
+        fun actionStart(context: Context, toast:String){
+            val intent = Intent(context, SecondActivity::class.java)
+            intent.putExtra("toast", toast)
+            context.startActivity(intent)
+        }
     }
 }
