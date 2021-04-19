@@ -2,10 +2,10 @@
 
 ## Android 开发四大组件
 
-- Active
-- Service
-- Boradcast
--
+- Active (控件)
+- Service (服务)
+- BroadcastReceiver (广播接收器)
+- Conetnt-Provider (内容提供者)
 
 ## Active 生命周期
 
