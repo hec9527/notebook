@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/text_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/teal_700"
+        android:textSize="32sp"
+        android:gravity="center"
+        android:text="Hello World!"/>
+
+    <EditText
+        android:id="@+id/edit_main"
+        android:hint="Please input your name"
+        android:maxLines="3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_main"
+        android:text="Click Me"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_cimg"
+        android:textAllCaps="false"
+        android:text="Click To Change image"
+        android:textColor="@color/teal_200"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ProgressBar
+        android:id="@+id/progress_main"
+        android:visibility="visible"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:min="30"
+        android:max="100"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/img_main"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="559dp"
+        android:src="@drawable/bllf1do"
+        android:tag="@drawable/bllf1do" />
+
+</LinearLayout>
+
