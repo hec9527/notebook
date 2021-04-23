@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#f5f5f5"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--  包含自定义控件  -->
+    <!--    <include layout="@layout/action_bar" />-->
+
+    <!--  引用封装好的自定义控件  -->
+    <com.example.a12_customview.TitleBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_second"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="To second" />
+
+
+</LinearLayout>

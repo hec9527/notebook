@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#aabbff"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/btn_back"
+        android:text="back"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+<!--        android:layout_gravity="center"-->
+    <TextView
+        android:id="@+id/text_bar"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="22dp"
+        android:text="ActionBar Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_edit"
+        android:text="设置"
+        android:background="@android:color/transparent"
+        android:textColor="#000"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
