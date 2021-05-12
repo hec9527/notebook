@@ -80,6 +80,10 @@ console.log();
  *    2, Object.keys  检查自身可枚举属性，不包含Symbol    不确定属性
  *    3, Object.getOwnPropertyNames(o)  获取自身所有属性 可枚举+不可枚举     先数字，后字母
  *    4, Object.getOwnPropertySymbols(o)  获取自身所有Symbol属性
+ *
+ * 对象迭代
+ *    5, Object.values(o) 返回一个自身值组成的数组，引用类型浅复制
+ *    6, Object.entries(0)  返回键值数组组成的数组 [[k,v], [k,v] ... ]
  */
 console.log('属性检查');
 console.log(p.hasOwnProperty('name'), p.getOwnProperty('name'));

@@ -1,4 +1,4 @@
-![logo](/assets/icon.png)
+![logo](https://raw.githubusercontent.com/hec9527/notebook/master/docs/Assets/icon.png)
 
 # Base on docsify <small>4.9.4</small>
 
