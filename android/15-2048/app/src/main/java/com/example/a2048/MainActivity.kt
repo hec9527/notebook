@@ -11,8 +11,8 @@ import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 
-//const val URL = "https://hec9527.github.io/2048/src/"
-const val URL = "http://192.168.1.16:5500/src/index.html"
+const val URL = "https://hec9527.github.io/2048/src/"
+//const val URL = "http://192.168.1.16:5500/src/index.html"
 //const val URL = "http://192.168.1.16:5500/"
 
 class MainActivity : AppCompatActivity() {
