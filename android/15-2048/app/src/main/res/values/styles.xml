@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:statusBarColor">#efefef</item>   <!--  修改状态栏背景色 -->
+        <!--修改的黄色颜色值，这里只是举例。实际项目还是把颜色值老老实实地放在color文件里-->
+        <item name="colorPrimaryDark">#f5f5f5</item>
+        <item name="colorAccent">#f67</item>
+               
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+</resources>
