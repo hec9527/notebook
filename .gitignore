@@ -10,3 +10,6 @@ dist
 build
 out/
 .idea/
+
+# Vue press
+# !www/docs/.vuepress/dist
