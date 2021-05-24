@@ -1,0 +1,24 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "keywords": [
+    "blog",
+    "vuepress",
+    "website"
+  ],
+  "author": "hec9527",
+  "description": "个人静态博客托管",
+  "devDependencies": {
+    "@vuepress/plugin-active-header-links": "^1.8.2",
+    "@vuepress/plugin-back-to-top": "^1.8.2",
+    "node-sass": "^6.0.0",
+    "sass-loader": "^11.1.0",
+    "vuepress": "^1.8.2"
+  }
+}
