@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        display: flex;
+      }
+      .container {
+        width: 15vw;
+        height: 15vw;
+        margin: 8px;
+        background: #abf;
+      }
+      .inner {
+        width: 10vw;
+        height: 10vw;
+        background: #f67;
+      }
+      /* 第一种 flex/grid+marin  推荐 */
+      .container1 {
+        /* display: grid; */
+        display: flex;
+      }
+      .inner1 {
+        margin: auto;
+      }
+
+      /** 第二种 grid 考虑grid的兼容性 */
+      .container2 {
+        display: grid;
+        place-items: center;
+      }
+
+      /** 第三种 transform+absolute  兼容性好，但是繁琐 */
+      .container3 {
+        position: relative;
+      }
+      .inner3 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      /** 第四种 基于flex */
+      .container4 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container container1">
+      <div class="inner inner1"></div>
+    </div>
+    <div class="container container2">
+      <div class="inner"></div>
+    </div>
+    <div class="container container3">
+      <div class="inner inner3"></div>
+    </div>
+    <div class="container container4">
+      <div class="inner inner4"></div>
+    </div>
+  </body>
+</html>
