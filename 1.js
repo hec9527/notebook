@@ -1,33 +1,32 @@
-// class People {
-//   constructor(name, age) {
-//     this.name = name;
-//     this.age = age;
-//   }
+const Input = ({ addName }) => {
+  const [name, setName] = useState('');
+  const inputRef = React.createRef();
 
-//   sayInfo() {
-//     console.log('hello, my name is: ' + this.name + ', age is:' + this.age);
-//   }
-// }
-
-// const people = new People('saga', 34);
-// people.sayInfo();
-
-function People(name, age) {
-  this.name = name;
-  this.age = age;
-}
-
-function Animal(name) {
-  this.name = 'animal:' + name;
-  this.bark = function () {
-    console.log(this.name + 'is barking');
+  const handlePress = e => {
+    if (e.key === 'Enter') {
+      console.log('name:', name);
+      addName({ name });
+      setName('');
+    }
   };
-}
 
-People.prototype.sayInfo = function () {
-  console.log('hello, my name is: ' + this.name + ', age is:' + this.age);
+  useEffect(() => {
+    inputRef.current?.addEventListener('keydown', e => handlePress(e));
+    return () => {
+      inputRef.current?.removeEventListener('keydown', e => handlePress(e));
+    };
+  }, []);
+
+  return (
+    <div className='input-wrap'>
+      <input
+        ref={inputRef}
+        value={name}
+        type='text'
+        className='input'
+        placeholder='Please input your something'
+        onChange={e => setName(e.target.value)}
+      />
+    </div>
+  );
 };
-People.prototype.constructor = Animal;
-
-var alice = new People('alice', 32);
-console.log(People.prototype);
