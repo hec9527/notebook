@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .arrow {
+        width: 300px;
+        height: 500px;
+        clip-path: polygon(30px 250px, 280px 0px, 250px 250px, 280px 500px);
+        /* animation: anima 1500ms infinite alternate ease-in; */
+        animation: all 150ms linear;
+        box-shadow: 0 0 8px #f67;
+        background: linear-gradient(to left, #abf, #f67);
+      }
+      .arrow:hover {
+        clip-path: polygon(50px 250px, 0px 0px, 260px 250px, 0px 500px);
+      }
+
+      @keyframes anima {
+        0% {
+          transform: translateX(0);
+          clip-path: polygon(30px 250px, 280px 0px, 250px 250px, 280px 500px);
+        }
+        100% {
+          transform: translateX(-50px);
+          clip-path: polygon(30px 250px, 300px 30px, 220px 250px, 300px 470px);
+        }
+      }
+    </style>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="arrow"></div>
+  </body>
+</html>
