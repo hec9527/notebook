@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            .box {
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                background: #abf8;
+                top: 0;
+                left: 0;
+            }
+        </style>
+        <title>Web Worker测试</title>
+    </head>
+    <body>
+        <p>worker的运算不影响主线程</p>
+        <button onclick="removeAll()">关闭全部</button>
+        <button onclick="removeWorker()">关闭worker</button>
+        <button onclick="addWorker()">打开worker</button>
+
+        <div class="box"></div>
+
+        <script>
+            const workerList = [];
+
+            function addWorker() {
+                const worker = new Worker('./worker.js', {
+                    name: new Date().getTime(),
+                });
+                worker.postMessage({
+                    cmd: 'start',
+                    num: ~~(Math.random() * 10) + 30,
+                });
+                worker.onmessage = (e) => {
+                    console.log('worker发送数据：', e);
+                };
+                worker.onerror = (e) => {
+                    console.log('worker运行结束：', e);
+                };
+                workerList.push({
+                    close: () => worker.terminate(),
+                    post: (msg) => worker.postMessage(msg),
+                });
+                console.log('新建worker：', worker);
+            }
+
+            function removeAll() {
+                while (workerList.length !== 0) {
+                    removeWorker();
+                }
+            }
+
+            function removeWorker() {
+                if (workerList.length <= 0) return false;
+                const worker = workerList.shift();
+                console.log(worker);
+
+                worker.close();
+            }
+
+            // 主线程任务
+            const el = document.querySelector('.box');
+            let speedX =
+                Math.random() < 0.5
+                    ? -Math.random() * 4 + 1
+                    : Math.random() * 4 + 1;
+            let speedY =
+                Math.random() < 0.5
+                    ? -Math.random() * 4 + 1
+                    : Math.random() * 4 + 1;
+            let x = 0,
+                y = 0;
+
+            function move() {
+                requestAnimationFrame(() => move());
+                if (x + speedX < 0 || x + speedX + 100 > window.innerWidth) {
+                    speedX = -speedX;
+                }
+                if (y + speedY < 0 || y + speedY + 100 > window.innerHeight) {
+                    speedY = -speedY;
+                }
+                x += speedX;
+                y += speedY;
+                el.style.top = y + 'px';
+                el.style.left = x + 'px';
+            }
+            move();
+        </script>
+    </body>
+</html>

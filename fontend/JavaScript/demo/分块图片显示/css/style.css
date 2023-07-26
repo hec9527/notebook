@@ -1,0 +1,16 @@
+body {
+  margin:0px;
+  padding: 0px;
+  background-color: #141414;
+  overflow: hidden;
+}
+
+path{
+  -webkit-transition:opacity 0.1s;
+  cursor:pointer;
+  opacity: 0.6;
+}
+
+path:hover{
+  opacity: 1;
+}

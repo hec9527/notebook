@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      #canvas {
+        margin-top: 12px;
+        display: flex;
+      }
+
+      #ctx {
+        width: 1px;
+        display: inline-block;
+        height: 1px;
+      }
+
+      #img {
+        margin-right: 16px;
+      }
+    </style>
+    <title>CSS画图</title>
+  </head>
+  <body>
+    <input type="file" name="" id="file" accept="image/*" />
+
+    <div id="msg"></div>
+
+    <div id="canvas">
+      <div>
+        <h3>原图</h3>
+        <img src="" alt="" id="img" />
+      </div>
+      <div>
+        <h3>boxShadow绘制</h3>
+        <div id="ctx"></div>
+      </div>
+    </div>
+
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+* { margin: 0; padding: 0; list-style: none; }
+.lanren { 
+	width: 900px;
+	height: auto; 
+	margin: 200px auto; }
+.lanren .box { 
+	width: 200px; 
+	height: 100px; 
+	margin: 5px; 
+	border: 1px solid #ccc; 
+	position: relative; 
+	float: left; 
+	overflow: hidden; }
+.lanren .content { 
+	position: absolute; 
+	z-index: 2; 
+	background-color: lightcoral; 
+	width: 100%; 
+	height: 100%; 
+	line-height: 100px; 
+	left: -100%; 
+	top: -100%; 
+	text-align: center; 
+	color: #fff; 
+	font-size: 40px; }
+.lanren .content.trans { 
+	-webkit-transition: all .2s;
+	-moz-transition: all .2s;
+	-ms-transition: all .2s; 
+	-o-transition: all .2s; 
+	transition: all .2s; 
+	backface-visibility: hidden; }

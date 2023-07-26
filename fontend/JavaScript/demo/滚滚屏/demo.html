@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>页面整体滑动测试</title>
+    </head>
+    <style type="text/css">
+        * {
+            padding: 0px;
+            margin: 0px;
+            list-style: none;
+        }
+        .box {
+            top: 0;
+            left: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        #box1 {
+            width: 50px;
+            height: 240px;
+            position: absolute;
+            right: 30px;
+            top: 35%;
+            z-index: 10;
+        }
+        li div {
+            margin: 10px;
+            border-radius: 100%;
+            opacity: 0.5;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+        }
+        li div:hover {
+            background: rgba(22, 82, 247, 1);
+        }
+        .lis {
+            background: rgba(134, 134, 134, 1);
+        }
+        .lis_s {
+            background: rgba(22, 82, 247, 1);
+        }
+        body,
+        html {
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+        }
+        div {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+    <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="jquery.mousewheel.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var currentPage = 0; //当前的页面数
+            var lock = true; //函数节流，给定的一个变量
+
+            $(document).mousewheel(function(event, delta) {
+                //		防止delta在各个浏览器中出现不可预计的结果
+                if (delta > 0) {
+                    delta = 1;
+                } else {
+                    delta = -1;
+                }
+                if (lock) {
+                    currentPage = currentPage - delta;
+                    if (currentPage < 0) {
+                        currentPage = 0;
+                    }
+                    if (currentPage > 4) {
+                        currentPage = 4;
+                    }
+                    //             console.log(currentPage);
+
+                    //右侧小圆点
+                    $('.lis').each(function() {
+                        $(this).removeClass('lis_s');
+                    });
+                    $('.lis')
+                        .eq(currentPage)
+                        .addClass('lis_s');
+
+                    $('.box').animate(
+                        {
+                            top: currentPage * -100 + '%' //通过负的100%的倍数来获取到其他的屏幕内容
+                        },
+                        300
+                    );
+                    lock = false;
+                    setTimeout(function() {
+                        lock = true;
+                    }, 800);
+                } else {
+                    return false;
+                }
+            });
+        });
+    </script>
+    <body>
+        <div class="box">
+            <div><img src="1.jpg" /></div>
+            <div><img src="2.jpg" /></div>
+            <div><img src="3.jpg" /></div>
+            <div><img src="4.jpg" /></div>
+            <div><img src="5.jpg" /></div>
+        </div>
+        <div id="box1">
+            <ul>
+                <li><div class="lis lis_s"></div></li>
+                <li><div class="lis"></div></li>
+                <li><div class="lis"></div></li>
+                <li><div class="lis"></div></li>
+                <li><div class="lis"></div></li>
+            </ul>
+        </div>
+    </body>
+</html>

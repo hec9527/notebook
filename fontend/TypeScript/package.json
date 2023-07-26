@@ -1,0 +1,29 @@
+{
+    "name": "typescript-toturial",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "tips": "echo \"npm start 可以直接使用，不像其他需要使用npm run dev\"",
+        "start": "cross-env NODE_ENV=development webpack-dev-server  --config ./webpack.config.js",
+        "build": "cross-env NODE_ENV=production webpack --config ./webpack.config.js",
+        "dev": "npm start"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "tslint": "^6.1.2",
+        "typescript": "^3.8.3"
+    },
+    "devDependencies": {
+        "clean-webpack-plugin": "^3.0.0",
+        "cross-env": "^7.0.2",
+        "html-webpack-plugin": "^4.2.1",
+        "source-map": "^0.7.3",
+        "ts-loader": "^7.0.1",
+        "webpack": "^4.43.0",
+        "webpack-cli": "^3.3.11",
+        "webpack-dev-server": "^3.10.3"
+    }
+}

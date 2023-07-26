@@ -1,0 +1,41 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    .main {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        &:hover {
+            background: #abf;
+        }
+        p {
+            font-size: 24px;
+            color: red;
+            &:hover {
+                color: green;
+            }
+            // & 用于引用父级选择器，如果父级中还有引用则递归引用
+            &::after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                transform: translateY(-100%);
+            }
+            span {
+                // 属性名的名称空间，允许将属性的前缀淡出抽离出来
+                font: {
+                    size: 30px;
+                    weight: 700;
+                    family: 'Times new Roman';
+                }
+            }
+            // 占位符 选择器  必须通过@extend指令调用
+            %container {
+                background: #ccc6;
+            }
+        }
+    }
+}

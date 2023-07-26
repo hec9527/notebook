@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>毛玻璃效果Hack</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
+            html,
+            body {
+                width: 100vw;
+                height: 100vh;
+            }
+            #context {
+                background: url('../images/bg.jpg');
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: inherit;
+                width: inherit;
+            }
+            #box {
+                width: 800px;
+                height: 450px;
+                box-shadow: 5px 4px 8px rgba(0, 0, 0, 0.5);
+                position: absolute;
+                margin: auto;
+                z-index: 1;
+                overflow: hidden;
+                align-items: center;
+            }
+            #box::before {
+                content: '';
+                position: absolute;
+                top: -40px;
+                bottom: -40px;
+                right: -40px;
+                left: -40px;
+                background: url('../images/bg.jpg');
+                z-index: -1;
+                background-attachment: fixed;
+                filter: blur(40px);
+                /* 删除这个属性会导致边缘模糊弱化 */
+                margin: -40px;
+            }
+            #box h1 {
+                text-align: center;
+                padding: 30px;
+            }
+            #box p {
+                font-size: 20px;
+                font-family: '微软雅黑';
+                padding: 30px;
+                color: #fff;
+                text-shadow: 0 0 3px #000;
+                line-height: 2;
+                text-indent: 2em;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="context">
+            <div id="box">
+                <h1>毛玻璃效果</h1>
+                <p>
+                    使用背景进行hack的方法，更推荐使用 backdrop-filter:
+                    blur()属性
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

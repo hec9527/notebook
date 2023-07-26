@@ -1,0 +1,14 @@
+{
+    "name": "loadmoduleinnodejs",
+    "version": "1.0.0",
+    "description": "",
+    "main": "./import.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "hec9527",
+    "license": "ISC",
+    "dependencies": {
+        "moment": "^2.24.0"
+    }
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <title>边界 | 根实例</title>
+</head>
+
+<body>
+
+    <li>根实例</li>
+    <hr>
+    <ul>
+        <li>在组件当中使用this.$root.prop可以访问到根实例的属性，同时也可以修改</li>
+        <li>在子组件中打印 this 可以查看到很多内置的属性</li>
+        <li>大型应用中推荐使用vuex来实现</li>
+    </ul>
+    <div id="app1">
+        <p>clickTime: {{clickTime}}</p>
+        <my-button></my-button>
+        <my-button>减少</my-button>
+    </div>
+    <script>
+
+        new Vue({
+            el: "#app1",
+            data: {
+                clickTime: 0,
+            },
+            components: {
+                "my-button": {
+                    template: `<button @click="foo"><slot>增加</slot></button>`,
+                    methods: {
+                        foo: function () {
+                            console.log(this);
+
+                            if (this.$el.innerText === "增加") {
+                                this.$root.clickTime++;
+                            } else {
+                                this.$root.clickTime--;
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+    <br><br><br><br><br>
+
+
+
+
+    <li>从父节点访问子节点</li>
+    <hr>
+    <ul>
+        <li>使用父节点的$ref属性可以在父节点中访问子节点</li>
+        <li>被访问的子节点需要有ref属性</li>
+    </ul>
+    <div id="app2">
+        <input type="text" v-model:value="value"><button @click="click">同步到子输入框</button><br>
+        <p>以下输入框为一个组件，通过this.$res.prop可以访问到这个组件的数据</p>
+        <my-input ref="myinput"></my-input>
+    </div>
+    <script>
+        const myInput = {
+            template: `<input placeholder="请输入内容" type="text" :value="value">`,
+            data: ()=>{
+                return {
+                    value: '',
+                }
+            }
+        }
+        new Vue({
+            el: "#app2",
+            data: {
+                value: "这是测试内容"
+            },
+            methods: {
+                click: function () {
+                    this.$refs.myinput.value = this.value;
+                }
+            },
+            components: {
+                "my-input": myInput
+            }
+        })
+    </script>
+    
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

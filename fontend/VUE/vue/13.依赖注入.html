@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <title>依赖注入</title>
+</head>
+
+<body>
+    <li>依赖注入</li>
+    <hr>
+    <ul>
+        <li>依赖注入需要使用 provice 和 inject 实现</li>
+        <li>父级组件将需要暴露出的方法或者属性使用provide提供，注意导出新的对象，防止数据共享</li>
+        <li>子组件使用inject属性接收需要注入的方法或者属性，类似于props</li>
+        <li>在子组件当中使用父组件提供的方法的时候，需要使用this.method()的方式</li>
+    </ul>
+    <div id="app1">
+        <my-component-father>
+            <my-component-son></my-component-son>
+        </my-component-father>
+    </div>
+    <script>
+        //组件嵌套必须在父级组件当中提供插槽，否则自定义组件的名称会被直接忽略掉
+        const myComponentFather = {
+            template: `<div><p @click="click">这里是父级元素，点击次数: {{clickTime}}</p><slot></slot></div>`,
+            data: () => {
+                return {
+                    clickTime: 0,
+                }
+            },
+            methods: {
+                click() {
+                    this.clickTime++;
+                },
+                getClickTime: function () {
+                    return this.clickTime;
+                }
+            },
+            provide: function () {
+                return {
+                    getClickTime: this.getClickTime
+                }
+            }
+        }
+
+        const myComponentSon = {
+            inject: ['getClickTime'],
+            template: `<div @click="click">这里是子元素，查看父级元素的点击次数：{{clickTime}}</div>`,
+            data: () => {
+                return {
+                    clickTime: 0,
+                }
+            },
+            methods: {
+                click() {
+                    // 这里需要注意的是，使用依赖注入的方式注入的方法  直接挂载到this上面的也就是每个组件的实例对象
+                    this.clickTime = this.getClickTime();
+                }
+            },
+        }
+
+
+
+        new Vue({
+            el: "#app1",
+            components: {
+                "my-component-father": myComponentFather,
+                "my-component-son": myComponentSon
+            }
+        })
+
+    </script>
+
+
+
+
+
+</body>
+
+</html>

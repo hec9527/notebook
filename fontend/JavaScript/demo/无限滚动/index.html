@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preload" as='image' href="./1.jpg">
+  <link rel="preload" as='image' href="./2.jpg">
+  <link rel="preload" as='image' href="./3.jpg">
+  <link rel="preload" as='image' href="./4.jpg">
+  <link rel="preload" as='image' href="./5.jpg">
+  <title>无限滚动</title>
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      scroll-behavior: auto;
+
+      --animation-duration: 0.75s;
+    }
+
+    .img-wrap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      transition: var(--animation-duration) ease-out;
+    }
+
+    .pre,
+    .next {
+      z-index: 1;
+      height: 0;
+
+    }
+
+    .img-wrap>img {
+      width: 100%;
+      height: 100vh;
+      object-fit: cover;
+      transition: var(--animation-duration) ease-out;
+    }
+
+
+    .img-wrap.pre>img {
+      transform: translateY(-10%);
+    }
+
+    .img-wrap.next>img {
+      transform: translateY(10%);
+    }
+
+    .img-wrap.next {
+      bottom: 0;
+      top: unset;
+    }
+
+    .img-wrap.next>img {
+      position: absolute;
+      bottom: 0;
+    }
+
+    #container.moveDown>.pre {
+      height: 100%;
+    }
+
+    #container.moveDown>.pre>img {
+      transform: translateY(0);
+    }
+
+    #container.moveDown>.current>img {
+      transform: translateY(5%);
+    }
+
+    #container.moveUp>.next {
+      height: 100%;
+    }
+
+    #container.moveUp>.current>img {
+      transform: translateY(-5%);
+    }
+
+    #container.moveUp>.next>img {
+      transform: translateY(0);
+
+    }
+
+
+    @media screen and (max-width:768px) {
+      #container {
+        --animation-duration: 0.25s;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container"></div>
+</body>
+
+
+<script>
+  const container = document.getElementById("container");
+  const imgs = ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg']
+  const len = imgs.length;
+
+  let isAnimation = false;
+  let currentIndex = 0;
+
+  const getPreIndex = () => {
+    if (currentIndex - 1 < 0) {
+      return len - 1;
+    }
+    return currentIndex - 1;
+  }
+
+  const getNextIndex = () => {
+    if (currentIndex + 1 >= len) {
+      return 0
+    }
+    return currentIndex + 1
+  }
+
+  const createElement = (index, className = 'current') => {
+    const wrap = document.createElement("div");
+    const img = document.createElement("img");
+    img.src = imgs[index]
+    wrap.className = `img-wrap ${className}`
+    wrap.appendChild(img)
+    container.appendChild(wrap);
+  }
+
+  const updateElements = () => {
+    container.innerHTML = '';
+    createElement(getPreIndex(), 'pre')
+    createElement(currentIndex);
+    createElement(getNextIndex(), 'next')
+  }
+
+
+
+  container.addEventListener("wheel", e => {
+    e.preventDefault()
+    if (isAnimation) return;
+
+    if (!e.deltaY) return;
+
+    if (container.classList.contains("moveDown") || container.classList.contains("moveUp")) {
+      return
+    }
+
+    isAnimation = true;
+
+    if (e.deltaY < 0) {
+      currentIndex = getPreIndex()
+      container.classList.add("moveDown")
+    } else {
+      currentIndex = getNextIndex()
+      container.classList.add("moveUp")
+    }
+  }, { passive: false })
+
+
+
+  let touchY = 0;
+  let moved = false;
+
+  container.addEventListener("touchstart", e => {
+    touchY = e.touches[0].screenY;
+  })
+
+  container.addEventListener("touchmove", e => {
+    if (moved) return;
+    if (isAnimation) return;
+    const diff = e.touches[0].screenY - touchY;
+
+    console.log(diff);
+
+    if (diff > 5) {
+      currentIndex = getPreIndex()
+      container.classList.add("moveDown")
+    } else if (diff < -5) {
+      currentIndex = getNextIndex()
+      container.classList.add("moveUp")
+    }
+    moved = true;
+  })
+
+  container.addEventListener("touchend", e => {
+    touchY = 0;
+    moved = false;
+  })
+
+
+  container.addEventListener("transitionend", () => {
+    isAnimation = false;
+    container.classList.remove("moveDown")
+    container.classList.remove("moveUp")
+    updateElements()
+  })
+
+  updateElements()
+
+</script>
+
+
+</html>

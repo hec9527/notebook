@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>绑定style与class</title>
+</head>
+
+<body>
+    <li>绑定class</li>
+    <hr>
+    <div id="app1">
+        <p>使用F12元素审查，查看效果</p>
+        <p :class="objClass">使用对象绑定class：将对象中的键名作为class名，值只要能隐式转换为true的键都会添加到元素的class属性当中</p>
+        <p :class="arrClass">使用数组绑定class：将对数组中的所有的字符串作为类名，非字符串自动舍弃</p>
+        <p :class="{font_20:font20, font_30:font30, color_yellow:yellow, test:objClass.yellow}">
+            直接将对象写在class属性里面，这里可以引用Vue对象里面的数据对象中的值</p>
+        <p :class="[yellow, font20, font30, objClass.yellow, objClass.left]">
+            直接将数组对象写在class属性里面，这里数组里面的元素可以是Vue数据对象中的元素怒，也可以是其中对象的属性</p>
+    </div><br><br><br><br><br>
+    <script>
+        const vm1 = new Vue({
+            el: "#app1",
+            data: {
+                objClass: {
+                    yellow: true,
+                    font20: true,
+                    left: "000",
+                    font30: false,
+                    block: false,
+                },
+                arrClass: ["yellow", "font20", "font30", "left", "black", 123, true],
+                yellow: true,
+                font20: true,
+                font30: false
+
+            }
+        })
+    </script>
+
+
+
+
+
+
+    <li>内联样式</li>
+    <hr>
+    <div id="app2">
+        <p :style="objClass">这里通过给元素绑定一个对象添加内嵌样式，推荐使用这种方法绑定数据对象，增加可维护性</p>
+        <p :style="{'font-size':'20px','color':'blue','user-select':'none'}">给元素绑定的数据对象也可以是对象字面量直接写在style里面，不推荐</p>
+        <p :style="['font-size:20px', 'font-size:30px', 'color:red', 'color:blue']">
+            这里通过给元素绑定一个数组添加内嵌样式（数组这个有点问题没搞明白
+        </p>
+        <p :style="{display:['-webkit-box','-ms-flexbox',flex]}">多重赋值，对于一个属性需要兼容不同的内核的时候，将所有的都列出来放在数组中，Vue会自动添加适合的属性</p>
+    </div>
+    <script>
+        const vm2 = new Vue({
+            el: "#app2",
+            data: {
+                objClass: {
+                    "font-size": "20px",
+                    "color": "red",
+                    "user-select": "none",
+                    "transform": "rotateZ(2deg)"
+                },
+            }
+        })
+
+    </script>
+
+
+
+
+
+
+</body>
+
+</html>

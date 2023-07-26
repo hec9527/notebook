@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <title>History模式</title>
+    </head>
+    <body>
+        <div class="container">
+            <div id="router" class="router">
+                <div class="router-nav glass">
+                    <ul class="router-link-cover">
+                        <li class="router-link router-this">首页</li>
+                        <li class="router-link">热门</li>
+                        <li class="router-link">军事</li>
+                        <li class="router-link">资讯</li>
+                    </ul>
+                </div>
+
+                <div class="router-view">
+                    <section class="router-section section-this home">
+                        <h1 class="title">主页</h1>
+                    </section>
+                    <section class="router-section hot">
+                        <h1 class="title">热门</h1>
+                    </section>
+                    <section class="router-section military">
+                        <h1 class="title">军事</h1>
+                    </section>
+                    <section class="router-section info">
+                        <h1 class="title">资讯</h1>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <script src="index.js"></script>
+    </body>
+</html>

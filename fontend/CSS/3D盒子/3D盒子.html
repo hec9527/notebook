@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>无标题文档</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+      body {
+        background: #abf9;
+        color: #888;
+        text-align: center;
+        font-family: 'Georgia', 'Times New Roman', 'Times', 'Serif';
+      }
+      input {
+        display: none;
+      }
+      label {
+        margin-top: 150px;
+        margin-left: 10px;
+        display: inline-block;
+        width: 80px;
+        height: 30px;
+        line-height: 30px;
+        border: 1px solid #000;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      img {
+        margin-left: -35%;
+        line-height: inherit;
+        width: auto;
+        height: inherit;
+      }
+      .btn {
+        margin: 100px auto;
+      }
+      .view {
+        perspective: 1000px;
+        width: 250px;
+        height: 250px;
+        text-align: center;
+        display: inline-block;
+      }
+      .box {
+        display: inline-block;
+        text-align: center;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: all 0.8s ease;
+        transform-style: preserve-3d;
+        transform: rotateX(-20deg) rotateY(20deg);
+      }
+      .face {
+        background-size: cover;
+        overflow: hidden;
+        position: absolute;
+        border: 1px solid #666;
+        background: #fff;
+        box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.9);
+        color: #333;
+        line-height: 250px;
+        opacity: 0.9;
+      }
+
+      .box_front {
+        width: 250px;
+        height: 250px;
+        transform: translate3d(0, 0, 125px);
+      }
+      .box_top {
+        width: 250px;
+        height: 250px;
+        transform: rotateX(90deg) translate3d(0, 0, 125px);
+      }
+      .box_bottom {
+        width: 250px;
+        height: 250px;
+        transform: rotateX(-90deg) translate3d(0, 0, 125px);
+      }
+      .box_left {
+        width: 250px;
+        height: 250px;
+        transform: rotateY(-90deg) translate3d(0, 0, 125px);
+      }
+      .box_right {
+        width: 250px;
+        height: 250px;
+        transform: rotateY(90deg) translate3d(0, 0, 125px);
+      }
+      .box_back {
+        width: 250px;
+        height: 250px;
+        transform: rotateY(-180deg) translate3d(0, 0, 125px);
+      }
+      #left:checked ~ .view .box {
+        transform: rotateY(90deg);
+      }
+      #right:checked ~ .view .box {
+        transform: rotateY(-90deg);
+      }
+      #top:checked ~ .view .box {
+        transform: rotateX(-90deg);
+      }
+      #bottom:checked ~ .view .box {
+        transform: rotateX(90deg);
+      }
+      #back:checked ~ .view .box {
+        transform: rotateY(180deg);
+      }
+      #front:checked ~ .view .box {
+        transform: rotatex(0deg) rotateY(0deg);
+      }
+
+      .view .box {
+        animation: myrotate 5s ease;
+      }
+
+      @keyframes myrotate {
+        0% {
+          transform: rotateY(0), rotateX(0);
+        }
+        30% {
+          transform: rotateY(180deg);
+        }
+        40% {
+          transform: rotateY(180deg), rotateX(90deg);
+        }
+        70% {
+          transform: rotateY(360deg), rotateX(270deg);
+        }
+        100% {
+          transform: rotateY(0), rotateX(0);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--	按钮部分-->
+    <input type="radio" id="front" name="select" />
+    <label for="front" class="text">正面</label>
+
+    <input type="radio" id="left" name="select" />
+    <label for="left" class="text">左面</label>
+
+    <input type="radio" id="right" name="select" />
+    <label for="right" class="text">右面</label>
+
+    <input type="radio" id="bottom" name="select" />
+    <label for="bottom" class="text">下面</label>
+
+    <input type="radio" id="top" name="select" />
+    <label for="top" class="text">上面</label>
+
+    <input type="radio" id="back" name="select" />
+    <label for="back" class="text">后面</label>
+
+    <div class="btn"></div>
+
+    <div class="view">
+      <div class="box">
+        <div class="face box_front"><img src="imgs/4.jpg" /></div>
+        <div class="face box_left"><img src="imgs/2.jpeg" /></div>
+        <div class="face box_right"><img src="imgs/3.jpg" /></div>
+        <div class="face box_top"><img src="imgs/6.jpg" /></div>
+        <div class="face box_bottom"><img src="imgs/5.jpg" /></div>
+        <div class="face box_back"><img src="imgs/1.jpg" /></div>
+      </div>
+    </div>
+  </body>
+</html>

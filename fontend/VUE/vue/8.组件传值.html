@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <style>
+        .red {
+            color: red;
+            font-weight: 700;
+        }
+
+        .gary {
+            color: #777;
+            font-size: 24px;
+            font-weight: 900;
+        }
+    </style>
+    <title>Vue组件</title>
+</head>
+
+<body>
+    <li>组件基础</li>
+    <hr>
+    <ol>
+        <li class="red">组件应该只有唯一一个根节点</li>
+        <li class="red">组件的data应该是返回一个对象的函数，复用组件的时候才不会相互影响</li>
+        <li>组件的名称为自定义HTML元素，推荐使用短斜线的形式，eg: el-button</li>
+        <li class="red">使用Vue.componet()函数创建的组件和new Vue({})创建Vue实例传入的参数基本相同，也包含相应的钩子，但是没有el属性</li>
+    </ol>
+    <br><br><br>
+
+
+
+
+    <li>使用Vue.component("模板名称",option={}/** 配置信息 */)</li>
+    <hr>
+    <div id="app1">
+        <p>定义组件并且使用</p>
+        <my-component1></my-component1>
+        <my-component1></my-component1>
+        <my-component1></my-component1>
+        <my-component1></my-component1>
+        <my-component1></my-component1>
+    </div><br><br><br>
+    <script>
+        Vue.component("my-component1", {
+            template: `<p class="gary" @click="click" :title="msg">这是测试模板</p>`,
+            data: function () {
+                return {
+                    msg: "点击我，控制台查看点击次数，各不相同",
+                    clickTimes: 0
+                }
+            },
+            methods: {
+                click(){
+                    this.clickTimes++;
+                    console.log(`点击我${this.clickTimes}次`);
+                }
+            }
+        })
+        new Vue({
+            el: "#app1"
+        })
+    </script>
+
+
+
+    <li>字符串模板</li>
+    <hr>
+    <ul>
+        <li>使用字符串模板创建Vue组件</li>
+        <li>Vue.component()方法也是使用字符串模板</li>
+        <li>这种形式的模板只能使用一次，用于覆盖选择的元素</li>
+        <ol>
+            不推荐这种方式开发
+            <li>没有高亮</li>
+            <li>没有智能提示</li>
+            <li>不方便</li>
+        </ol>
+    </ul>
+    <div id="app2">
+        <my-component2></my-component2>
+        <my-component2></my-component2>
+        <my-component2></my-component2>
+        <my-component2></my-component2>
+        <my-component2></my-component2>
+    </div>
+    <script>
+
+        new Vue({
+            el: "#app2",
+            template: `<p class="gary">这是测试模板</p>`,
+        })
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

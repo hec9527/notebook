@@ -1,0 +1,33 @@
+html,
+body,
+#root,
+.App {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.demo-container {
+  display: flex;
+  justify-content: center;
+  height: calc(100vh - 100px);
+}
+
+.demo-container > * {
+  height: auto;
+  width: 800px;
+  padding: 32px;
+}
+
+.fullscreen-form {
+  height: 200px;
+  overflow-y: auto;
+  border: 1px solid #eee;
+
+  margin: 0 32px;
+}
+
+.fullscreen-form > input {
+  display: block;
+  margin-bottom: 200px;
+}

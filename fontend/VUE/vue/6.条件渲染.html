@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>条件渲染</title>
+</head>
+
+<body>
+    <li>v-if条件渲染</li>
+    <hr>
+    <div id="app1">
+        <ul>
+            <li>v-if 和v-else 不需要绑定在想同的元素上面</li>
+            <li>v-else 必须紧跟在v-if或者v-else-if后面，否则它将被忽略</li>
+            <li>v-else-if 也必须紧跟在v-if后面一行，否则不能识别</li>
+        </ul>
+        try:
+        <button @click="click">修改awesome的值</button>
+        <h2 v-if="awesome">vue is awesome!</h2>
+        <h3 v-else-if="awesome">尝试修改awesome的值为真！</h3>
+    </div><br><br><br><br><br><br>
+    <script>
+        const vm1 = new Vue({
+            el: "#app1",
+            data: {
+                awesome: false
+            },
+            methods: {
+                click: function () {
+                    this.awesome = this.awesome ? false : true;
+                }
+            }
+        })
+    </script>
+
+
+
+
+    <li>v-show</li>
+    <hr>
+    <div id="app2">
+        <ul>
+            <li>v-if 切换显式隐藏会将元素删除，显式的时候再重新创建，但是使用v-show的时候，只是简单的切换元素的display</li>
+        </ul>
+        <button @click='click'>切换显式隐藏</button>
+        <p v-show='isShow'>这句话即使被隐藏了,仍然 存在</p>
+    </div>
+    <script>
+        const vm2 = new Vue({
+            el: "#app2",
+            data: {
+                isShow: true,
+            },
+            methods: {
+                click: function () {
+                    this.isShow = this.isShow ? false : true;
+                }
+            }
+        })
+    </script>
+
+
+</body>
+
+</html>

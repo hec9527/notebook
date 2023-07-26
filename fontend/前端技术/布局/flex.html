@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            user-select: none;
+        }
+
+        html,
+        body,
+        .container {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .wrap {
+            width: 100vw;
+            height: auto;
+            background: #abf3;
+            margin-bottom: 40px;
+        }
+
+        .wrap h1 {
+            padding: 16px 0;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #abf;
+        }
+
+        /* 自动填充布局 */
+        .auto-fill {
+            position: relative;
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-flow: row wrap;
+        }
+
+        .auto-fill .box {
+            width: 200px;
+            height: 40px;
+            background: #abf9;
+            margin: 4px;
+            flex: 1 1 200px;
+        }
+
+        /* 水平垂直居中 */
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 400px;
+            background: #abf9;
+        }
+
+        .center .content {
+            width: 200px;
+            height: 200px;
+            background: #abf;
+        }
+    </style>
+
+    <title>Flex 布局Demo</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="wrap">
+            <h1>水平布局，自动填充</h1>
+            <ul>
+                <li>项目最小宽度200，水平存在剩余则自动填充</li>
+                <li>水平排列项目数量根据容器的宽度决定</li>
+            </ul>
+            <div class="auto-fill">
+                <div class="box">项目01</div>
+                <div class="box">项目02</div>
+                <div class="box">项目03</div>
+                <div class="box">项目04</div>
+                <div class="box">项目05</div>
+                <div class="box">项目06</div>
+                <div class="box">项目07</div>
+                <div class="box">项目08</div>
+                <div class="box">项目09</div>
+                <div class="box">项目10</div>
+                <div class="box">项目11</div>
+                <div class="box">项目12</div>
+                <div class="box">项目13</div>
+                <div class="box">项目14</div>
+                <div class="box">项目15</div>
+                <div class="box">项目16</div>
+                <div class="box">项目17</div>
+                <div class="box">项目18</div>
+                <div class="box">项目19</div>
+                <div class="box">项目20</div>
+            </div>
+        </div>
+
+        <div class="wrap">
+            <h1>水平垂直居中</h1>
+            <div class="center">
+                <div class="content"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

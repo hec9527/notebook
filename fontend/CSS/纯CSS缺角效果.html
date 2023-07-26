@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>纯CSS缺角效果</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
+
+            #container {
+                width: 150px;
+                height: 50px;
+                line-height: 50px;
+                position: absolute;
+                margin: 0 auto;
+                top: 15%;
+                background-image: linear-gradient(
+                    -135deg,
+                    transparent 15%,
+                    #abcedf 0,
+                    #abcdef 100%
+                );
+                text-align: center;
+                zoom: 5;
+                cursor: pointer;
+            }
+
+            body {
+                background: pink;
+                transition: all 1s linear;
+            }
+
+            body:hover {
+                background: lightseagreen;
+                transition: all 1s linear;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="container">
+            文本内容
+        </div>
+        <p>鼠标悬浮在页面上改变body颜色，查看缺角div效果</p>
+    </body>
+</html>

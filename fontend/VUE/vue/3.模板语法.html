@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>模板语法</title>
+</head>
+
+<body>
+    <!-- 实例一 -->
+    <li>插值</li>
+    <hr>
+    <div id="app1">
+        <p v-on:click="click">示例: &lt;span&gt;Message: {{ message }} &lt;/span&gt;</p>
+        <p v-once>使用 v-once 指令,使得内容一次性插值,之后不在响应式更改:{{ message }}</p>
+    </div><br><br><br>
+    <script>
+        const app1 = new Vue({
+            el: "#app1",
+            data: {
+                message: "# 点击这里查看更改"
+            },
+            methods: {
+                click: function () {
+                    this.message = new Date().toLocaleString();
+                }
+            }
+        })
+    </script>
+
+
+
+
+    <!-- 实例2 -->
+    <li>原始HTML</li>
+    <hr>
+    <p>使用双括号输出的只会是普通文本,输出的内容不会解析成HTML元素</p>
+    <div id="app2">
+        <p>这里不会解析成HTML元素: {{ msg }} </p>
+        <p>这里会解析成HTML并且附带蓝色字体样式: <span v-html="msg"></span></p>
+    </div><br><br><br>
+    <script>
+        const app2 = new Vue({
+            el: "#app2",
+            data: {
+                msg: "<span style='color:blue'>能解析成HTML么?</span>"
+            }
+        })
+    </script>
+
+
+
+    <!-- 实例3 -->
+    <li>属性</li>
+    <hr>
+    <p></p>
+    <div id="app3">
+        <p>双括号的方式不适用于HTML标签上的属性,对于属性应当使用v-bind指令</p>
+        <p> &lt;span v-bind:id="wrap1"&gt;元素内容&lt;/span&gt;</p>
+        <p>对于布尔属性: disabled,autoplay,preload等,只要存在就为真, <br>
+            但是给定的值为假的时候: null,undefined,false等, 这些属性不生效</p>
+        <button v-bind:disabled="isButtonDisabled" v-on:click="click">Button</button>
+    </div><br><br><br>
+    <script>
+        const app3 = new Vue({
+            el: "#app3",
+            data: {
+                isButtonDisabled: false,
+            },
+            methods: {
+                click: function () {
+                    this.isButtonDisabled = this.isButtonDisabled ? false : true;
+                }
+            }
+        })
+    </script>
+
+
+
+    <!-- 实例4 -->
+    <li>双括号中的表达式</li>
+    <hr>
+    <p>双括号中的表达式应该是<b>一条</b>JavaScript的<b>表达式</b>,不能是语句,也不能是控制结构循环结构</p>
+    <p>双括号中只能访问部分全局变量,例如: Math,Date 尽量不要在括号中使用全局变量</p>
+    <div id="app4">
+        <p>加法: 2+2={{2+2}}</p>
+        <p>减法: 4-2={{4-2}}</p>
+        <p>乘法: 2*2={{2*2}}</p>
+        <p>除法: 4/2={{4/2}}</p>
+        <p>三目: {{2===2?"2===2":"2!==2"}}</p>
+        <p>全局对象:{{new Date().toLocaleString()}}</p>
+    </div>
+    <script>
+        const app4 = new Vue({
+            el: "#app4"
+        })
+    </script>
+
+    <!-- 实例5 -->
+    <li>指令:指令是指带有v-前缀的特性,指令期待单个表达式</li>
+    <hr>
+    <p>指令的作用是,当其表达式的值改变的时候,将其产生的影响响应式的作用域dom</p>
+    <p>Vue中的指令有(14):</p>
+    <ul>
+        <li>v-text</li>
+        <li>v-html</li>
+        <li>v-show</li>
+        <li>v-if</li>
+        <li>v-else</li>
+        <li>v-else-if</li>
+        <li>v-for</li>
+        <li>v-on</li>
+        <li>v-bind</li>
+        <li>v-model</li>
+        <li>v-slot</li>
+        <li>v-pre</li>
+        <li>v-cloak</li>
+        <li>v-once</li>
+    </ul>
+    <p> 参数 </p>
+    <p>Vue中的 v-on 以及 v-bind 都需要一个参数,例如:</p>
+    <p>&lt;a v-bind:href="url"&gt;...&lt;/a&gt;</p>
+    <p>这里的href就是指令的参数,将这个参数于url绑定</p>
+
+    <p>动态参数</p>
+    <p>&lt;a v-bind:[attributeName]="url"&gt; ... &lt;/a&gt;</p>
+    <p>以上的attributeName是一个Vue对象中的属性,这里绑定的属性,根据attributeName的具体值而改变</p>
+    <br><br><br>
+
+
+
+    <li>修饰符</li>
+    <hr>
+    <p>修饰符是以"."k开始的特殊后缀,用于修饰指令</p>
+    <p>常用的修饰符:</p>
+    <ul>
+        <li>.prevent -- event.preventDefault() </li>
+    </ul>
+    <br><br><br>
+
+
+    <li>缩写</li>
+    <hr>
+    <p>v-bind:url</p>
+    <ul>
+        <li>:url</li>
+    </ul>
+    <p>v-on:click</p>
+    <ul>
+        <li>@click</li>
+    </ul>
+    <br><br><br><br><br><br><br><br><br>
+    
+    
+</body>
+
+</html>

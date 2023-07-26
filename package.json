@@ -1,0 +1,33 @@
+{
+  "name": "notebook",
+  "version": "1.0.0",
+  "description": "hec9527's notebook repository",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "docs": "docsify serve docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hec9527/notebook.git"
+  },
+  "keywords": [
+    "docsify",
+    "notebook",
+    "web",
+    "developer",
+    "fontend",
+    "笔记"
+  ],
+  "author": "hec9527",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hec9527/notebook/issues"
+  },
+  "homepage": "https://github.com/hec9527/notebook#readme",
+  "devDependencies": {
+    "prettier": "^2.4.1"
+  }
+}

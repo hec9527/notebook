@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+  @apply block px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-300 disabled:bg-slate-50 disabled:border-slate-200 disabled:text-slate-200 disabled:shadow-none disabled:select-none invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-600 focus:invalid:ring-pink-300;
+}
