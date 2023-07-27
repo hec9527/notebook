@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>模态窗口</title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+      }
+
+      body {
+        perspective: 600px;
+      }
+
+      #app {
+        height: 100%;
+        display: flex;
+        background-color: #c0485099;
+        transform-style: preserve-3d;
+        transform-origin: 0% 50%;
+      }
+
+      #app .button {
+        margin: auto;
+      }
+
+      .button {
+        width: 80px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        user-select: none;
+        cursor: pointer;
+        box-sizing: border-box;
+        color: #ed5a65;
+        border: 1px solid currentColor;
+      }
+
+      .button.button-primary {
+        color: #fff;
+        background-color: #ed5a65;
+        border: none;
+      }
+
+      .dialog-content {
+        position: fixed;
+        bottom: 0;
+        min-height: 400px;
+        left: 0;
+        right: 0;
+        background-color: #f5f5f5;
+        display: flex;
+        flex-direction: column;
+        transform: translateY(100%);
+        transition: transform 0.2s ease-out 0.1s;
+        z-index: 1001;
+      }
+
+      .dialog-mask {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #0009;
+        opacity: 0;
+        transition: opacity 0.2s ease-out;
+        pointer-events: none;
+      }
+
+      .dialog.show .dialog-content {
+        transform: translateY(0%);
+      }
+
+      .dialog.show .dialog-mask {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .dialog-header {
+        flex: 0 0 52px;
+        background-color: #e5e5e5;
+        font-size: 24px;
+        text-align: center;
+        line-height: 52px;
+      }
+
+      .dialog-body {
+        flex: 1;
+        padding: 24px;
+      }
+
+      .dialog-footer {
+        flex: 0 0 52px;
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        > * {
+          margin-left: 8px;
+        }
+      }
+
+      .cascade-open {
+        animation: cascade-open 0.3s forwards ease-in;
+      }
+
+      .cascade-close {
+        animation: cascade-close 0.3s forwards ease-out;
+      }
+
+      @keyframes cascade-open {
+        50% {
+          transform: translateZ(-30px) rotateX(5deg);
+        }
+        100% {
+          transform: translateZ(-60px);
+        }
+      }
+
+      @keyframes cascade-close {
+        0% {
+          transform: translateZ(-60px);
+        }
+        40% {
+          transform: translateZ(-30px) rotateX(-5deg);
+        }
+        100% {
+          transform: translateZ(0);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="button button-primary button-open">点我</div>
+    </div>
+
+    <div class="dialog">
+      <div class="dialog-mask"></div>
+      <div class="dialog-content">
+        <div class="dialog-header">模态窗口</div>
+        <div class="dialog-body">
+          <h3>这里是弹窗内容</h3>
+          <li>内容01</li>
+          <li>内容02</li>
+          <li>内容03</li>
+          <li>内容04</li>
+          <li>内容05</li>
+        </div>
+        <div class="dialog-footer">
+          <div class="button button-primary button-close">关闭</div>
+          <div class="button button-close button-delay">提示</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /** @type {HTMLDivElement} */
+      const app = document.querySelector('#app');
+      const dialog = document.querySelector('.dialog');
+      const open = document.querySelector('.button-open');
+      const close = document.querySelector('.button-close');
+      const delay = document.querySelector('.button-delay');
+
+      function showDialog() {
+        dialog.classList.add('show');
+        app.classList.add('cascade-open');
+      }
+
+      function hideDialog() {
+        dialog.classList.remove('show');
+        app.classList.add('cascade-close');
+      }
+
+      open.addEventListener('click', showDialog);
+      close.addEventListener('click', hideDialog);
+      app.addEventListener('animationend', () => {
+        if (app.classList.contains('cascade-close')) {
+          app.classList.remove('cascade-open');
+          app.classList.remove('cascade-close');
+        }
+      });
+    </script>
+  </body>
+</html>
