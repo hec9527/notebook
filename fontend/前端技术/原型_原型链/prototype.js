@@ -3,7 +3,7 @@
  *    1, 每一个函数都有一个prototype属性, 是这个函数的原型
  *    2, 函数原型是一个对象，包含一个constructor属性，指向构造函数
  *          Person.prototype.constructor === Person
- *    3, 函数构造的实例包含一个指针指向函数的原型（在safari、chrome、firfox浏览器中为实例的__proto__属性）
+ *    3, 函数构造的实例包含一个指针指向函数的原型（在safari、chrome、firefox浏览器中为实例的__proto__属性）
  *    4, 原型上的原始类型只能引用，不能赋值，赋值的时候会在实例上添加一个原始属性并且赋值
  *       原型上的引用类型，所有实例共享（基于原型的继承的缺点）
  *

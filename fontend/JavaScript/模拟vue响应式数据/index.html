@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>模拟vue响应式数据</title>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <label>姓：</label>
+        <span id="lastName"></span>
+      </div>
+      <div>
+        <label>名：</label>
+        <span id="firstName"></span>
+      </div>
+
+      <div>
+        <label>年龄：</label>
+        <span id="age"></span>
+      </div>
+
+      <div>
+        <label>地址：</label>
+        <span id="provence"></span>
+        <span>-</span>
+        <span id="city"></span>
+        <span>-</span>
+        <span id="country"></span>
+      </div>
+    </div>
+
+    <hr />
+
+    <div>
+      <label for="input-name">姓名</label>
+      <input id="input-name" type="text" oninput="window.s.name= this.value" />
+    </div>
+    <div>
+      <label for="input-name">年龄</label>
+      <input
+        id="input-name"
+        type="text"
+        oninput="window.changeAge(this.value)"
+      />
+    </div>
+    <div>
+      <label for="input-name">地址</label>
+      <input id="input-name" type="text" oninput="changeLocation" />
+    </div>
+
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>
