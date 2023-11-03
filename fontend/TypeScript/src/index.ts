@@ -1,42 +1,17 @@
-// import './type.ts';
-// import './Interface.ts';
-// import './class.ts';
-// import './function.ts';
-// import './namespace.ts';
+export {};
 
-// interface User {
-//   type: 'user';
-//   name: string;
-//   age: number;
-//   occupation: string;
-// }
+declare const query: string;
 
-// interface Admin {
-//   type: 'admin';
-//   name: string;
-//   age: number;
-//   role: string;
-// }
+query.slice();
 
-// // type A = {
-// //   [K in keyof User | T in keyof Admin]: any;
-// //   // [T in keyof User]: any;
-// // };
+declare let num: number;
 
-// type B = Admin | User;
+num.toString();
 
-// let p: B = {
-//   name: '1',
-//   age: 21,
-//   type: 'user',
-//   occupation: `as`,
-// };
+declare type AA = { name: string };
 
-function foo(str: string, cb?: () => void) {
-  console.log(str);
-  cb?.();
-}
+const a: AA = { name: '' };
 
-foo('hello world', () => {
-  console.log('ok');
-});
+declare class BB {}
+
+const b = new BB();
