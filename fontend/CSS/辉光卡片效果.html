@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>辉光卡片</title>
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        background-color: #335;
+      }
+      body {
+        box-sizing: border-box;
+        display: grid;
+        padding: 24px;
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px 16px;
+      }
+      .card {
+        --size: 500px;
+        --x: -100%;
+        --y: -100%;
+      }
+
+      .card > .inner {
+        z-index: 1;
+        border-radius: 8px;
+        background-color: #ffffff09;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(60px);
+        transition: transform 0.125s ease-out;
+      }
+
+      .card > .inner::before {
+        content: 'Card';
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        font-size: 48px;
+        font-weight: 700;
+        color: #abf4;
+      }
+      .card > .inner::after {
+        transform: translate(-50%, -50%);
+        content: '';
+        z-index: -1;
+        position: absolute;
+        left: var(--x);
+        top: var(--y);
+        width: var(--size);
+        z-index: -1;
+        padding-bottom: var(--size);
+        border-radius: 100%;
+        background-image: radial-gradient(
+          #4d52d396,
+          #4d52e830,
+          #4d52e804,
+          transparent
+        );
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card"><div class="inner"></div></div>
+    <div class="card"><div class="inner"></div></div>
+    <div class="card"><div class="inner"></div></div>
+    <div class="card"><div class="inner"></div></div>
+    <div class="card"><div class="inner"></div></div>
+    <div class="card"><div class="inner"></div></div>
+    <div class="card"><div class="inner"></div></div>
+    <div class="card"><div class="inner"></div></div>
+    <div class="card"><div class="inner"></div></div>
+
+    <script>
+      const cards = document.querySelectorAll('.card');
+      const MAX_ROTATE = 10; // 最大转动角度10deg
+
+      function initPosition() {
+        cards.forEach(card => {
+          const { left, top } = getElementPagePosition(card);
+          card.setAttribute('data-x', left);
+          card.setAttribute('data-y', top);
+        });
+      }
+
+      function getElementPagePosition(element) {
+        var left = 0;
+        var top = 0;
+
+        // 循环遍历父级元素，累加偏移量
+        while (element) {
+          left += element.offsetLeft;
+          top += element.offsetTop;
+          element = element.offsetParent;
+        }
+
+        return { left: left, top: top };
+      }
+
+      document.addEventListener(
+        'mousemove',
+        e => {
+          const { pageX, pageY } = e;
+
+          let currentCard;
+          let rotate = '';
+
+          if (
+            e.target.parentNode.classList.contains('card') ||
+            e.target.classList.contains('card')
+          ) {
+            currentCard = e.target.classList.contains('card')
+              ? e.target
+              : e.target.parentNode;
+
+            const halfWidth = e.target.offsetWidth / 2;
+            const halfHeight = e.target.offsetHeight / 2;
+
+            var mouseX = e.clientX - currentCard.getBoundingClientRect().left;
+            var mouseY = e.clientY - currentCard.getBoundingClientRect().top;
+
+            const rotateX = -((mouseY - halfHeight) / halfHeight) * MAX_ROTATE;
+            const rotateY = ((mouseX - halfWidth) / halfWidth) * MAX_ROTATE;
+
+            rotate = `transform: perspective(1400px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+          }
+
+          cards.forEach(el => {
+            const x =
+              currentCard === el ? `${pageX - el.dataset.x || 0}px` : '-100%';
+            const y =
+              currentCard === el ? `${pageY - el.dataset.y || 0}px` : '-100%';
+            const _rotate = currentCard === el ? rotate : '';
+            el.children[0].setAttribute(
+              'style',
+              `--x:${x};--y:${y};${_rotate || ''}`
+            );
+          });
+        },
+        true
+      );
+
+      initPosition();
+      window.addEventListener('resize', initPosition);
+    </script>
+  </body>
+</html>

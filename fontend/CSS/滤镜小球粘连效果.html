@@ -1,84 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <style>
-            .effect {
-                width: 500px;
-                height: 100%;
-                margin: 0 auto;
-                padding: 50px 0;
-                filter: contrast(10);
-                background: #fff;
-            }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <style>
+      .effect {
+        width: 500px;
+        height: 100%;
+        margin: 0 auto;
+        padding: 50px 0;
+        filter: contrast(20);
+        background: #fff;
+      }
 
-            .blackball {
-                width: 100px;
-                height: 100px;
-                background: black;
-                padding: 10px;
-                border-radius: 50%;
-                margin: 0 auto;
-                z-index: 1;
-                filter: blur(5px);
-            }
+      .blackball {
+        width: 100px;
+        height: 100px;
+        background: black;
+        padding: 10px;
+        border-radius: 50%;
+        margin: 0 auto;
+        z-index: 1;
+        filter: blur(5px);
+      }
 
-            .redball {
-                width: 60px;
-                height: 60px;
-                background: #f00;
-                padding: 10px;
-                border-radius: 50%;
-                position: absolute;
-                top: 70px;
-                left: 50px;
-                z-index: 2;
-                filter: blur(5px);
-                animation: rball 8s infinite;
-            }
+      .redball {
+        width: 60px;
+        height: 60px;
+        background: #f00;
+        padding: 10px;
+        border-radius: 50%;
+        position: absolute;
+        top: 70px;
+        left: 50px;
+        z-index: 2;
+        filter: blur(5px);
+        animation: rball 4s infinite;
+      }
 
-            @keyframes rball {
-                0%,
-                100% {
-                    left: 35px;
-                    width: 60px;
-                }
+      @keyframes rball {
+        0%,
+        100% {
+          left: 35px;
+          width: 60px;
+        }
 
-                10%,
-                90% {
-                    width: 60px;
-                }
+        10%,
+        90% {
+          width: 60px;
+        }
 
-                20%,
-                80% {
-                    width: 50px;
-                }
+        20%,
+        80% {
+          width: 60px;
+        }
 
-                30%,
-                70% {
-                    width: 60px;
-                }
+        30%,
+        70% {
+          width: 70px;
+        }
 
-                40%,
-                60% {
-                    width: 70px;
-                }
+        40%,
+        60% {
+          width: 60px;
+        }
 
-                50% {
-                    left: calc(100% - 95px);
-                    width: 60px;
-                }
-            }
-        </style>
-        <title>Document</title>
-    </head>
+        50% {
+          left: calc(100% - 95px);
+          width: 60px;
+        }
+      }
+    </style>
+    <title>粘黏的小球</title>
+  </head>
 
-    <body>
-        <div class="effect">
-            <div class="blackball"></div>
-            <div class="redball"></div>
-        </div>
-    </body>
+  <body>
+    <div class="effect">
+      <div class="blackball"></div>
+      <div class="redball"></div>
+    </div>
+  </body>
 </html>
