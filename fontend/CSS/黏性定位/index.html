@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      html,
+      body,
+      #root {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      #root {
+        height: 100vh;
+        overflow: scroll;
+        box-sizing: border-box;
+      }
+
+      .contact-group {
+        position: relative;
+      }
+
+      .contact-group > * {
+        padding: 0 16px;
+      }
+
+      .contact-group-label {
+        background-color: #dfdfdf;
+        padding-block: 4px;
+        font-size: 16px;
+        font-weight: 500;
+        position: sticky;
+        top: 0;
+      }
+
+      .contact-name {
+        font-size: 14px;
+        padding-block: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script>
+      const contacts = {
+        a: ['安娜', '艾伦', '阿力'],
+        b: ['白雪', '毕加索', '包青天', '边红', '白岩松'],
+        c: ['陈小春', '蔡依林', '曹操', '崔健'],
+        d: ['杜甫', '丁真', '戴安娜', '董璇', '丁俊晖'],
+        e: ['二月', '鄂佳'],
+        f: ['范冰冰', '冯巩', '傅红雪', '方文山'],
+        g: ['高圆圆', '郭德纲', '葛优', '关晓彤'],
+        h: ['贺龙', '何章云', '胡歌', '何炅'],
+        i: [],
+        j: ['姜文', '贾玲', '金星', '景甜'],
+        k: ['孔子', '柯南', '康辉'],
+        l: ['李白', '刘亦菲', '林青霞'],
+        m: ['马云', '毛泽东', '梅艳芳'],
+        n: [],
+        o: [],
+        p: ['彭于晏', '潘虹'],
+        q: ['齐秦', '邱少云'],
+        r: [],
+        s: ['孙悟空', '苏轼', '沈腾'],
+        t: ['唐僧', '汤唯'],
+        u: [],
+        v: [],
+        w: ['王菲', '吴京', '王祖蓝'],
+        x: ['谢霆锋', '薛之谦'],
+        y: ['杨幂', '姚明'],
+        z: ['周杰伦', '赵丽颖', '张学友'],
+      };
+
+      const container = document.querySelector('#root');
+      const fragments = document.createDocumentFragment();
+      Object.keys(contacts).forEach(key => {
+        const names = contacts[key];
+        const group = document.createElement('div');
+        group.className = 'contact-group';
+        group.dataset.groupKey = key;
+
+        const groupLabel = document.createElement('div');
+        groupLabel.className = 'contact-group-label';
+        groupLabel.innerHTML = key.toUpperCase();
+
+        group.appendChild(groupLabel);
+        names.forEach(name => {
+          const nameItem = document.createElement('div');
+          nameItem.className = 'contact-name';
+          nameItem.innerHTML = name;
+          group.appendChild(nameItem);
+        });
+        fragments.appendChild(group);
+      });
+
+      container.appendChild(fragments);
+    </script>
+  </body>
+</html>
