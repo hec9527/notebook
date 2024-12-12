@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      #progress-detail {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
+    <title>文件上传</title>
+  </head>
+  <body>
+    <input type="file" multiple="false" />
+    <br />
+
+    <details>
+      <summary>
+        <label for="progress">总进度条</label>
+        <progress id="progress" max="100" value="0"></progress>
+      </summary>
+      <div id="progress-detail"></div>
+    </details>
+
+    <script src="./index.js"></script>
+  </body>
+</html>
