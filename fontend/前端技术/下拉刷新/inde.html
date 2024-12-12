@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>下拉刷新</title>
+    <style>
+      html,
+      body,
+      #app {
+        padding: 0;
+        margin: 0;
+        min-height: 100vh;
+      }
+
+      .pull-refresh {
+        overflow: hidden;
+        min-height: 100vh;
+        background-color: #abf3;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .pull-refresh-header {
+        height: 0;
+        background-color: #fff;
+        overflow: hidden;
+        text-align: center;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        will-change: height;
+        transition: height 0.3s ease-in-out;
+      }
+
+      .pull-refresh-header.is-touch {
+        transition-duration: 0s;
+      }
+
+      .pull-refresh-header-text {
+        font-size: 14px;
+        color: #333;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+          Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+          sans-serif;
+      }
+
+      .pull-refresh-content {
+        flex: 1;
+        padding: 16px 24px;
+      }
+
+      .pull-refresh-content-label {
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="pull-refresh">
+        <div class="pull-refresh-header">
+          <div class="pull-refresh-header-text">↓下拉刷新</div>
+        </div>
+        <div class="pull-refresh-content">
+          <div class="pull-refresh-content-label">下拉屏幕触发请求</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /** @type {HTMLDivElement} */
+      const container = document.querySelector('.pull-refresh');
+      const content = document.querySelector('.pull-refresh-content');
+      const header = document.querySelector('.pull-refresh-header');
+      const headerText = document.querySelector('.pull-refresh-header-text');
+
+      const MAX_DISTANCE = Math.min(window.innerHeight / 3, 100); // 至少大于40
+      const HEADER_REFRESH_DISTANCE = 80;
+
+      let triggerRefresh = false;
+      let isRefreshing = false;
+      let isTouching = false;
+      let startY = 0;
+
+      container.addEventListener('touchstart', e => {
+        if (content.scrollTop > 0 || isRefreshing) return;
+        isTouching = true;
+        startY = e.touches[0].clientY;
+        header.classList.add('is-touch');
+      });
+
+      container.addEventListener('touchmove', e => {
+        if (!isTouching || isRefreshing) return;
+        const touchY = e.touches[0].clientY;
+
+        const distance = Math.min(touchY - startY, MAX_DISTANCE);
+        header.style.height = `${distance}px`;
+        if (distance > HEADER_REFRESH_DISTANCE) {
+          triggerRefresh = true;
+          headerText.textContent = '松开刷新';
+        } else {
+          triggerRefresh = false;
+          headerText.textContent = '下拉刷新';
+        }
+      });
+
+      container.addEventListener('touchend', e => {
+        header.classList.remove('is-touch');
+        header.style.header = 0;
+        isTouching = false;
+        startY = 0;
+        if (triggerRefresh) {
+          isRefreshing = true;
+          header.style.height = HEADER_REFRESH_DISTANCE + 'px';
+          header.textContent = '刷新中...';
+
+          fetchData()
+            .then(res => {
+              const fragment = document.createDocumentFragment();
+              res.data.forEach((item, index) => {
+                const el = document.createElement('div');
+                el.innerText = index + ' - ' + new Date(item).toLocaleString();
+                fragment.appendChild(el);
+              });
+              content.appendChild(fragment);
+            })
+            .finally(() => {
+              header.style.height = 0 + 'px';
+              header.textContent = '下拉刷新';
+              isRefreshing = false;
+              triggerRefresh = false;
+            });
+        } else {
+          header.style.height = 0 + 'px';
+        }
+      });
+
+      function fetchData() {
+        return new Promise(resolve => {
+          setTimeout(() => {
+            resolve({
+              code: 0,
+              message: 'ok',
+              data: Array.from({ length: 3 }, () => +new Date()),
+            });
+          }, (Math.random() * 1000 + 1000) | 0);
+        });
+      }
+    </script>
+  </body>
+</html>
